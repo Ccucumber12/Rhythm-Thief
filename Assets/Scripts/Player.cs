@@ -9,29 +9,35 @@ public class Player : MonoBehaviour
     public const string Action_Move = "Move";
     public const string Sprite_Name = "Sprite";
 
-    public static Player instance;
-    private static Player _instance { get => _instance; set => _instance = value; }
+    public static Player Instance;
+    private static Player instance { get => instance; set => instance = value; }
 
     public float playerSpeed;
 
-    [Required] public PlayerInput playerInput;
-
+    private PlayerInput playerInput;
     private Rigidbody2D playerRigidbody;
     private InputAction moveAction;
     private GameObject playerSprite;
 
     private Vector2 moveInputValue;
+    private Vector3 playerSpawnPosition;
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             DestroyImmediate(gameObject);
 
+        playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody2D>();
         moveAction = playerInput.actions[Action_Move];
         playerSprite = transform.Find(Sprite_Name).gameObject;
+    }
+
+    private void Start()
+    {
+        playerSpawnPosition = transform.position;
     }
 
     private void Update()
@@ -54,6 +60,12 @@ public class Player : MonoBehaviour
     public void OnFireInput(InputAction.CallbackContext context)
     {
 
+    }
+
+    public void RespawnPlayer()
+    {
+        // Temporary method
+        transform.position = playerSpawnPosition;
     }
 
     private void UpdateSpriteDirection()
