@@ -30,25 +30,31 @@ public class RhythmManager : MonoBehaviour
 
     private IEnumerator DemoStage()
     {
-        var waitInterval = 2;
         while(true)
         {
-            onGateOpen.Invoke();
-            yield return new WaitForSeconds(waitInterval);
-            onGateClose.Invoke();
-            yield return new WaitForSeconds(waitInterval);
-
-            onLightsOff.Invoke();
-            yield return new WaitForSeconds(waitInterval);
-            onLightsOn.Invoke();
-            yield return new WaitForSeconds(waitInterval);
-
-            onBellRing.Invoke();
-            Debug.Log("Bell Ring!");
-            yield return new WaitForSeconds(waitInterval);
-            Debug.Log("Bell Stop!");
-            onBellStop.Invoke();
-            yield return new WaitForSeconds(waitInterval);
+            for (var i = 0; i < 4; i++)
+            {
+                yield return new WaitForSeconds(1.87f);
+                onLightsOff.Invoke();
+                yield return new WaitForSeconds(1.88f);
+                onLightsOn.Invoke();
+            }
+            for (var i = 0; i < 4; i++)
+            {
+                yield return new WaitForSeconds(1.87f);
+                onGateOpen.Invoke();
+                yield return new WaitForSeconds(1.88f);
+                onGateClose.Invoke();
+            }
+            yield return new WaitForSeconds(0.46f);
+            for (var i = 0; i < 4; i++)
+            {
+                onBellRing.Invoke();
+                yield return new WaitForSeconds(1.88f);
+                onBellStop.Invoke();
+                yield return new WaitForSeconds(1.87f);
+            }
+            yield return new WaitForSeconds(7.04f);
         }
     }
 
