@@ -5,7 +5,11 @@ using DG.Tweening;
 
 public class LaserGate : MonoBehaviour
 {
-    public float tweenDuration;
+    public float openTweenDuration;
+    public float closeTweenDuration;
+
+    private GameManager gameManager;
+    private RhythmManager rhythmManager;
 
     private SpriteMask mask;
     private BoxCollider2D boxCollider;
@@ -26,16 +30,27 @@ public class LaserGate : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
+
+        rhythmManager = RhythmManager.Instance;
+        rhythmManager.onGateClose.AddListener(SetGateClosed);
+        rhythmManager.onGateOpen.AddListener(SetGateOpened);
+
         SetGateClosed();
-        StartCoroutine(TestAnimation());
+        //StartCoroutine(TestAnimation());
+    }
+
+    private void OnDestroy()
+    {
+        rhythmManager.onGateClose.RemoveListener(SetGateClosed);
+        rhythmManager.onGateOpen.RemoveListener(SetGateOpened);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            // Temporary
-            Player.Instance.RespawnPlayer();
+            gameManager.onPlayerDied.Invoke();
         }
     }
 
@@ -52,22 +67,22 @@ public class LaserGate : MonoBehaviour
 
     public void SetGateClosed()
     {
-        DOTween.To(() => mask.transform.localScale, x => mask.transform.localScale = x, maskLocalScale, tweenDuration);
-        DOTween.To(() => boxCollider.size, x => boxCollider.size = x, boxColliderSize, tweenDuration);
-        DOTween.To(() => boxCollider.offset, x => boxCollider.offset = x, boxColliderOffset, tweenDuration);
+        DOTween.To(() => mask.transform.localScale, x => mask.transform.localScale = x, maskLocalScale, openTweenDuration);
+        DOTween.To(() => boxCollider.size, x => boxCollider.size = x, boxColliderSize, openTweenDuration);
+        DOTween.To(() => boxCollider.offset, x => boxCollider.offset = x, boxColliderOffset, openTweenDuration);
     }
 
     public void SetGateOpened()
     {
         Vector3 scale = maskLocalScale;
         scale.y = 0;
-        DOTween.To(() => mask.transform.localScale, x => mask.transform.localScale = x, scale, tweenDuration);
+        DOTween.To(() => mask.transform.localScale, x => mask.transform.localScale = x, scale, openTweenDuration);
 
         Vector2 size = boxColliderSize;
         size.y = 0;
         Vector2 offset = boxColliderOffset;
         offset.y += boxColliderSize.y / 2;
-        DOTween.To(() => boxCollider.size, x => boxCollider.size = x, size, tweenDuration);
-        DOTween.To(() => boxCollider.offset, x => boxCollider.offset = x, offset, tweenDuration);
+        DOTween.To(() => boxCollider.size, x => boxCollider.size = x, size, openTweenDuration);
+        DOTween.To(() => boxCollider.offset, x => boxCollider.offset = x, offset, openTweenDuration);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 using Sirenix.OdinInspector;
 
 public class Player : MonoBehaviour
@@ -9,16 +10,19 @@ public class Player : MonoBehaviour
     public const string Action_Move = "Move";
     public const string Sprite_Name = "Sprite";
 
-    public static Player Instance;
-    private static Player instance { get => instance; set => instance = value; }
+    private static Player _instance;
+    public static Player Instance { get => _instance; }
 
     [Header("Basic")]
-    public float playerSpeed;
+    [SerializeField] private float playerSpeed;
 
     [Header("Fire")]
-    public GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletPrefab;
 
+    public OnPlayerFiredEvent onPlayerFired;
     public Vector2 playerDirection { get; private set; }
+
+    private GameManager gameManager;
 
     private PlayerInput playerInput;
     private Rigidbody2D playerRigidbody;
@@ -30,9 +34,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
+        if (_instance == null)
+            _instance = this;
+        else if (_instance != this)
             DestroyImmediate(gameObject);
 
         playerInput = GetComponent<PlayerInput>();
@@ -43,6 +47,9 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
+        gameManager.onPlayerDied.AddListener(RespawnPlayer);
+
         playerSpawnPosition = transform.position;
         playerDirection = transform.rotation.eulerAngles;
     }
@@ -55,8 +62,12 @@ public class Player : MonoBehaviour
             playerDirection = moveInputValue.normalized;
             UpdateSpriteDirection();
         }
+    }
 
-    }   
+    private void OnDestroy()
+    {
+        gameManager.onPlayerDied.RemoveListener(RespawnPlayer);
+    }
 
     private void FixedUpdate()
     {
@@ -67,8 +78,9 @@ public class Player : MonoBehaviour
     {
         if (context.canceled)
         {
+            onPlayerFired.Invoke();
+
             Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, playerDirection));
-            Debug.Log(quaternion.eulerAngles);
             GameObject bullet = Instantiate(bulletPrefab, transform.position, quaternion);
             bullet.GetComponent<Bullet>().bulletDirection = playerDirection;
         }
@@ -81,9 +93,12 @@ public class Player : MonoBehaviour
     }
 
     private void UpdateSpriteDirection()
-    {   
+    {
         Vector3 scale = playerSprite.transform.localScale;
         scale.x = Mathf.Abs(scale.x) * Mathf.Sign(playerDirection.x);
         playerSprite.transform.localScale = scale;
     }
+
+    [System.Serializable]
+    public class OnPlayerFiredEvent : UnityEvent { }
 }

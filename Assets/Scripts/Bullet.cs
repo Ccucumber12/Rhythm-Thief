@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.tag == "Police")
         {
-            Destroy(collision.gameObject, 0.01f);
+            collision.GetComponent<Police>().Killed();
             Destroy(gameObject, 0.01f);
         }
     }
