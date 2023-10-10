@@ -12,7 +12,13 @@ public class Player : MonoBehaviour
     public static Player Instance;
     private static Player instance { get => instance; set => instance = value; }
 
+    [Header("Basic")]
     public float playerSpeed;
+
+    [Header("Fire")]
+    public GameObject bulletPrefab;
+
+    public Vector2 playerDirection { get; private set; }
 
     private PlayerInput playerInput;
     private Rigidbody2D playerRigidbody;
@@ -38,13 +44,18 @@ public class Player : MonoBehaviour
     private void Start()
     {
         playerSpawnPosition = transform.position;
+        playerDirection = transform.rotation.eulerAngles;
     }
 
     private void Update()
     {
         moveInputValue = moveAction.ReadValue<Vector2>();
-        if (Mathf.Abs(moveInputValue.x) > 0.01)
+        if (moveInputValue.magnitude > 0.01)
+        {
+            playerDirection = moveInputValue.normalized;
             UpdateSpriteDirection();
+        }
+
     }   
 
     private void FixedUpdate()
@@ -52,14 +63,15 @@ public class Player : MonoBehaviour
         playerRigidbody.velocity = moveInputValue * playerSpeed;
     }
 
-    public int GetDirection()
-    {
-        return moveInputValue.x >= 0 ? 1 : -1;
-    }
-
     public void OnFireInput(InputAction.CallbackContext context)
     {
-
+        if (context.canceled)
+        {
+            Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, playerDirection));
+            Debug.Log(quaternion.eulerAngles);
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, quaternion);
+            bullet.GetComponent<Bullet>().bulletDirection = playerDirection;
+        }
     }
 
     public void RespawnPlayer()
@@ -69,9 +81,9 @@ public class Player : MonoBehaviour
     }
 
     private void UpdateSpriteDirection()
-    {
+    {   
         Vector3 scale = playerSprite.transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * GetDirection();
+        scale.x = Mathf.Abs(scale.x) * Mathf.Sign(playerDirection.x);
         playerSprite.transform.localScale = scale;
     }
 }
