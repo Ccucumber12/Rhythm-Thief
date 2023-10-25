@@ -18,6 +18,7 @@ class SheetRendering:
         self.full_width = int(grid_width_per_sec * full_length)
         self.full_height = int(grid_height * num_of_track)
         self.image = Image.new('RGBA', (self.full_width, self.full_height), (255, 255, 255, 255))
+        self.json_output = {}
 
     def __draw_track_line(self, draw_index):
         draw = ImageDraw.Draw(self.image)
@@ -29,6 +30,11 @@ class SheetRendering:
     def draw_track_single(self, draw_index, track, icon):
         self.__draw_track_line(draw_index)
         curr_tick = 0
+        self.json_output[track.name] = {
+            'name': track.name,
+            'type': 'single',
+            'data': [],
+        }
         for msg in track:
             curr_tick += msg.time
             if msg.type == 'note_on':
@@ -36,6 +42,7 @@ class SheetRendering:
                 x = int(curr_time * self.grid_width_per_sec)
                 y = int(draw_index * self.grid_height)
                 self.image.alpha_composite(icon, (x, y))
+                self.json_output[track.name]['data'].append(curr_time)
 
     def draw_track_duration_two_track(self, draw_index, track_on, track_off, icon):
         self.__draw_track_line(draw_index)
@@ -59,6 +66,11 @@ class SheetRendering:
         all_msgs.sort()
 
         start_time = None
+        self.json_output[track_on.name] = {
+            'name': track_on.name,
+            'type': 'duration',
+            'data': [],
+        }
         for msg in all_msgs:
             if msg[1] == 'on':
                 start_time = msg[0]
@@ -74,14 +86,17 @@ class SheetRendering:
                 x = int(start_time * self.grid_width_per_sec)
                 y = int(draw_index * self.grid_height)
                 self.image.alpha_composite(icon, (x, y))
+                self.json_output[track_on.name]['data'].append((start_time, end_time))
 
                 start_time, end_time = None, None
             else:
                 raise ValueError()
 
-    def output(self, filename):
+    def output(self, filename_png, filename_json):
         self.image.show()
-        self.image.save(filename)
+        self.image.save(filename_png)
+
+        json.dump(self.json_output, open(filename_json, 'w'))
 
 def tick2sec(tick):
     return tick * midi_tempo / 1000000 / ticks_per_beat
@@ -126,7 +141,7 @@ def main():
     sheet.draw_track_duration_two_track(2, tracks['door_open'], tracks['door_close'], Image.open('images/emoji_u1f6aa.png').resize((40, 40)))
     sheet.draw_track_duration_two_track(3, tracks['bell_on'], tracks['bell_off'], Image.open('images/emoji_u1f514.png').resize((40, 40)))
     sheet.draw_track_single(4, tracks['gun'], Image.open('images/emoji_u1f4a5.png').resize((40, 40)))
-    sheet.output('output.png')
+    sheet.output('output.png', 'output.json')
 
 
 if __name__ == '__main__':
