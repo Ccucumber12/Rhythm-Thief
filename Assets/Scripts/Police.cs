@@ -32,8 +32,6 @@ public class Police : MonoBehaviour
         rhythmManager = RhythmManager.Instance;
         rhythmManager.onLightsOff.AddListener(SetPoliceBlind);
         rhythmManager.onLightsOn.AddListener(SetPoliceSighted);
-        rhythmManager.onBellRing.AddListener(SetPoliceDeaf);
-        rhythmManager.onBellStop.AddListener(SetPoliceHearable);
 
         player = Player.Instance;
         player.onPlayerFired.AddListener(CheckCatchPlayer);
@@ -59,8 +57,6 @@ public class Police : MonoBehaviour
 
         rhythmManager.onLightsOff.RemoveListener(SetPoliceBlind);
         rhythmManager.onLightsOn.RemoveListener(SetPoliceSighted);
-        rhythmManager.onBellRing.RemoveListener(SetPoliceDeaf);
-        rhythmManager.onBellStop.RemoveListener(SetPoliceHearable);
 
         player.onPlayerFired.RemoveListener(CheckCatchPlayer);
     }

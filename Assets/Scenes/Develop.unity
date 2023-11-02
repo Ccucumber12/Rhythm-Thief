@@ -191,7 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1738f8f7ca1ac1b48950a774e4aaf36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tweenDuration: 0.5
+  openTweenDuration: 0.35
+  closeTweenDuration: 0.2
 --- !u!4 &63586442
 Transform:
   m_ObjectHideFlags: 0
@@ -277,7 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1738f8f7ca1ac1b48950a774e4aaf36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tweenDuration: 0.5
+  openTweenDuration: 0.35
+  closeTweenDuration: 0.2
 --- !u!4 &94410351
 Transform:
   m_ObjectHideFlags: 0
@@ -3572,7 +3574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1738f8f7ca1ac1b48950a774e4aaf36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tweenDuration: 0.5
+  openTweenDuration: 0.35
+  closeTweenDuration: 0.2
 --- !u!4 &581380352
 Transform:
   m_ObjectHideFlags: 0
@@ -3788,7 +3791,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1738f8f7ca1ac1b48950a774e4aaf36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tweenDuration: 0.5
+  openTweenDuration: 0.35
+  closeTweenDuration: 0.2
 --- !u!4 &822996704
 Transform:
   m_ObjectHideFlags: 0
@@ -4374,6 +4378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1152157894}
   - component: {fileID: 1152157895}
+  - component: {fileID: 1152157896}
   m_Layer: 0
   m_Name: RhythmManager
   m_TagString: Untagged
@@ -4389,7 +4394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152157893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.048564, y: -0.017028742, z: -1.3477198}
+  m_LocalPosition: {x: 0, y: 0, z: -1.3477198}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4408,24 +4413,116 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860c89d4a7bfc0d40b0984ea07a174d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onGateClose:
-    m_PersistentCalls:
-      m_Calls: []
-  onGateOpen:
+  musicData: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
+  tolerance: 0.1
+  onLightsOn:
     m_PersistentCalls:
       m_Calls: []
   onLightsOff:
     m_PersistentCalls:
       m_Calls: []
-  onLightsOn:
+  onGateOpen:
     m_PersistentCalls:
       m_Calls: []
-  onBellRing:
+  onGateClose:
     m_PersistentCalls:
       m_Calls: []
-  onBellStop:
-    m_PersistentCalls:
-      m_Calls: []
+--- !u!82 &1152157896
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152157893}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1226219110
 GameObject:
   m_ObjectHideFlags: 0
@@ -4488,10 +4585,6 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a5417636-8728-4fb6-a5b0-5a8e563e1a2e
-    m_ActionName: Game/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1226219113}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
@@ -4507,6 +4600,70 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6a5917e6-fb2f-42f8-a87a-ec77f2e25820
     m_ActionName: Game/Fire[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1226219113}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnUpInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8ec9f5dd-bcdf-4608-88b1-bf352d71eff0
+    m_ActionName: Game/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1226219113}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnDownInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 90291ce0-487d-4696-9d09-5120d325d22e
+    m_ActionName: Game/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1226219113}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnLeftInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 69e85d99-d2a5-43be-ad71-7dfd9edba395
+    m_ActionName: Game/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1226219113}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnRightInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e3f10f50-11c6-4df0-950d-464a44c469cc
+    m_ActionName: Game/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game
@@ -4525,6 +4682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
+  inputCoolDown: 0.3
   bulletPrefab: {fileID: 7920118355782209290, guid: a77f670e177d1ca4a9d0e9c15c6f9467, type: 3}
   onPlayerFired:
     m_PersistentCalls:
@@ -4644,7 +4802,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1738f8f7ca1ac1b48950a774e4aaf36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tweenDuration: 0.5
+  openTweenDuration: 0.35
+  closeTweenDuration: 0.2
 --- !u!4 &1272214091
 Transform:
   m_ObjectHideFlags: 0
@@ -4813,7 +4972,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1738f8f7ca1ac1b48950a774e4aaf36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tweenDuration: 0.5
+  openTweenDuration: 0.35
+  closeTweenDuration: 0.2
 --- !u!4 &1449095614
 Transform:
   m_ObjectHideFlags: 0
@@ -29859,7 +30019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.9411765}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -30120,7 +30280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1738f8f7ca1ac1b48950a774e4aaf36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tweenDuration: 0.5
+  openTweenDuration: 0.35
+  closeTweenDuration: 0.2
 --- !u!4 &1855029584
 Transform:
   m_ObjectHideFlags: 0

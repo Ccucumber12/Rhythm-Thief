@@ -7,7 +7,6 @@ using Sirenix.OdinInspector;
 
 public class Player : MonoBehaviour
 {
-    public const string Action_Move = "Move";
     public const string Sprite_Name = "Sprite";
 
     private static Player _instance;
@@ -15,6 +14,7 @@ public class Player : MonoBehaviour
 
     [Header("Basic")]
     [SerializeField] private float playerSpeed;
+    [SerializeField] private float inputCoolDown;
 
     [Header("Fire")]
     [SerializeField] private GameObject bulletPrefab;
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public Vector2 playerDirection { get; private set; }
 
     private GameManager gameManager;
-
+    private RhythmManager rhythmManager;
     private PlayerInput playerInput;
     private Rigidbody2D playerRigidbody;
     private InputAction moveAction;
@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 
     private Vector2 moveInputValue;
     private Vector3 playerSpawnPosition;
+    private float lastInputTime;
 
     private void Awake()
     {
@@ -41,13 +42,13 @@ public class Player : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody2D>();
-        moveAction = playerInput.actions[Action_Move];
         playerSprite = transform.Find(Sprite_Name).gameObject;
     }
 
     private void Start()
     {
         gameManager = GameManager.Instance;
+        rhythmManager = RhythmManager.Instance;
         gameManager.onPlayerDied.AddListener(RespawnPlayer);
 
         playerSpawnPosition = transform.position;
@@ -56,12 +57,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        moveInputValue = moveAction.ReadValue<Vector2>();
-        if (moveInputValue.magnitude > 0.01)
-        {
-            playerDirection = moveInputValue.normalized;
-            UpdateSpriteDirection();
-        }
+
     }
 
     private void OnDestroy()
@@ -69,10 +65,46 @@ public class Player : MonoBehaviour
         gameManager.onPlayerDied.RemoveListener(RespawnPlayer);
     }
 
-    private void FixedUpdate()
+    public void OnUpInput(InputAction.CallbackContext context)
     {
-        playerRigidbody.velocity = moveInputValue * playerSpeed;
+        if (context.performed)
+            TryMove(Vector2.up);
     }
+
+    public void OnDownInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            TryMove(Vector2.down);
+    }
+
+    public void OnLeftInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            TryMove(Vector2.left);
+    }
+
+    public void OnRightInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            TryMove(Vector2.right);
+    }
+
+    private void TryMove(Vector2 direction)
+    {
+        if (Time.time < lastInputTime + inputCoolDown)
+            return;
+        lastInputTime = Time.time;
+        if (rhythmManager.CheckMove())
+            PlayerMove(direction);
+    }
+
+    private void PlayerMove(Vector2 direction)
+    {
+        playerDirection = direction;
+        transform.position += new Vector3(direction.x, direction.y, 0);
+        UpdateSpriteDirection();
+    }
+
 
     public void OnFireInput(InputAction.CallbackContext context)
     {
