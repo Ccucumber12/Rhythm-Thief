@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Police : MonoBehaviour
 {
-    private const string AlertSector_Name = "AlertSector";
+    private const string FieldOfView_Name = "Vision";
 
     public float policeSpeed;
 
@@ -13,7 +13,7 @@ public class Police : MonoBehaviour
     private Player player;
 
     private Rigidbody2D policeRigidbody;
-    private GameObject alertSector;
+    private FieldOfView vision;
     private Vector3 initialPosition;
     private bool isDeaf;
     private bool isChasingPlayer;
@@ -21,7 +21,7 @@ public class Police : MonoBehaviour
     private void Awake()
     {
         policeRigidbody = GetComponent<Rigidbody2D>();
-        alertSector = transform.Find(AlertSector_Name).gameObject;
+        vision = GetComponentInChildren<FieldOfView>();
     }
 
     private void Start()
@@ -37,6 +37,7 @@ public class Police : MonoBehaviour
         player.onPlayerFired.AddListener(CheckCatchPlayer);
 
         initialPosition = transform.position;
+        vision.SetAngle(-90);
     }
 
     private void Update()
@@ -71,12 +72,12 @@ public class Police : MonoBehaviour
 
     public void SetPoliceBlind()
     {
-        alertSector.SetActive(false);
+        vision.SetBlind();
     }
 
     public void SetPoliceSighted()
     {
-        alertSector.SetActive(true);
+        vision.SetSighted();
     }
 
     public void SetPoliceDeaf()
