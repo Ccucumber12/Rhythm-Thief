@@ -18,7 +18,8 @@ class SheetRendering:
         self.full_width = int(grid_width_per_sec * full_length)
         self.full_height = int(grid_height * num_of_track)
         self.image = Image.new('RGBA', (self.full_width, self.full_height), (255, 255, 255, 255))
-        self.json_output = {}
+        # self.json_output = {}
+        self.json_output2 = {}
 
     def __draw_track_line(self, draw_index):
         draw = ImageDraw.Draw(self.image)
@@ -30,11 +31,12 @@ class SheetRendering:
     def draw_track_single(self, draw_index, track, icon):
         self.__draw_track_line(draw_index)
         curr_tick = 0
-        self.json_output[track.name] = {
-            'name': track.name,
-            'type': 'single',
-            'data': [],
-        }
+        # self.json_output[track.name] = {
+        #     'name': track.name,
+        #     'type': 'single',
+        #     'data': [],
+        # }
+        self.json_output2[track.name] = []
         for msg in track:
             curr_tick += msg.time
             if msg.type == 'note_on':
@@ -42,7 +44,8 @@ class SheetRendering:
                 x = int(curr_time * self.grid_width_per_sec)
                 y = int(draw_index * self.grid_height)
                 self.image.alpha_composite(icon, (x, y))
-                self.json_output[track.name]['data'].append(curr_time)
+                # self.json_output[track.name]['data'].append(curr_time)
+                self.json_output2[track.name].append(curr_time)
 
     def draw_track_duration_two_track(self, draw_index, track_on, track_off, icon):
         self.__draw_track_line(draw_index)
@@ -50,27 +53,31 @@ class SheetRendering:
         all_msgs = []
 
         curr_tick = 0
+        self.json_output2[track_on.name] = []
         for msg in track_on:
             curr_tick += msg.time
             if msg.type == 'note_on':
                 curr_time = tick2sec(curr_tick)
                 all_msgs.append((curr_time, 'on'))
+                self.json_output2[track_on.name].append(curr_time)
 
         curr_tick = 0
+        self.json_output2[track_off.name] = []
         for msg in track_off:
             curr_tick += msg.time
             if msg.type == 'note_on':
                 curr_time = tick2sec(curr_tick)
                 all_msgs.append((curr_time, 'off'))
+                self.json_output2[track_off.name].append(curr_time)
 
         all_msgs.sort()
 
         start_time = None
-        self.json_output[track_on.name] = {
-            'name': track_on.name,
-            'type': 'duration',
-            'data': [],
-        }
+        # self.json_output[track_on.name] = {
+        #     'name': track_on.name,
+        #     'type': 'duration',
+        #     'data': [],
+        # }
         for msg in all_msgs:
             if msg[1] == 'on':
                 start_time = msg[0]
@@ -86,7 +93,7 @@ class SheetRendering:
                 x = int(start_time * self.grid_width_per_sec)
                 y = int(draw_index * self.grid_height)
                 self.image.alpha_composite(icon, (x, y))
-                self.json_output[track_on.name]['data'].append((start_time, end_time))
+                # self.json_output[track_on.name]['data'].append((start_time, end_time))
 
                 start_time, end_time = None, None
             else:
@@ -96,7 +103,8 @@ class SheetRendering:
         self.image.show()
         self.image.save(filename_png)
 
-        json.dump(self.json_output, open(filename_json, 'w'))
+        # json.dump(self.json_output, open(filename_json, 'w'))
+        json.dump(self.json_output2, open(filename_json, 'w'))
 
 def tick2sec(tick):
     return tick * midi_tempo / 1000000 / ticks_per_beat
