@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
         if (Time.time < lastInputTime + inputCoolDown)
             return;
         lastInputTime = Time.time;
-        if (rhythmManager.CheckMove())
+        if (rhythmManager.CheckMove() || true) // TODO
         {
             playerDirection = direction;
             transform.position += new Vector3(direction.x, direction.y, 0);

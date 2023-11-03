@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 public class FieldOfView : MonoBehaviour
 {
@@ -15,16 +16,17 @@ public class FieldOfView : MonoBehaviour
     private Vector3[] vertices;
     private Vector2[] uv;
     private int[] triangles;
+    private Vector2[] vertices2D;
 
     private Mesh mesh;
     private MeshRenderer meshRenderer;
-    private MeshCollider meshCollider;
+    private PolygonCollider2D visionCollider;
 
     private void Awake()
     {
         mesh = GetComponent<MeshFilter>().mesh;
         meshRenderer = GetComponent<MeshRenderer>();
-        meshCollider = GetComponent<MeshCollider>();
+        visionCollider = GetComponent<PolygonCollider2D>();
 
         meshRenderer.sortingOrder = -5;
         meshRenderer.material = normalVisionMaterial;
@@ -35,6 +37,8 @@ public class FieldOfView : MonoBehaviour
         vertices = new Vector3[rayCount + 2];
         triangles = new int[rayCount * 3];
         uv = new Vector2[vertices.Length];
+        vertices2D = new Vector2[vertices.Length];
+        visionCollider.pathCount = 1;
     }
 
     private void Update()
@@ -74,6 +78,19 @@ public class FieldOfView : MonoBehaviour
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.uv = uv;
+
+        for (int i = 0; i < vertices.Length; i++)
+            vertices2D[i] = vertices[i];
+        visionCollider.SetPath(0, vertices2D);
+    }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            Debug.Log("Caught Player!");
+            GetComponentInParent<Police>().SetAlert();
+        }
     }
 
     public void SetAngle(float angle)
@@ -94,13 +111,13 @@ public class FieldOfView : MonoBehaviour
     public void SetBlind()
     {
         meshRenderer.enabled = false;
-        meshCollider.enabled = false;
+        visionCollider.enabled = false;
     }
 
     public void SetSighted()
     {
         meshRenderer.enabled = true;
-        meshCollider.enabled = true;
+        visionCollider.enabled = true;
     }
 
     public void SetAlert()

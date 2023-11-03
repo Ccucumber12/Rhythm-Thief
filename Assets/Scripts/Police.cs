@@ -15,7 +15,6 @@ public class Police : MonoBehaviour
     private RhythmManager rhythmManager;
     private Player player;
 
-    private Rigidbody2D rb;
     private NavMeshAgent agent;
     private FieldOfView vision;
     private Vector3 initialPosition;
@@ -26,7 +25,6 @@ public class Police : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         agent = GetComponent<NavMeshAgent>();
         vision = GetComponentInChildren<FieldOfView>();
     }
@@ -56,7 +54,12 @@ public class Police : MonoBehaviour
     {
         if (isAlert)
         {
-            agent.SetDestination(player.transform.position);
+            if (IsAgentReachedDestination())
+            {
+                isAlert = false;
+                vision.SetNormal();
+                LookAround();
+            }
         }
         if (agent.velocity.magnitude > 0.01f)
             facingDirection = agent.velocity.normalized;
@@ -92,9 +95,11 @@ public class Police : MonoBehaviour
 
     public void SetAlert()
     {
+        agent.isStopped = true;
+        agent.ResetPath();
+        agent.SetDestination(player.transform.position);
         isAlert = true;
         vision.SetAlert();
-        delaySetNormalCoroutine = StartCoroutine(DelayedSetNormal(alertDuration));
     }
 
     public void SetNormal()
@@ -103,10 +108,24 @@ public class Police : MonoBehaviour
         vision.SetNormal();
     }
 
-    private IEnumerator DelayedSetNormal(float seconds)
+    private bool IsAgentReachedDestination()
     {
-        yield return new WaitForSeconds(seconds);
-        SetNormal();
+        if (!agent.pathPending)
+        {
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void LookAround()
+    {
+        // TODO
     }
 
     public void Killed()
@@ -117,17 +136,16 @@ public class Police : MonoBehaviour
 
     public void ResetState()
     {
-        agent.enabled = false;
         if (delaySetNormalCoroutine != null)
         {
             StopCoroutine(delaySetNormalCoroutine);
             SetNormal();
         }
-        rb.velocity = Vector3.zero;
+        agent.Warp(initialPosition);
         transform.up = Vector3.up;
+
         transform.position = initialPosition;
         facingDirection = initialFacingDirection;
-        agent.enabled = true;
     }
 
 #if UNITY_EDITOR
