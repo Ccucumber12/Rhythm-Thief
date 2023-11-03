@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Sheet : MonoBehaviour {
-    public double PixelPerSecond;
+    public float PixelPerSecond;
 
     void Start() {
 
     }
 
     void Update() {
-
+        GetComponent<RectTransform>().transform.Translate(Vector3.left * PixelPerSecond * Time.deltaTime);
     }
 }
