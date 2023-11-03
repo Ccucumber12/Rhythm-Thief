@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Sheet : MonoBehaviour {
     public float PixelPerSecond;
+    public float CountDownBeforeStart;
 
     void Start() {
-
+        GetComponent<RectTransform>().transform.Translate(Vector3.right * PixelPerSecond * CountDownBeforeStart);
     }
 
     void Update() {
