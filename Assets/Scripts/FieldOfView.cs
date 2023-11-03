@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 public class FieldOfView : MonoBehaviour
 {
-    [SerializeField] private float viewAngle = 90f;
+    public float viewAngle = 90f;
     [SerializeField] private float viewDistance = 20;
     [SerializeField] int rayCount = 2;
     [SerializeField] LayerMask layerMask;
@@ -43,7 +43,7 @@ public class FieldOfView : MonoBehaviour
         float angleIncrease = viewAngle / rayCount;
 
         vertices[0] = Vector3.zero; // The first vertex is origin
-        
+
         int vertexIndex = 1;
         int triangleIndex = 0;
         for (int i = 0; i <= rayCount; i++)
@@ -54,7 +54,7 @@ public class FieldOfView : MonoBehaviour
             if (raycastHit.collider == null)
                 vertex = MathUtils.GetVectorFromAngle(angle) * viewDistance;
             else
-                vertex = (MathUtils.Vector2ToVector3(raycastHit.point) - transform.position);
+                vertex = (MathUtils.GetVector3FromVector2(raycastHit.point) - transform.position);
 
             vertices[vertexIndex] = vertex;
 
@@ -78,7 +78,17 @@ public class FieldOfView : MonoBehaviour
 
     public void SetAngle(float angle)
     {
-        startingAngle = angle / 2;
+        startingAngle = angle + viewAngle / 2;
+    }
+
+    public void SetAngle(Vector2 angle)
+    {
+        SetAngle(MathUtils.GetVector3FromVector2(angle));
+    }
+
+    public void SetAngle(Vector3 angle)
+    {
+        SetAngle(MathUtils.GetAngleFromVector(angle));
     }
 
     public void SetBlind()

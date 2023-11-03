@@ -1,26 +1,33 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Police : MonoBehaviour
 {
-    private const string FieldOfView_Name = "Vision";
+    [Required] public GameConfigData gameConfigData;
+    public Vector2 facingDirection;
 
-    public float policeSpeed;
-
+    private float alertDuration;
     private GameManager gameManager;
     private RhythmManager rhythmManager;
     private Player player;
 
-    private Rigidbody2D policeRigidbody;
+    private Rigidbody2D rb;
+    private NavMeshAgent agent;
     private FieldOfView vision;
     private Vector3 initialPosition;
-    private bool isDeaf;
-    private bool isChasingPlayer;
+    private Vector2 initialFacingDirection;
+    private bool isAlert;
+
+    private Coroutine delaySetNormalCoroutine;
 
     private void Awake()
     {
-        policeRigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        agent = GetComponent<NavMeshAgent>();
         vision = GetComponentInChildren<FieldOfView>();
     }
 
@@ -30,36 +37,39 @@ public class Police : MonoBehaviour
         gameManager.onPlayerDied.AddListener(ResetState);
 
         rhythmManager = RhythmManager.Instance;
-        rhythmManager.onLightsOff.AddListener(SetPoliceBlind);
-        rhythmManager.onLightsOn.AddListener(SetPoliceSighted);
+        rhythmManager.onLightsOff.AddListener(SetBlind);
+        rhythmManager.onLightsOn.AddListener(SetSighted);
 
         player = Player.Instance;
-        player.onPlayerFired.AddListener(CheckCatchPlayer);
+        player.onPlayerAlert.AddListener(SetAlert);
 
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+
+        alertDuration = gameConfigData.policAlertDuration;
         initialPosition = transform.position;
-        vision.SetAngle(-90);
+        initialFacingDirection = facingDirection;
+        vision.SetAngle(facingDirection);
     }
 
     private void Update()
     {
-        if (isChasingPlayer)
+        if (isAlert)
         {
-            transform.up = (transform.position - player.transform.position);
-
-            Vector3 velocity = (player.transform.position - transform.position).normalized;
-            velocity *= policeSpeed;
-            policeRigidbody.velocity = velocity;
+            agent.SetDestination(player.transform.position);
         }
+        if (agent.velocity.magnitude > 0.01f)
+            facingDirection = agent.velocity.normalized;
+        vision.SetAngle(facingDirection);
+        Debug.DrawLine(transform.position, agent.steeringTarget);
     }
 
     private void OnDestroy()
     {
         gameManager.onPlayerDied.RemoveListener(ResetState);
-
-        rhythmManager.onLightsOff.RemoveListener(SetPoliceBlind);
-        rhythmManager.onLightsOn.RemoveListener(SetPoliceSighted);
-
-        player.onPlayerFired.RemoveListener(CheckCatchPlayer);
+        rhythmManager.onLightsOff.RemoveListener(SetBlind);
+        rhythmManager.onLightsOn.RemoveListener(SetSighted);
+        player.onPlayerAlert.RemoveListener(SetAlert);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,32 +80,33 @@ public class Police : MonoBehaviour
         }
     }
 
-    public void SetPoliceBlind()
+    public void SetBlind()
     {
         vision.SetBlind();
     }
 
-    public void SetPoliceSighted()
+    public void SetSighted()
     {
         vision.SetSighted();
     }
 
-    public void SetPoliceDeaf()
+    public void SetAlert()
     {
-        isDeaf = true;
+        isAlert = true;
+        vision.SetAlert();
+        delaySetNormalCoroutine = StartCoroutine(DelayedSetNormal(alertDuration));
     }
 
-    public void SetPoliceHearable()
+    public void SetNormal()
     {
-        isDeaf = false;
+        isAlert = false;
+        vision.SetNormal();
     }
 
-    public void CheckCatchPlayer()
+    private IEnumerator DelayedSetNormal(float seconds)
     {
-        if (!isDeaf)
-        {
-            isChasingPlayer = true;
-        }
+        yield return new WaitForSeconds(seconds);
+        SetNormal();
     }
 
     public void Killed()
@@ -106,9 +117,26 @@ public class Police : MonoBehaviour
 
     public void ResetState()
     {
-        isChasingPlayer = false;
-        policeRigidbody.velocity = Vector3.zero;
+        agent.enabled = false;
+        if (delaySetNormalCoroutine != null)
+        {
+            StopCoroutine(delaySetNormalCoroutine);
+            SetNormal();
+        }
+        rb.velocity = Vector3.zero;
         transform.up = Vector3.up;
         transform.position = initialPosition;
+        facingDirection = initialFacingDirection;
+        agent.enabled = true;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        float radius = 5f;
+        FieldOfView v = GetComponentInChildren<FieldOfView>();
+        GizmosExtensions.DrawWireArc(v.transform.position, facingDirection, v.viewAngle, radius);
+    }
+#endif
 }
