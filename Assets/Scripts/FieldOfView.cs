@@ -88,7 +88,6 @@ public class FieldOfView : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Debug.Log("Caught Player!");
             GetComponentInParent<Police>().SetAlert();
         }
     }

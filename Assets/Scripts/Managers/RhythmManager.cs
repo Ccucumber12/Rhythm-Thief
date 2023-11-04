@@ -52,9 +52,9 @@ public class RhythmManager : MonoBehaviour
         return Mathf.Abs(Time.time - timestamps.GetMoveTimestamp()) < tolerance;
     }
 
-    public bool CheckFire()
+    public bool IsBellRinging()
     {
-        return Mathf.Abs(Time.time - timestamps.GetBellTimestamp()) < tolerance;
+        return timestamps.GetBellRingTimestamp() > timestamps.GetBellStopTimestamp();
     }
 
     private void ParseMusicData()
@@ -136,7 +136,8 @@ public class RhythmManager : MonoBehaviour
 public class Timestamp
 {
     public List<float> move;
-    public List<float> bell;
+    public List<float> bellRing;
+    public List<float> bellStop;
     public List<float> lightsOff;
     public List<float> lightsOn;
     public List<float> gateOpen;
@@ -148,7 +149,8 @@ public class TimestampManager
     public Timestamp timestamp;
 
     private int moveIndex;
-    private int bellIndex;
+    private int bellRingIndex;
+    private int bellStopIndex;
     private int lightsOffIndex;
     private int lightsOnIndex;
     private int gateOpenIndex;
@@ -158,8 +160,10 @@ public class TimestampManager
     {
         if (time - GetMoveTimestamp() > tolerance)
             moveIndex += 1;
-        if (time - GetBellTimestamp() > tolerance)
-            bellIndex += 1;
+        if (time - GetBellRingTimestamp() > tolerance)
+            bellRingIndex += 1;
+        if (time - GetBellStopTimestamp() > tolerance)
+            bellStopIndex += 1;
         if (time - GetLightsOffTimestamp() > tolerance)
             lightsOffIndex += 1;
         if (time - GetLightsOnTimestamp() > tolerance)
@@ -175,9 +179,14 @@ public class TimestampManager
         return moveIndex < timestamp.move.Count ? timestamp.move[moveIndex] : Mathf.Infinity;
     }
 
-    public float GetBellTimestamp()
+    public float GetBellRingTimestamp()
     {
-        return bellIndex < timestamp.bell.Count ? timestamp.bell[bellIndex] : Mathf.Infinity;
+        return bellRingIndex < timestamp.bellRing.Count ? timestamp.bellRing[bellRingIndex] : Mathf.Infinity;
+    }
+
+    public float GetBellStopTimestamp()
+    {
+        return bellStopIndex < timestamp.bellStop.Count ? timestamp.bellStop[bellStopIndex] : Mathf.Infinity;
     }
 
     public float GetLightsOffTimestamp()

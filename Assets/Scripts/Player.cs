@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -13,15 +14,18 @@ public class Player : MonoBehaviour
     public static Player Instance { get => _instance; }
 
     [Header("Basic")]
+    [SerializeField] private Vector2 facingDirection;
     [SerializeField] private float playerSpeed;
     [SerializeField] private float inputCoolDown;
+    [SerializeField] private LayerMask wallLayer;
 
     [Header("Fire")]
     [SerializeField] private float fireCoolDown;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] Transform bulletSpawnPosition;
 
+    [Header("Events")]
     public OnPlayerAlertEvent onPlayerAlert;
-    public Vector2 playerDirection { get; private set; }
 
     private GameManager gameManager;
     private RhythmManager rhythmManager;
@@ -30,6 +34,7 @@ public class Player : MonoBehaviour
     private Vector3 playerSpawnPosition;
     private float lastInputTime;
     private float lastFireTime;
+    private Tween moveTween;
 
     private void Awake()
     {
@@ -48,15 +53,8 @@ public class Player : MonoBehaviour
         gameManager.onPlayerDied.AddListener(RespawnPlayer);
 
         playerSpawnPosition = transform.position;
-        playerDirection = transform.rotation.eulerAngles;
-
         lastInputTime = -inputCoolDown;
         lastFireTime = -fireCoolDown;
-    }
-
-    private void Update()
-    {
-
     }
 
     private void OnDestroy()
@@ -95,9 +93,20 @@ public class Player : MonoBehaviour
         lastInputTime = Time.time;
         if (rhythmManager.CheckMove() || true) // TODO
         {
-            playerDirection = direction;
-            transform.position += new Vector3(direction.x, direction.y, 0);
-            UpdateSpriteDirection();
+            facingDirection = direction;
+            Vector3 newPosition = transform.position + MathUtils.GetVector3FromVector2(direction);
+            Collider2D cols = Physics2D.OverlapCircle(newPosition, 0.1f, wallLayer);
+            if (cols == null)
+            {
+                // move success
+                moveTween?.Kill(complete: true);
+                moveTween = transform.DOMove(newPosition, 0.1f);
+                UpdateSpriteDirection();
+            }
+            else
+            {
+                // Bumped into wall
+            }
         }
     }
 
@@ -109,28 +118,37 @@ public class Player : MonoBehaviour
                 return;
 
             lastFireTime = Time.time;
-            if (!rhythmManager.CheckFire())
+            if (!rhythmManager.IsBellRinging())
                 onPlayerAlert.Invoke();
 
-            Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, playerDirection));
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, quaternion);
-            bullet.GetComponent<Bullet>().bulletDirection = playerDirection;
+            Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, facingDirection));
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, quaternion);
+            bullet.GetComponent<Bullet>().bulletDirection = facingDirection;
         }
     }
 
     public void RespawnPlayer()
     {
         // Temporary method
+        moveTween?.Kill();
         transform.position = playerSpawnPosition;
     }
 
     private void UpdateSpriteDirection()
     {
         Vector3 scale = playerSprite.transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * Mathf.Sign(playerDirection.x);
+        scale.x = Mathf.Abs(scale.x) * Mathf.Sign(facingDirection.x);
         playerSprite.transform.localScale = scale;
     }
 
     [System.Serializable]
     public class OnPlayerAlertEvent : UnityEvent { }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(bulletSpawnPosition.position, 0.15f);
+    }
+#endif
 }

@@ -131,8 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1738f8f7ca1ac1b48950a774e4aaf36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openTweenDuration: 0.35
-  closeTweenDuration: 0.2
+  gameConfigData: {fileID: 11400000, guid: e32b1a0ee888dc948b6da16e06eb4fca, type: 2}
 --- !u!61 &3913492315207926377
 BoxCollider2D:
   m_ObjectHideFlags: 0

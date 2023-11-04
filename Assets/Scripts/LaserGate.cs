@@ -56,7 +56,7 @@ public class LaserGate : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            gameManager.onPlayerDied.Invoke();
+            gameManager.PlayerDied();
         }
     }
 

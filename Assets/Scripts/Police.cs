@@ -72,7 +72,6 @@ public class Police : MonoBehaviour
             if (Mathf.Abs(crossProduct.z) > 0.01f)
                 isTurningLeft = crossProduct.z > 0;
             previousVelocity = agent.velocity;
-            Debug.Log(isTurningLeft);
         }
         vision.SetAngle(facingDirection);
         Debug.DrawLine(transform.position, agent.steeringTarget);
