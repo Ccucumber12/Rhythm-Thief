@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
         gameManager = GameManager.Instance;
         rhythmManager = RhythmManager.Instance;
         gameManager.onPlayerDied.AddListener(RespawnPlayer);
+        gameManager.onPlayerSucceeded.AddListener(RespawnPlayer);
 
         playerSpawnPosition = transform.position;
         lastInputTime = -inputCoolDown;
@@ -60,6 +61,7 @@ public class Player : MonoBehaviour
     private void OnDestroy()
     {
         gameManager.onPlayerDied.RemoveListener(RespawnPlayer);
+        gameManager.onPlayerSucceeded.RemoveListener(RespawnPlayer);
     }
 
     public void OnUpInput(InputAction.CallbackContext context)

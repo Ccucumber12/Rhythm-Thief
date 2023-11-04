@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get => _instance; }
 
-    public OnPlayerDied onPlayerDied;
+    public OnPlayerDiedEvent onPlayerDied;
+    public onPlayerSucceededEvent onPlayerSucceeded;
 
     private void Awake()
     {
@@ -23,6 +24,14 @@ public class GameManager : MonoBehaviour
         onPlayerDied.Invoke();
     }
 
+    public void PlayerSucceeded()
+    {
+        onPlayerSucceeded.Invoke();
+    }
+
     [System.Serializable]
-    public class OnPlayerDied : UnityEvent { }
+    public class OnPlayerDiedEvent : UnityEvent { }
+
+    [System.Serializable]
+    public class onPlayerSucceededEvent : UnityEvent { }
 }
