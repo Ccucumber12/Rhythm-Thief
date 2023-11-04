@@ -7,6 +7,7 @@ mid = MidiFile('./MultiTrackSMP.mid')
 assert len([msg for msg in mid if msg.type == 'set_tempo']) == 1
 midi_tempo = [msg for msg in mid if msg.type == 'set_tempo'][0].dict()['tempo']
 ticks_per_beat = mid.ticks_per_beat
+beats_per_measure = 4
 # ref: https://mido.readthedocs.io/en/stable/files/midi.html?highlight=ticks_per_beat#midi-tempo-vs-bpm
 full_length = mid.length
 
@@ -15,21 +16,36 @@ class SheetRendering:
     def __init__(self, grid_width_per_sec, grid_height, num_of_track, full_length):
         self.grid_width_per_sec = int(grid_width_per_sec)
         self.grid_height = int(grid_height)
+        self.num_of_track = num_of_track
         self.full_width = int(grid_width_per_sec * full_length)
         self.full_height = int(grid_height * num_of_track)
-        self.image = Image.new('RGBA', (self.full_width, self.full_height), (255, 255, 255, 255))
+        self.image = Image.new('RGBA', (self.full_width, self.full_height), (255, 255, 255, 0))
         # self.json_output = {}
         self.json_output2 = {}
 
-    def __draw_track_line(self, draw_index):
-        draw = ImageDraw.Draw(self.image)
-        start_x = self.grid_height // 2
-        end_x = self.full_width - self.grid_height // 2
+    def draw_measure_bar(self):
+        sec_per_measure = tick2sec(ticks_per_beat) * beats_per_measure
+        tmp_img = Image.new('RGBA', (self.full_width, self.full_height), (255, 255, 255, 0))
+        for i in range(int(full_length / sec_per_measure) + 1):
+            draw = ImageDraw.Draw(tmp_img)
+            x = i * sec_per_measure * self.grid_width_per_sec
+            draw.line([(x, 0), (x, self.full_height)], fill='#8888', width=5)
+        self.image = Image.alpha_composite(self.image, tmp_img)
+
+    def __draw_track_line(self, draw_index, target_image=None):
+        if target_image is None:
+            target_image = self.image
+
+        draw = ImageDraw.Draw(target_image)
+        # start_x = self.grid_height // 2
+        # end_x = self.full_width - self.grid_height // 2
+        start_x = 0
+        end_x = self.full_width
         y = int((draw_index + 0.5) * self.grid_height)
         draw.line([(start_x, y), (end_x, y)], fill='black', width=5)
 
     def draw_track_single(self, draw_index, track, icon):
-        self.__draw_track_line(draw_index)
+        # self.__draw_track_line(draw_index)
         curr_tick = 0
         # self.json_output[track.name] = {
         #     'name': track.name,
@@ -48,7 +64,7 @@ class SheetRendering:
                 self.json_output2[track.name].append(curr_time)
 
     def draw_track_duration_two_track(self, draw_index, track_on, track_off, icon):
-        self.__draw_track_line(draw_index)
+        # self.__draw_track_line(draw_index)
 
         all_msgs = []
 
@@ -99,12 +115,19 @@ class SheetRendering:
             else:
                 raise ValueError()
 
-    def output(self, filename_png, filename_json):
+    def output_sheet(self, filename_png, filename_json):
         self.image.show()
         self.image.save(filename_png)
 
         # json.dump(self.json_output, open(filename_json, 'w'))
         json.dump(self.json_output2, open(filename_json, 'w'))
+
+    def output_background(self, filename_png):
+        img = Image.new('RGBA', (self.full_width, self.full_height), (255, 255, 255, 255))
+        for i in range(self.num_of_track):
+            self.__draw_track_line(i, img)
+
+        img.save(filename_png)
 
 def tick2sec(tick):
     return tick * midi_tempo / 1000000 / ticks_per_beat
@@ -152,7 +175,9 @@ def main():
     sheet.draw_track_duration_two_track(2, tracks['door_open'], tracks['door_close'], Image.open('images/emoji_u1f6aa.png').resize((emoji_size, emoji_size)))
     sheet.draw_track_duration_two_track(3, tracks['bell_on'], tracks['bell_off'], Image.open('images/emoji_u1f514.png').resize((emoji_size, emoji_size)))
     sheet.draw_track_single(4, tracks['gun'], Image.open('images/emoji_u1f4a5.png').resize((emoji_size, emoji_size)))
-    sheet.output('output.png', 'output.json')
+    sheet.draw_measure_bar()
+    sheet.output_background('background.png')
+    sheet.output_sheet('sheet.png', 'output.json')
 
 
 if __name__ == '__main__':
