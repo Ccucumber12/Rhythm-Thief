@@ -143,12 +143,15 @@ def test():
 def main():
     tracks = {track.name: track for track in mid.tracks}
 
-    sheet = SheetRendering(160, 40, 5, full_length)
-    sheet.draw_track_single(0, tracks['move'], Image.open('images/emoji_u1f3c3.png').resize((40, 40)))
-    sheet.draw_track_duration_two_track(1, tracks['light_on'], tracks['light_off'], Image.open('images/emoji_u1f4a1.png').resize((40, 40)))
-    sheet.draw_track_duration_two_track(2, tracks['door_open'], tracks['door_close'], Image.open('images/emoji_u1f6aa.png').resize((40, 40)))
-    sheet.draw_track_duration_two_track(3, tracks['bell_on'], tracks['bell_off'], Image.open('images/emoji_u1f514.png').resize((40, 40)))
-    sheet.draw_track_single(4, tracks['gun'], Image.open('images/emoji_u1f4a5.png').resize((40, 40)))
+    width_per_second = 256
+    emoji_size = 64
+
+    sheet = SheetRendering(width_per_second, emoji_size, 5, full_length)
+    sheet.draw_track_single(0, tracks['move'], Image.open('images/emoji_u1f3c3.png').resize((emoji_size, emoji_size)))
+    sheet.draw_track_duration_two_track(1, tracks['light_on'], tracks['light_off'], Image.open('images/emoji_u1f4a1.png').resize((emoji_size, emoji_size)))
+    sheet.draw_track_duration_two_track(2, tracks['door_open'], tracks['door_close'], Image.open('images/emoji_u1f6aa.png').resize((emoji_size, emoji_size)))
+    sheet.draw_track_duration_two_track(3, tracks['bell_on'], tracks['bell_off'], Image.open('images/emoji_u1f514.png').resize((emoji_size, emoji_size)))
+    sheet.draw_track_single(4, tracks['gun'], Image.open('images/emoji_u1f4a5.png').resize((emoji_size, emoji_size)))
     sheet.output('output.png', 'output.json')
 
 
