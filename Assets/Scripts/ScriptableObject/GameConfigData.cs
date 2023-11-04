@@ -12,5 +12,6 @@ public class GameConfigData : ScriptableObject
     public float laserGateCloseTweenDuration;
 
     [Header("Police")]
-    public float policAlertDuration;
+    public float policeAwareDistance;
+    public float policeLookAroundDuration;
 }

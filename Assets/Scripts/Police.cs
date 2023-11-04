@@ -1,16 +1,14 @@
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
+
 
 public class Police : MonoBehaviour
 {
     [Required] public GameConfigData gameConfigData;
     public Vector2 facingDirection;
 
-    private float alertDuration;
     private GameManager gameManager;
     private RhythmManager rhythmManager;
     private Player player;
@@ -20,8 +18,13 @@ public class Police : MonoBehaviour
     private Vector3 initialPosition;
     private Vector2 initialFacingDirection;
     private bool isAlert;
+    private float awareDistance;
 
-    private Coroutine delaySetNormalCoroutine;
+    private Vector3 previousVelocity;
+    private bool isTurningLeft;
+
+    private Tween lookAroundTween;
+    private float lookAroundDuration;
 
     private void Awake()
     {
@@ -39,15 +42,17 @@ public class Police : MonoBehaviour
         rhythmManager.onLightsOn.AddListener(SetSighted);
 
         player = Player.Instance;
-        player.onPlayerAlert.AddListener(SetAlert);
+        player.onPlayerAlert.AddListener(HeardPlayer);
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-        alertDuration = gameConfigData.policAlertDuration;
         initialPosition = transform.position;
         initialFacingDirection = facingDirection;
         vision.SetAngle(facingDirection);
+
+        awareDistance = gameConfigData.policeAwareDistance;
+        lookAroundDuration = gameConfigData.policeLookAroundDuration;
     }
 
     private void Update()
@@ -56,13 +61,19 @@ public class Police : MonoBehaviour
         {
             if (IsAgentReachedDestination())
             {
-                isAlert = false;
-                vision.SetNormal();
+                SetNormal();
                 LookAround();
             }
         }
         if (agent.velocity.magnitude > 0.01f)
+        {
             facingDirection = agent.velocity.normalized;
+            Vector3 crossProduct = Vector3.Cross(previousVelocity.normalized, agent.velocity.normalized);
+            if (Mathf.Abs(crossProduct.z) > 0.01f)
+                isTurningLeft = crossProduct.z > 0;
+            previousVelocity = agent.velocity;
+            Debug.Log(isTurningLeft);
+        }
         vision.SetAngle(facingDirection);
         Debug.DrawLine(transform.position, agent.steeringTarget);
     }
@@ -72,7 +83,7 @@ public class Police : MonoBehaviour
         gameManager.onPlayerDied.RemoveListener(ResetState);
         rhythmManager.onLightsOff.RemoveListener(SetBlind);
         rhythmManager.onLightsOn.RemoveListener(SetSighted);
-        player.onPlayerAlert.RemoveListener(SetAlert);
+        player.onPlayerAlert.RemoveListener(HeardPlayer);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -93,10 +104,15 @@ public class Police : MonoBehaviour
         vision.SetSighted();
     }
 
+    public void HeardPlayer()
+    {
+        if ((player.transform.position - transform.position).magnitude <= awareDistance)
+            SetAlert();
+    }
+
     public void SetAlert()
     {
-        agent.isStopped = true;
-        agent.ResetPath();
+        ClearAgentState();
         agent.SetDestination(player.transform.position);
         isAlert = true;
         vision.SetAlert();
@@ -104,8 +120,16 @@ public class Police : MonoBehaviour
 
     public void SetNormal()
     {
+        ClearAgentState();
         isAlert = false;
         vision.SetNormal();
+    }
+
+    public void ClearAgentState()
+    {
+        lookAroundTween?.Kill(complete: true);
+        agent.isStopped = true;
+        agent.ResetPath();
     }
 
     private bool IsAgentReachedDestination()
@@ -125,7 +149,15 @@ public class Police : MonoBehaviour
 
     private void LookAround()
     {
-        // TODO
+        float angle = MathUtils.GetAngleFromVector(facingDirection);
+        float delta = isTurningLeft ? 360 : -360;
+        lookAroundTween = DOTween.To(UpdateFacingDirectionFromFloat, angle, angle + delta, lookAroundDuration)
+            .SetEase(Ease.InOutCubic);
+    }
+
+    private void UpdateFacingDirectionFromFloat(float degree)
+    {
+        facingDirection = MathUtils.GetVectorFromAngle(degree);
     }
 
     public void Killed()
@@ -136,11 +168,8 @@ public class Police : MonoBehaviour
 
     public void ResetState()
     {
-        if (delaySetNormalCoroutine != null)
-        {
-            StopCoroutine(delaySetNormalCoroutine);
-            SetNormal();
-        }
+        SetNormal();
+        lookAroundTween?.Kill(complete: true);
         agent.Warp(initialPosition);
         transform.up = Vector3.up;
 
