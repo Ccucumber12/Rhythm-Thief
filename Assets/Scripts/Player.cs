@@ -17,21 +17,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float inputCoolDown;
 
     [Header("Fire")]
+    [SerializeField] private float fireCoolDown;
     [SerializeField] private GameObject bulletPrefab;
 
-    public OnPlayerFiredEvent onPlayerFired;
+    public OnPlayerAlertEvent onPlayerAlert;
     public Vector2 playerDirection { get; private set; }
 
     private GameManager gameManager;
     private RhythmManager rhythmManager;
-    private PlayerInput playerInput;
-    private Rigidbody2D playerRigidbody;
-    private InputAction moveAction;
     private GameObject playerSprite;
 
-    private Vector2 moveInputValue;
     private Vector3 playerSpawnPosition;
     private float lastInputTime;
+    private float lastFireTime;
 
     private void Awake()
     {
@@ -40,8 +38,6 @@ public class Player : MonoBehaviour
         else if (_instance != this)
             DestroyImmediate(gameObject);
 
-        playerInput = GetComponent<PlayerInput>();
-        playerRigidbody = GetComponent<Rigidbody2D>();
         playerSprite = transform.Find(Sprite_Name).gameObject;
     }
 
@@ -53,6 +49,9 @@ public class Player : MonoBehaviour
 
         playerSpawnPosition = transform.position;
         playerDirection = transform.rotation.eulerAngles;
+
+        lastInputTime = -inputCoolDown;
+        lastFireTime = -fireCoolDown;
     }
 
     private void Update()
@@ -94,23 +93,24 @@ public class Player : MonoBehaviour
         if (Time.time < lastInputTime + inputCoolDown)
             return;
         lastInputTime = Time.time;
-        if (rhythmManager.CheckMove())
-            PlayerMove(direction);
+        if (rhythmManager.CheckMove() || true) // TODO
+        {
+            playerDirection = direction;
+            transform.position += new Vector3(direction.x, direction.y, 0);
+            UpdateSpriteDirection();
+        }
     }
-
-    private void PlayerMove(Vector2 direction)
-    {
-        playerDirection = direction;
-        transform.position += new Vector3(direction.x, direction.y, 0);
-        UpdateSpriteDirection();
-    }
-
 
     public void OnFireInput(InputAction.CallbackContext context)
     {
         if (context.canceled)
         {
-            onPlayerFired.Invoke();
+            if (Time.time < lastFireTime + fireCoolDown)
+                return;
+
+            lastFireTime = Time.time;
+            if (!rhythmManager.CheckFire())
+                onPlayerAlert.Invoke();
 
             Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, playerDirection));
             GameObject bullet = Instantiate(bulletPrefab, transform.position, quaternion);
@@ -132,5 +132,5 @@ public class Player : MonoBehaviour
     }
 
     [System.Serializable]
-    public class OnPlayerFiredEvent : UnityEvent { }
+    public class OnPlayerAlertEvent : UnityEvent { }
 }

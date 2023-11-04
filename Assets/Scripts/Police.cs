@@ -1,27 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.AI;
+using DG.Tweening;
+
 
 public class Police : MonoBehaviour
 {
-    private const string AlertSector_Name = "AlertSector";
-
-    public float policeSpeed;
+    [Required] public GameConfigData gameConfigData;
+    public Vector2 facingDirection;
 
     private GameManager gameManager;
     private RhythmManager rhythmManager;
     private Player player;
 
-    private Rigidbody2D policeRigidbody;
-    private GameObject alertSector;
+    private NavMeshAgent agent;
+    private FieldOfView vision;
     private Vector3 initialPosition;
-    private bool isDeaf;
-    private bool isChasingPlayer;
+    private Vector2 initialFacingDirection;
+    private bool isAlert;
+    private float awareDistance;
+
+    private Vector3 previousVelocity;
+    private bool isTurningLeft;
+
+    private Tween lookAroundTween;
+    private float lookAroundDuration;
 
     private void Awake()
     {
-        policeRigidbody = GetComponent<Rigidbody2D>();
-        alertSector = transform.Find(AlertSector_Name).gameObject;
+        agent = GetComponent<NavMeshAgent>();
+        vision = GetComponentInChildren<FieldOfView>();
     }
 
     private void Start()
@@ -30,35 +38,52 @@ public class Police : MonoBehaviour
         gameManager.onPlayerDied.AddListener(ResetState);
 
         rhythmManager = RhythmManager.Instance;
-        rhythmManager.onLightsOff.AddListener(SetPoliceBlind);
-        rhythmManager.onLightsOn.AddListener(SetPoliceSighted);
+        rhythmManager.onLightsOff.AddListener(SetBlind);
+        rhythmManager.onLightsOn.AddListener(SetSighted);
 
         player = Player.Instance;
-        player.onPlayerFired.AddListener(CheckCatchPlayer);
+        player.onPlayerAlert.AddListener(HeardPlayer);
+
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
 
         initialPosition = transform.position;
+        initialFacingDirection = facingDirection;
+        vision.SetAngle(facingDirection);
+
+        awareDistance = gameConfigData.policeAwareDistance;
+        lookAroundDuration = gameConfigData.policeLookAroundDuration;
     }
 
     private void Update()
     {
-        if (isChasingPlayer)
+        if (isAlert)
         {
-            transform.up = (transform.position - player.transform.position);
-
-            Vector3 velocity = (player.transform.position - transform.position).normalized;
-            velocity *= policeSpeed;
-            policeRigidbody.velocity = velocity;
+            if (IsAgentReachedDestination())
+            {
+                SetNormal();
+                LookAround();
+            }
         }
+        if (agent.velocity.magnitude > 0.01f)
+        {
+            facingDirection = agent.velocity.normalized;
+            Vector3 crossProduct = Vector3.Cross(previousVelocity.normalized, agent.velocity.normalized);
+            if (Mathf.Abs(crossProduct.z) > 0.01f)
+                isTurningLeft = crossProduct.z > 0;
+            previousVelocity = agent.velocity;
+            Debug.Log(isTurningLeft);
+        }
+        vision.SetAngle(facingDirection);
+        Debug.DrawLine(transform.position, agent.steeringTarget);
     }
 
     private void OnDestroy()
     {
         gameManager.onPlayerDied.RemoveListener(ResetState);
-
-        rhythmManager.onLightsOff.RemoveListener(SetPoliceBlind);
-        rhythmManager.onLightsOn.RemoveListener(SetPoliceSighted);
-
-        player.onPlayerFired.RemoveListener(CheckCatchPlayer);
+        rhythmManager.onLightsOff.RemoveListener(SetBlind);
+        rhythmManager.onLightsOn.RemoveListener(SetSighted);
+        player.onPlayerAlert.RemoveListener(HeardPlayer);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,32 +94,70 @@ public class Police : MonoBehaviour
         }
     }
 
-    public void SetPoliceBlind()
+    public void SetBlind()
     {
-        alertSector.SetActive(false);
+        vision.SetBlind();
     }
 
-    public void SetPoliceSighted()
+    public void SetSighted()
     {
-        alertSector.SetActive(true);
+        vision.SetSighted();
     }
 
-    public void SetPoliceDeaf()
+    public void HeardPlayer()
     {
-        isDeaf = true;
+        if ((player.transform.position - transform.position).magnitude <= awareDistance)
+            SetAlert();
     }
 
-    public void SetPoliceHearable()
+    public void SetAlert()
     {
-        isDeaf = false;
+        ClearAgentState();
+        agent.SetDestination(player.transform.position);
+        isAlert = true;
+        vision.SetAlert();
     }
 
-    public void CheckCatchPlayer()
+    public void SetNormal()
     {
-        if (!isDeaf)
+        ClearAgentState();
+        isAlert = false;
+        vision.SetNormal();
+    }
+
+    public void ClearAgentState()
+    {
+        lookAroundTween?.Kill(complete: true);
+        agent.isStopped = true;
+        agent.ResetPath();
+    }
+
+    private bool IsAgentReachedDestination()
+    {
+        if (!agent.pathPending)
         {
-            isChasingPlayer = true;
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                {
+                    return true;
+                }
+            }
         }
+        return false;
+    }
+
+    private void LookAround()
+    {
+        float angle = MathUtils.GetAngleFromVector(facingDirection);
+        float delta = isTurningLeft ? 360 : -360;
+        lookAroundTween = DOTween.To(UpdateFacingDirectionFromFloat, angle, angle + delta, lookAroundDuration)
+            .SetEase(Ease.InOutCubic);
+    }
+
+    private void UpdateFacingDirectionFromFloat(float degree)
+    {
+        facingDirection = MathUtils.GetVectorFromAngle(degree);
     }
 
     public void Killed()
@@ -105,9 +168,22 @@ public class Police : MonoBehaviour
 
     public void ResetState()
     {
-        isChasingPlayer = false;
-        policeRigidbody.velocity = Vector3.zero;
+        SetNormal();
+        lookAroundTween?.Kill(complete: true);
+        agent.Warp(initialPosition);
         transform.up = Vector3.up;
+
         transform.position = initialPosition;
+        facingDirection = initialFacingDirection;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        float radius = 5f;
+        FieldOfView v = GetComponentInChildren<FieldOfView>();
+        GizmosExtensions.DrawWireArc(v.transform.position, facingDirection, v.viewAngle, radius);
+    }
+#endif
 }

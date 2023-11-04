@@ -12,6 +12,7 @@ TagManager:
   - Player
   - Water
   - UI
+  - Wall
   - Bullet
   - 
   - 
@@ -37,8 +38,10 @@ TagManager:
   - 
   - 
   - 
-  - 
   m_SortingLayers:
+  - name: test
+    uniqueID: 2309640963
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

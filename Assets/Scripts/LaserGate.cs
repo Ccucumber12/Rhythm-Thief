@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 public class LaserGate : MonoBehaviour
 {
-    public float openTweenDuration;
-    public float closeTweenDuration;
+    [Required]
+    public GameConfigData gameConfigData;
+
+    private float openTweenDuration;
+    private float closeTweenDuration;
 
     private GameManager gameManager;
     private RhythmManager rhythmManager;
@@ -36,8 +40,10 @@ public class LaserGate : MonoBehaviour
         rhythmManager.onGateClose.AddListener(SetGateClosed);
         rhythmManager.onGateOpen.AddListener(SetGateOpened);
 
+        openTweenDuration = gameConfigData.laserGateOpenTweenDuration;
+        closeTweenDuration = gameConfigData.laserGateCloseTweenDuration;
+
         SetGateClosed();
-        //StartCoroutine(TestAnimation());
     }
 
     private void OnDestroy()
@@ -51,17 +57,6 @@ public class LaserGate : MonoBehaviour
         if (collision.tag == "Player")
         {
             gameManager.onPlayerDied.Invoke();
-        }
-    }
-
-    private IEnumerator TestAnimation()
-    {
-        while(true)
-        {
-            yield return new WaitForSeconds(3);
-            SetGateOpened();
-            yield return new WaitForSeconds(3);
-            SetGateClosed();
         }
     }
 
