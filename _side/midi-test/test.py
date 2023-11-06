@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 import json
 
 
-mid = MidiFile('./MultiTrackSMP.mid')
+mid = MidiFile('./stage1.mid')
 assert len([msg for msg in mid if msg.type == 'set_tempo']) == 1
 midi_tempo = [msg for msg in mid if msg.type == 'set_tempo'][0].dict()['tempo']
 ticks_per_beat = mid.ticks_per_beat
@@ -166,15 +166,15 @@ def test():
 def main():
     tracks = {track.name: track for track in mid.tracks}
 
-    width_per_second = 256
+    width_per_second = 128
     emoji_size = 64
 
-    sheet = SheetRendering(width_per_second, emoji_size, 5, full_length)
+    sheet = SheetRendering(width_per_second, emoji_size, 4, full_length)
     sheet.draw_track_single(0, tracks['move'], Image.open('images/emoji_u1f3c3.png').resize((emoji_size, emoji_size)))
-    sheet.draw_track_duration_two_track(1, tracks['light_on'], tracks['light_off'], Image.open('images/emoji_u1f4a1.png').resize((emoji_size, emoji_size)))
-    sheet.draw_track_duration_two_track(2, tracks['door_open'], tracks['door_close'], Image.open('images/emoji_u1f6aa.png').resize((emoji_size, emoji_size)))
-    sheet.draw_track_duration_two_track(3, tracks['bell_on'], tracks['bell_off'], Image.open('images/emoji_u1f514.png').resize((emoji_size, emoji_size)))
-    sheet.draw_track_single(4, tracks['gun'], Image.open('images/emoji_u1f4a5.png').resize((emoji_size, emoji_size)))
+    sheet.draw_track_duration_two_track(1, tracks['lightsOff'], tracks['lightsOn'], Image.open('images/emoji_u1f4a1.png').resize((emoji_size, emoji_size)))
+    sheet.draw_track_duration_two_track(2, tracks['gateOpen'], tracks['gateClose'], Image.open('images/emoji_u1f6aa.png').resize((emoji_size, emoji_size)))
+    sheet.draw_track_duration_two_track(3, tracks['bellRing'], tracks['bellStop'], Image.open('images/emoji_u1f514.png').resize((emoji_size, emoji_size)))
+    #sheet.draw_track_single(4, tracks['gun'], Image.open('images/emoji_u1f4a5.png').resize((emoji_size, emoji_size)))
     sheet.draw_measure_bar()
     sheet.output_background('background.png')
     sheet.output_sheet('sheet.png', 'output.json')
