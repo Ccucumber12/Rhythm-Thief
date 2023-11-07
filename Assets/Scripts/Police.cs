@@ -94,7 +94,7 @@ public class Police : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            gameManager.onPlayerDied.Invoke();
+            gameManager.PlayerDied();
         }
     }
 

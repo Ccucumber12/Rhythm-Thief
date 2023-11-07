@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,12 +22,14 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
-        onPlayerDied.Invoke();
+        //onPlayerDied.Invoke();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void PlayerSucceeded()
     {
-        onPlayerSucceeded.Invoke();
+        //onPlayerSucceeded.Invoke();
+        SceneManager.LoadScene("Win");
     }
 
     [System.Serializable]

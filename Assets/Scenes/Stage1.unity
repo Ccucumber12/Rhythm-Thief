@@ -9487,7 +9487,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 258525997713518087, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
       propertyPath: StartX
-      value: 300
+      value: 415
       objectReference: {fileID: 0}
     - target: {fileID: 258525997713518087, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
       propertyPath: PixelPerSecond
@@ -9499,7 +9499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6859589828851606161, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
       propertyPath: m_UiScaleMode
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859589828851606161, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6859589828851606161, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
       propertyPath: m_ReferenceResolution.x
@@ -9595,7 +9599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8629190980687415396, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
       propertyPath: StartX
-      value: 5946
+      value: 6061
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
@@ -92478,7 +92482,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.01
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -97786,7 +97790,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.11666667
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: 640575c550e4f4f059aa1d58f4aa4024, type: 2}
@@ -126932,6 +126936,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 84029532326050464, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 84029532326050465, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: fireCoolDown
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 84029532326050465, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}

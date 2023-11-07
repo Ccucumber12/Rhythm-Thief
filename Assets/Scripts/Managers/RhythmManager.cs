@@ -45,8 +45,33 @@ public class RhythmManager : MonoBehaviour
 
     private void Update()
     {
-        timestamps.UpdateIndex(music.time, tolerance);
-        CheckEventInvoke();
+        float time = music.time;
+        if (time > timestamps.GetMoveTimestamp())
+            timestamps.moveIndex += 1;
+        if (time > timestamps.GetBellRingTimestamp())
+            timestamps.bellRingIndex += 1;
+        if (time > timestamps.GetBellStopTimestamp())
+            timestamps.bellStopIndex += 1;
+        if (time > timestamps.GetLightsOffTimestamp())
+        {
+            timestamps.lightsOffIndex += 1;
+            onLightsOff.Invoke();
+        }
+        if (time > timestamps.GetLightsOnTimestamp())
+        {
+            timestamps.lightsOnIndex += 1;
+            onLightsOn.Invoke();
+        }
+        if (time > timestamps.GetGateCloseTimestamp())
+        {
+            timestamps.gateCloseIndex += 1;
+            onGateClose.Invoke();
+        }
+        if (time > timestamps.GetGateOpenTimestamp())
+        {
+            timestamps.gateOpenIndex += 1;
+            onGateOpen.Invoke();
+        }
 
         if (SheetObject != null) {
             SheetObject.GetComponentInChildren<SheetControl>().UpdateUsingMusicTime(music.time);
@@ -57,7 +82,12 @@ public class RhythmManager : MonoBehaviour
 
     public bool CheckMove()
     {
-        return Mathf.Abs(Time.time - timestamps.GetMoveTimestamp()) < tolerance;
+        float time = music.time;
+        if (timestamps.moveIndex == 0)
+            return Mathf.Abs(time - timestamps.timestamp.move[0]) <= tolerance;
+        float delta1 = Mathf.Abs(time - timestamps.timestamp.move[timestamps.moveIndex - 1]);
+        float delta2 = Mathf.Abs(time - timestamps.GetMoveTimestamp());
+        return Mathf.Min(delta1, delta2) <= tolerance;
     }
 
     public bool IsBellRinging()
@@ -69,62 +99,6 @@ public class RhythmManager : MonoBehaviour
     {
         music.clip = musicData.audioClip;
         timestamps.timestamp = JsonUtility.FromJson<Timestamp>(musicData.timestamp.text);
-    }
-
-    private void CheckEventInvoke()
-    {
-        float time = music.time;
-        if (time >= timestamps.GetLightsOffTimestamp())
-        {
-            if (!isLightsOffTriggered)
-            {
-                onLightsOff.Invoke();
-                isLightsOffTriggered = true;
-            }
-        }
-        else
-        {
-            isLightsOffTriggered = false;
-        }
-
-        if (time >= timestamps.GetLightsOnTimestamp())
-        {
-            if (!isLightsOnTriggered)
-            {
-                onLightsOn.Invoke();
-                isLightsOnTriggered = true;
-            }
-        }
-        else
-        {
-            isLightsOnTriggered = false;
-        }
-
-        if (time >= timestamps.GetGateOpenTimestamp())
-        {
-            if (!isGateOpenTriggered)
-            {
-                onGateOpen.Invoke();
-                isGateOpenTriggered = true;
-            }
-        }
-        else
-        {
-            isGateOpenTriggered = false;
-        }
-
-        if (time >= timestamps.GetGateCloseTimestamp())
-        {
-            if (!isGateCloseTriggered)
-            {
-                onGateClose.Invoke();
-                isGateCloseTriggered = true;
-            }
-        }
-        else
-        {
-            isGateCloseTriggered = false;
-        }
     }
 
     [System.Serializable]
@@ -156,31 +130,13 @@ public class TimestampManager
 {
     public Timestamp timestamp;
 
-    private int moveIndex;
-    private int bellRingIndex;
-    private int bellStopIndex;
-    private int lightsOffIndex;
-    private int lightsOnIndex;
-    private int gateOpenIndex;
-    private int gateCloseIndex;
-
-    public void UpdateIndex(float time, float tolerance)
-    {
-        if (time - GetMoveTimestamp() > tolerance)
-            moveIndex += 1;
-        if (time - GetBellRingTimestamp() > tolerance)
-            bellRingIndex += 1;
-        if (time - GetBellStopTimestamp() > tolerance)
-            bellStopIndex += 1;
-        if (time - GetLightsOffTimestamp() > tolerance)
-            lightsOffIndex += 1;
-        if (time - GetLightsOnTimestamp() > tolerance)
-            lightsOnIndex += 1;
-        if (time - GetGateCloseTimestamp() > tolerance)
-            gateCloseIndex += 1;
-        if (time - GetGateOpenTimestamp() > tolerance)
-            gateOpenIndex += 1;
-    }
+    public int moveIndex;
+    public int bellRingIndex;
+    public int bellStopIndex;
+    public int lightsOffIndex;
+    public int lightsOnIndex;
+    public int gateOpenIndex;
+    public int gateCloseIndex;
 
     public float GetMoveTimestamp()
     {
