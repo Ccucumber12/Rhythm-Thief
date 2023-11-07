@@ -11,6 +11,8 @@ public class RhythmManager : MonoBehaviour
     public StageMusicData musicData;
     public float tolerance;
 
+    public GameObject SheetObject;
+
     [Header("Events")]
     public OnLightOnEvent onLightsOn;
     public OnLightOffEvent onLightsOff;
@@ -45,6 +47,12 @@ public class RhythmManager : MonoBehaviour
     {
         timestamps.UpdateIndex(music.time, tolerance);
         CheckEventInvoke();
+
+        if (SheetObject != null) {
+            SheetObject.GetComponentInChildren<Sheet>().UpdateUsingMusicTime(music.time);
+        } else {
+            Debug.LogWarning("SheetObject is not set in RhythmManager.");
+        }
     }
 
     public bool CheckMove()
@@ -155,7 +163,7 @@ public class TimestampManager
     private int lightsOnIndex;
     private int gateOpenIndex;
     private int gateCloseIndex;
-    
+
     public void UpdateIndex(float time, float tolerance)
     {
         if (time - GetMoveTimestamp() > tolerance)
