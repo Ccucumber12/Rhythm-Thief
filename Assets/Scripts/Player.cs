@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     [Header("Basic")]
     [SerializeField] private Vector2 facingDirection;
     [SerializeField] private float playerSpeed;
-    [SerializeField] private float inputCoolDown;
+    [SerializeField] private float inputFailedCoolDown;
     [SerializeField] private LayerMask wallLayer;
 
     [Header("Fire")]
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     private GameObject playerSprite;
 
     private Vector3 playerSpawnPosition;
-    private float lastInputTime;
+    private float lastInputFailedTime;
     private float lastFireTime;
     private Tween moveTween;
     private Animator animator;
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         gameManager.onPlayerSucceeded.AddListener(RespawnPlayer);
 
         playerSpawnPosition = transform.position;
-        lastInputTime = -inputCoolDown;
+        lastInputFailedTime = -inputFailedCoolDown;
         lastFireTime = -fireCoolDown;
     }
 
@@ -97,9 +97,8 @@ public class Player : MonoBehaviour
 
     private void TryMove(Vector2 direction)
     {
-        if (Time.time < lastInputTime + inputCoolDown)
+        if (Time.time < lastInputFailedTime + inputFailedCoolDown)
             return;
-        lastInputTime = Time.time;
         animator.SetFloat("X", direction[0]);
         animator.SetFloat("Y", direction[1]);
         if (rhythmManager.CheckMove() || true) // TODO
@@ -107,10 +106,10 @@ public class Player : MonoBehaviour
             facingDirection = direction;
             Vector3 newPosition = transform.position + MathUtils.GetVector3FromVector2(direction);
             Collider2D cols = Physics2D.OverlapCircle(newPosition, 0.1f, wallLayer);
-            animator.SetBool("Walking", true);
             if (cols == null)
             {
                 // move success
+                animator.SetBool("Walking", true);
                 moveTween?.Kill(complete: true);
                 moveTween = transform.DOMove(newPosition, 0.1f).OnComplete(AnimationStop);
                 UpdateSpriteDirection();
@@ -119,6 +118,10 @@ public class Player : MonoBehaviour
             {
                 // Bumped into wall
             }
+        }
+        else
+        {
+            lastInputFailedTime = Time.time;
         }
     }
 
@@ -142,7 +145,7 @@ public class Player : MonoBehaviour
     public void RespawnPlayer()
     {
         // Temporary method
-        moveTween?.Kill();
+        moveTween?.Kill(complete: true);
         transform.position = playerSpawnPosition;
     }
 

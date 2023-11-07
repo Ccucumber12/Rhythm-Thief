@@ -19,6 +19,7 @@ public class Police : MonoBehaviour
     private Vector2 initialFacingDirection;
     private bool isAlert;
     private float awareDistance;
+    private bool isKilled;
 
     private Vector3 previousVelocity;
     private bool isTurningLeft;
@@ -58,6 +59,8 @@ public class Police : MonoBehaviour
 
     private void Update()
     {
+        if (isKilled)
+            return;
         if (isAlert)
         {
             if (IsAgentReachedDestination())
@@ -163,19 +166,17 @@ public class Police : MonoBehaviour
 
     public void Killed()
     {
-        ResetState();
-        transform.position = new Vector3(0, 0, -100);
+        SetNormal();
+        isKilled = true;
+        agent.Warp(new Vector3(0, 0, -100));
     }
 
     public void ResetState()
     {
-        SetNormal();
-        lookAroundTween?.Kill(complete: true);
         agent.Warp(initialPosition);
-        transform.up = Vector3.up;
-
-        transform.position = initialPosition;
+        SetNormal();
         facingDirection = initialFacingDirection;
+        isKilled = false;
     }
 
 #if UNITY_EDITOR
