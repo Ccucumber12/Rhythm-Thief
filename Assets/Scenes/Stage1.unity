@@ -9487,11 +9487,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 258525997713518087, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
       propertyPath: StartX
-      value: 500
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 258525997713518087, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
+      propertyPath: PixelPerSecond
+      value: 61.37217
       objectReference: {fileID: 0}
     - target: {fileID: 2857607866861630296, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859589828851606161, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859589828851606161, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 6859589828851606162, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
       propertyPath: m_Name
