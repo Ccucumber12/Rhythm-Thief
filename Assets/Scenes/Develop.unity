@@ -5662,34 +5662,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 258525997713518087, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
-      propertyPath: PixelPerSecond
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 258525997713518087, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
-      propertyPath: CountDownBeforeStart
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 655037183217735221, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 23526
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072434033505129317, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 3c11bce1386f946e984b2fd7a22e8e45, type: 3}
-    - target: {fileID: 2857607866861630296, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 23526
-      objectReference: {fileID: 0}
-    - target: {fileID: 5960333594756613006, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 0f68b5dbf552a46719a3058d2a35e25e, type: 3}
-    - target: {fileID: 5960333594756613006, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
-      propertyPath: m_UseSpriteMesh
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6859589828851606162, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
       propertyPath: m_Name
       value: sheet
@@ -6328,7 +6300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicData: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
   tolerance: 0.1
-  SheetObject: {fileID: 0}
+  SheetObject: {fileID: 1564113636}
   onLightsOn:
     m_PersistentCalls:
       m_Calls: []
@@ -9763,6 +9735,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1564113636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6859589829184283456, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
+  m_PrefabInstance: {fileID: 772110776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1568308895
 GameObject:
   m_ObjectHideFlags: 0
