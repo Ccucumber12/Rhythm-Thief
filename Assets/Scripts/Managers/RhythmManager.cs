@@ -49,7 +49,7 @@ public class RhythmManager : MonoBehaviour
         CheckEventInvoke();
 
         if (SheetObject != null) {
-            SheetObject.GetComponentInChildren<Sheet>().UpdateUsingMusicTime(music.time);
+            SheetObject.GetComponentInChildren<SheetControl>().UpdateUsingMusicTime(music.time);
         } else {
             Debug.LogWarning("SheetObject is not set in RhythmManager.");
         }
