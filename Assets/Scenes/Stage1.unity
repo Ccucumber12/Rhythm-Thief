@@ -7778,6 +7778,11 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
+--- !u!1 &140042744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4276902179804192384, guid: 8f751424dc263f7a9a6e92653e96be6d, type: 3}
+  m_PrefabInstance: {fileID: 8102045348373293221}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &199570424
 GameObject:
   m_ObjectHideFlags: 0
@@ -8769,11 +8774,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8018982227097804668, guid: 4b0ff560eb98b044481433bc7ba5bcad, type: 3}
   m_PrefabInstance: {fileID: 212775328}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &493219532 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6859589828851606162, guid: 019b4d5a8e212709a8e5478bdf1d58f5, type: 3}
-  m_PrefabInstance: {fileID: 947916480}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &512391319
 PrefabInstance:
@@ -92505,7 +92505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicData: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
   tolerance: 0.2
-  SheetObject: {fileID: 493219532}
+  SheetObject: {fileID: 140042744}
   onLightsOn:
     m_PersistentCalls:
       m_Calls: []

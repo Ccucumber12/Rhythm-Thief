@@ -74,7 +74,7 @@ public class RhythmManager : MonoBehaviour
         }
 
         if (SheetObject != null) {
-            SheetObject.GetComponentInChildren<SheetControl>().UpdateUsingMusicTime(music.time);
+            SheetObject.GetComponentInChildren<Sheet20>().UpdateUsingMusicTime(music.time);
         } else {
             Debug.LogWarning("SheetObject is not set in RhythmManager.");
         }
