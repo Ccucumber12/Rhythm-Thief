@@ -46,30 +46,30 @@ public class RhythmManager : MonoBehaviour
     private void Update()
     {
         float time = music.time;
-        if (time > timestamps.GetMoveTimestamp())
-            timestamps.moveIndex += 1;
-        if (time > timestamps.GetBellRingTimestamp())
-            timestamps.bellRingIndex += 1;
-        if (time > timestamps.GetBellStopTimestamp())
-            timestamps.bellStopIndex += 1;
-        if (time > timestamps.GetLightsOffTimestamp())
+        if (time > timestamps.GetNextMoveTimestamp())
+            timestamps.IncrMoveIndex();
+        if (time > timestamps.GetNextBellRingTimestamp())
+            timestamps.IncrBellRingIndex();
+        if (time > timestamps.GetNextBellStopTimestamp())
+            timestamps.IncrBellStopIndex();
+        if (time > timestamps.GetNextLightsOffTimestamp())
         {
-            timestamps.lightsOffIndex += 1;
+            timestamps.IncrLightsOffIndex();
             onLightsOff.Invoke();
         }
-        if (time > timestamps.GetLightsOnTimestamp())
+        if (time > timestamps.GetNextLightsOnTimestamp())
         {
-            timestamps.lightsOnIndex += 1;
+            timestamps.IncrLightsOnIndex();
             onLightsOn.Invoke();
         }
-        if (time > timestamps.GetGateCloseTimestamp())
+        if (time > timestamps.GetNextGateCloseTimestamp())
         {
-            timestamps.gateCloseIndex += 1;
+            timestamps.IncrGateCloseIndex();
             onGateClose.Invoke();
         }
-        if (time > timestamps.GetGateOpenTimestamp())
+        if (time > timestamps.GetNextGateOpenTimestamp())
         {
-            timestamps.gateOpenIndex += 1;
+            timestamps.IncrGateOpenIndex();
             onGateOpen.Invoke();
         }
 
@@ -83,22 +83,20 @@ public class RhythmManager : MonoBehaviour
     public bool CheckMove()
     {
         float time = music.time;
-        if (timestamps.moveIndex == 0)
-            return Mathf.Abs(time - timestamps.timestamp.move[0]) <= tolerance;
-        float delta1 = Mathf.Abs(time - timestamps.timestamp.move[timestamps.moveIndex - 1]);
-        float delta2 = Mathf.Abs(time - timestamps.GetMoveTimestamp());
+        float delta1 = Mathf.Abs(time - timestamps.GetPrevMoveTimestamp());
+        float delta2 = Mathf.Abs(time - timestamps.GetNextMoveTimestamp());
         return Mathf.Min(delta1, delta2) <= tolerance;
     }
 
     public bool IsBellRinging()
     {
-        return timestamps.GetBellRingTimestamp() > timestamps.GetBellStopTimestamp();
+        return timestamps.GetNextBellRingTimestamp() > timestamps.GetNextBellStopTimestamp();
     }
 
     private void ParseMusicData()
     {
         music.clip = musicData.audioClip;
-        timestamps.timestamp = JsonUtility.FromJson<Timestamp>(musicData.timestamp.text);
+        timestamps.ParseFromJSON(musicData.timestamp.text);
     }
 
     [System.Serializable]
@@ -112,64 +110,4 @@ public class RhythmManager : MonoBehaviour
 
     [System.Serializable]
     public class OnLightOnEvent : UnityEvent { }
-}
-
-[System.Serializable]
-public class Timestamp
-{
-    public List<float> move;
-    public List<float> bellRing;
-    public List<float> bellStop;
-    public List<float> lightsOff;
-    public List<float> lightsOn;
-    public List<float> gateOpen;
-    public List<float> gateClose;
-}
-
-public class TimestampManager
-{
-    public Timestamp timestamp;
-
-    public int moveIndex;
-    public int bellRingIndex;
-    public int bellStopIndex;
-    public int lightsOffIndex;
-    public int lightsOnIndex;
-    public int gateOpenIndex;
-    public int gateCloseIndex;
-
-    public float GetMoveTimestamp()
-    {
-        return moveIndex < timestamp.move.Count ? timestamp.move[moveIndex] : Mathf.Infinity;
-    }
-
-    public float GetBellRingTimestamp()
-    {
-        return bellRingIndex < timestamp.bellRing.Count ? timestamp.bellRing[bellRingIndex] : Mathf.Infinity;
-    }
-
-    public float GetBellStopTimestamp()
-    {
-        return bellStopIndex < timestamp.bellStop.Count ? timestamp.bellStop[bellStopIndex] : Mathf.Infinity;
-    }
-
-    public float GetLightsOffTimestamp()
-    {
-        return lightsOffIndex < timestamp.lightsOff.Count ? timestamp.lightsOff[lightsOffIndex] : Mathf.Infinity;
-    }
-
-    public float GetLightsOnTimestamp()
-    {
-        return lightsOnIndex < timestamp.lightsOn.Count ? timestamp.lightsOn[lightsOnIndex] : Mathf.Infinity;
-    }
-
-    public float GetGateOpenTimestamp()
-    {
-        return gateOpenIndex < timestamp.gateOpen.Count ? timestamp.gateOpen[gateOpenIndex] : Mathf.Infinity;
-    }
-
-    public float GetGateCloseTimestamp()
-    {
-        return gateCloseIndex < timestamp.gateClose.Count ? timestamp.gateClose[gateCloseIndex] : Mathf.Infinity;
-    }
 }
