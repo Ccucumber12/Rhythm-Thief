@@ -266,6 +266,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b981ada84ac8f29cb904017045122d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PrefabMoveIcon: {fileID: 5013870824570862531, guid: bf115444601b23c2cbc0af13e2886862, type: 3}
+  PrefabDoorIcon: {fileID: 620075812079453976, guid: 31244f7fea87d205b9e46d32118b6532, type: 3}
+  PrefabGunIcon: {fileID: 6041432374677739461, guid: 6b2e98b9ab2584e61a8776d6717ca9e4, type: 3}
+  PrefabLightIcon: {fileID: 2185890006307990035, guid: a3f4072b91458d320bbe0c6fb7e1602d, type: 3}
+  PrefabBellIcon: {fileID: 89760316833185168, guid: 032463d0a1ab73471a644cb0a37d13fd, type: 3}
+  PrefabDiscoIcon: {fileID: 0}
+  musicData: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
 --- !u!1 &9040141484433997096
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,11 +5,12 @@ using UnityEngine;
 public class Sheet20 : MonoBehaviour {
     [SerializeField] private GameObject PrefabMoveIcon;
     [SerializeField] private GameObject PrefabDoorIcon;
+    [SerializeField] private GameObject PrefabGunIcon;
     [SerializeField] private GameObject PrefabLightIcon;
     [SerializeField] private GameObject PrefabBellIcon;
-    [SerializeField] private GameObject PrefabDiscoIcon;
+    // [SerializeField] private GameObject PrefabDiscoIcon; // TODO
 
-
+    [SerializeField] private StageMusicData musicData;
 
     // Start is called before the first frame update
     void Start() {
