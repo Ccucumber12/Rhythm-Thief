@@ -24,7 +24,7 @@ public class Timestamp
 
 public class TimestampManager
 {
-    public Timestamp timestamp;
+    private Timestamp timestamp;
 
     private int moveIndex = 0;
     private int bellRingIndex = 0;
