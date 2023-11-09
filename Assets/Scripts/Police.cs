@@ -26,11 +26,13 @@ public class Police : MonoBehaviour
 
     private Tween lookAroundTween;
     private float lookAroundDuration;
+    private Animator animator;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         vision = GetComponentInChildren<FieldOfView>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -76,8 +78,15 @@ public class Police : MonoBehaviour
             if (Mathf.Abs(crossProduct.z) > 0.01f)
                 isTurningLeft = crossProduct.z > 0;
             previousVelocity = agent.velocity;
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            animator.SetBool("Walk", false);
         }
         vision.SetAngle(facingDirection);
+        animator.SetFloat("X", facingDirection[0]);
+        animator.SetFloat("Y", facingDirection[1]);
         Debug.DrawLine(transform.position, agent.steeringTarget);
     }
 
