@@ -30,12 +30,12 @@ public class Sheet20 : MonoBehaviour {
 
         timeManager.ParseFromJSON(musicData.timestamp.text);
         trackSingle = new [] {
-            new SheetTrackSingle(0, PrefabMoveIcon, pixelPerSecond, fullWidth, timeManager.IncrMoveIndex, timeManager.GetNextMoveTimestamp),
+            new SheetTrackSingle(3, PrefabMoveIcon, pixelPerSecond, fullWidth, timeManager.IncrMoveIndex, timeManager.GetNextMoveTimestamp),
         };
         trackDuration = new [] {
-            new SheetTrackDuration(1, PrefabDoorIcon, PrefabDurationIndicator, pixelPerSecond, fullWidth, timeManager.IncrGateOpenIndex, timeManager.GetNextGateOpenTimestamp, timeManager.IncrGateCloseIndex, timeManager.GetNextGateCloseTimestamp),
-            new SheetTrackDuration(2, PrefabLightIcon, PrefabDurationIndicator, pixelPerSecond, fullWidth, timeManager.IncrLightsOffIndex, timeManager.GetNextLightsOffTimestamp, timeManager.IncrLightsOnIndex, timeManager.GetNextLightsOnTimestamp),
-            new SheetTrackDuration(3, PrefabBellIcon, PrefabDurationIndicator, pixelPerSecond, fullWidth, timeManager.IncrBellRingIndex, timeManager.GetNextBellRingTimestamp, timeManager.IncrBellStopIndex, timeManager.GetNextBellStopTimestamp),
+            new SheetTrackDuration(2, PrefabDoorIcon, PrefabDurationIndicator, pixelPerSecond, fullWidth, timeManager.IncrGateOpenIndex, timeManager.GetNextGateOpenTimestamp, timeManager.IncrGateCloseIndex, timeManager.GetNextGateCloseTimestamp),
+            new SheetTrackDuration(1, PrefabLightIcon, PrefabDurationIndicator, pixelPerSecond, fullWidth, timeManager.IncrLightsOffIndex, timeManager.GetNextLightsOffTimestamp, timeManager.IncrLightsOnIndex, timeManager.GetNextLightsOnTimestamp),
+            new SheetTrackDuration(0, PrefabBellIcon, PrefabDurationIndicator, pixelPerSecond, fullWidth, timeManager.IncrBellRingIndex, timeManager.GetNextBellRingTimestamp, timeManager.IncrBellStopIndex, timeManager.GetNextBellStopTimestamp),
         };
 
         int numOfTrack = trackSingle.Length + trackDuration.Length;
