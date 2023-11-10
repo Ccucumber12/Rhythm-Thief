@@ -274,6 +274,7 @@ MonoBehaviour:
   PrefabLightIcon: {fileID: 2185890006307990035, guid: a3f4072b91458d320bbe0c6fb7e1602d, type: 3}
   PrefabBellIcon: {fileID: 89760316833185168, guid: 032463d0a1ab73471a644cb0a37d13fd, type: 3}
   PrefabTrackLine: {fileID: 7722382903654171406, guid: dd6543685bc0a637dbf2bed428f09b97, type: 3}
+  PrefabDurationIndicator: {fileID: 2736498569705795941, guid: 51fc3197df68d930b9bfa54bd3276771, type: 3}
   musicData: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
 --- !u!1 &9040141484433997096
 GameObject:
