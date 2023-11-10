@@ -58,35 +58,18 @@ public class Sheet20 : MonoBehaviour {
 }
 
 
-public class SheetTrackSingle {
-    private int sheetIndex;
-    private GameObject prefab;
-    private GameObject trackLine;
-    private float pixelPerSecond;
-    private float trackWidth;
-    private float trackHeight;
-    private float iconSize;
+public abstract class SheetTrackBase {
+    protected int sheetIndex;
+    protected float pixelPerSecond;
+    protected float iconSize;
+    protected float trackWidth;
+    protected float trackHeight;
+    protected GameObject trackLine;
 
-    public delegate void FuncIncr();
-    public delegate float FuncGetNextTime();
+    protected float sheetLeftTime {get {return - trackWidth / pixelPerSecond / 2;}}
+    protected float sheetRightTime {get {return trackWidth / pixelPerSecond / 2;}}
 
-    public FuncIncr funcIncr;
-    public FuncGetNextTime funcGetNextTime;
-
-    private List<GameObject> instances = new List<GameObject>();
-    private List<float> instancesTimestamp = new List<float>();
-
-    private float sheetLeftTime {get {return - trackWidth / pixelPerSecond / 2;}}
-    private float sheetRightTime {get {return trackWidth / pixelPerSecond / 2;}}
-
-    public SheetTrackSingle(int sheetIndex, GameObject prefab, float pixelPerSecond, float trackWidth, FuncIncr funcIncr, FuncGetNextTime funcGetNextTime) {
-        this.sheetIndex = sheetIndex;
-        this.prefab = prefab;
-        this.pixelPerSecond = pixelPerSecond;
-        this.trackWidth = trackWidth;
-        this.funcIncr = funcIncr;
-        this.funcGetNextTime = funcGetNextTime;
-    }
+    private List<SheetObject> sheetObjects = new List<SheetObject>();
 
     public void setTrackHeightAndDrawTrackLine(float trackHeight, float iconSize, GameObject prefabTrackLine, Transform parentTransform) {
         this.trackHeight = trackHeight;
@@ -100,38 +83,87 @@ public class SheetTrackSingle {
         tf.offsetMax = new Vector2(0, tf.offsetMax.y);
     }
 
+    protected abstract SheetObject getNewObject(float musicTime);
+    protected abstract void updateObject(float musicTime, SheetObject sheetObject);
+    protected abstract bool shouldRemoveObject(float musicTime, SheetObject sheetObject);
+
     public void UpdateUsingMusicTime(float musicTime) {
         // push new object into list
         while (true) {
-            if (funcGetNextTime() > musicTime + sheetRightTime) break;
-            Debug.Log("instantiate at time = " + funcGetNextTime());
-            GameObject obj = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity, trackLine.transform);
-            RectTransform tf = obj.GetComponent<RectTransform>();
-            tf.localPosition = new Vector3(sheetRightTime * pixelPerSecond, 0, 0);
-            tf.sizeDelta = new Vector2(iconSize, iconSize);
-            instances.Add(obj);
-            instancesTimestamp.Add(funcGetNextTime());
-            funcIncr();
+            SheetObject obj = getNewObject(musicTime);
+            if (obj == null) break;
+            sheetObjects.Add(obj);
         }
 
-        // update object position
-        for (int i = 0; i < instances.Count; ++i) {
-            GameObject obj = instances[i];
-            float time = instancesTimestamp[i];
-            RectTransform tf = obj.GetComponent<RectTransform>();
-            tf.localPosition = new Vector3((time - musicTime) * pixelPerSecond, 0, 0);
-        }
-
-        // remove object if out of sight
-        for (int i = instances.Count - 1; i >= 0; --i) {
-            GameObject obj = instances[i];
-            float time = instancesTimestamp[i];
-            if (time - musicTime < sheetLeftTime) {
-                Object.Destroy(obj);
-                instances.RemoveAt(i);
-                instancesTimestamp.RemoveAt(i);
+        // update and remove
+        for (int i = sheetObjects.Count - 1; i >= 0; --i) {
+            SheetObject obj = sheetObjects[i];
+            updateObject(musicTime, obj);
+            if (shouldRemoveObject(musicTime, obj)) {
+                obj.Destroy();
+                sheetObjects.RemoveAt(i);
             }
         }
+    }
+
+
+    protected class SheetObject {
+        private GameObject _gameObject;
+        public GameObject gameObject {get {return _gameObject;}}
+        private float _timestamp;
+        public float timestamp {get {return _timestamp;}}
+
+        public SheetObject(GameObject gameObject, float timestamp) {
+            this._gameObject = gameObject;
+            this._timestamp = timestamp;
+        }
+
+        public void Destroy() {
+            Object.Destroy(_gameObject);
+        }
+    }
+}
+
+
+public class SheetTrackSingle : SheetTrackBase {
+    private GameObject prefab;
+
+    public delegate void FuncIncr();
+    public delegate float FuncGetNextTime();
+    public FuncIncr funcIncr;
+    public FuncGetNextTime funcGetNextTime;
+
+    public SheetTrackSingle(int sheetIndex, GameObject prefab, float pixelPerSecond, float trackWidth, FuncIncr funcIncr, FuncGetNextTime funcGetNextTime) {
+        this.sheetIndex = sheetIndex;
+        this.prefab = prefab;
+        this.pixelPerSecond = pixelPerSecond;
+        this.trackWidth = trackWidth;
+        this.funcIncr = funcIncr;
+        this.funcGetNextTime = funcGetNextTime;
+    }
+
+    protected override SheetObject getNewObject(float musicTime) {
+        float objectTime = funcGetNextTime();
+        if (objectTime > musicTime + sheetRightTime) {
+            return null;
+        }
+
+        GameObject obj = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity, trackLine.transform);
+        RectTransform tf = obj.GetComponent<RectTransform>();
+        tf.localPosition = new Vector3(sheetRightTime * pixelPerSecond, 0, 0);
+        tf.sizeDelta = new Vector2(iconSize, iconSize);
+        funcIncr();
+
+        return new SheetObject(obj, objectTime);
+    }
+
+    protected override void updateObject(float musicTime, SheetObject sheetObject) {
+        RectTransform tf = sheetObject.gameObject.GetComponent<RectTransform>();
+        tf.localPosition = new Vector3((sheetObject.timestamp - musicTime) * pixelPerSecond, 0, 0);
+    }
+
+    protected override bool shouldRemoveObject(float musicTime, SheetObject sheetObject) {
+        return sheetObject.timestamp - musicTime < sheetLeftTime;
     }
 }
 
