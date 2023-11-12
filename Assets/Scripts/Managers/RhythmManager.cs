@@ -83,9 +83,21 @@ public class RhythmManager : MonoBehaviour
     public bool CheckMove()
     {
         float time = music.time;
-        float delta1 = Mathf.Abs(time - timestamps.GetPrevMoveTimestamp());
-        float delta2 = Mathf.Abs(time - timestamps.GetNextMoveTimestamp());
-        return Mathf.Min(delta1, delta2) <= tolerance;
+        float nextMoveTime = timestamps.GetNextMoveTimestamp();
+        float prevMoveTime = timestamps.GetPrevMoveTimestamp();
+        if (Mathf.Abs(time - prevMoveTime) <= tolerance)
+        {
+            timestamps.ResetNextMoveTimestamp(); // hitted
+            SheetObject.GetComponentInChildren<Sheet20>().HittedUsingHitTime(prevMoveTime);
+            return true;
+        }
+        else if (Mathf.Abs(time - nextMoveTime) <= tolerance)
+        {
+            timestamps.ResetNextMoveTimestamp(); // hitted
+            SheetObject.GetComponentInChildren<Sheet20>().HittedUsingHitTime(nextMoveTime);
+            return true;
+        }
+        return false;
     }
 
     public bool IsBellRinging()

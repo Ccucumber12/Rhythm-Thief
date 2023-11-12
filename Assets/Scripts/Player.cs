@@ -101,9 +101,9 @@ public class Player : MonoBehaviour
             return;
         animator.SetFloat("X", direction[0]);
         animator.SetFloat("Y", direction[1]);
-        if (rhythmManager.CheckMove() || true) // TODO
+        facingDirection = direction;
+        if (rhythmManager.CheckMove() || false) // TODO
         {
-            facingDirection = direction;
             Vector3 newPosition = transform.position + MathUtils.GetVector3FromVector2(direction);
             Collider2D cols = Physics2D.OverlapCircle(newPosition, 0.1f, wallLayer);
             if (cols == null)
