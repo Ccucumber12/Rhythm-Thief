@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using UnityEngine.AI;
 
 public class LaserGate : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class LaserGate : MonoBehaviour
 
     private SpriteMask mask;
     private BoxCollider2D boxCollider;
+    private NavMeshObstacle navMeshObstacle;
 
     private Vector3 maskLocalScale;
     private Vector2 boxColliderSize;
@@ -30,6 +32,10 @@ public class LaserGate : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         boxColliderSize = boxCollider.size;
         boxColliderOffset = boxCollider.offset;
+
+        navMeshObstacle = GetComponent<NavMeshObstacle>();
+        navMeshObstacle.size = MathUtils.GetVector3FromVector2(boxColliderSize) + new Vector3(0, 0, 1);
+        navMeshObstacle.center = boxColliderOffset;
     }
 
     private void Start()
@@ -63,8 +69,14 @@ public class LaserGate : MonoBehaviour
     public void SetGateClosed()
     {
         DOTween.To(() => mask.transform.localScale, x => mask.transform.localScale = x, maskLocalScale, openTweenDuration);
-        DOTween.To(() => boxCollider.size, x => boxCollider.size = x, boxColliderSize, openTweenDuration);
-        DOTween.To(() => boxCollider.offset, x => boxCollider.offset = x, boxColliderOffset, openTweenDuration);
+        DOTween.To(() => boxCollider.size, x => {
+            boxCollider.size = x;
+            navMeshObstacle.size = MathUtils.GetVector3FromVector2(x) + new Vector3(0, 0, 1);
+        }, boxColliderSize, openTweenDuration);
+        DOTween.To(() => boxCollider.offset, x => {
+            boxCollider.offset = x;
+            navMeshObstacle.center = x;
+        }, boxColliderOffset, openTweenDuration);
     }
 
     public void SetGateOpened()
@@ -77,7 +89,13 @@ public class LaserGate : MonoBehaviour
         size.y = 0;
         Vector2 offset = boxColliderOffset;
         offset.y += boxColliderSize.y / 2;
-        DOTween.To(() => boxCollider.size, x => boxCollider.size = x, size, openTweenDuration);
-        DOTween.To(() => boxCollider.offset, x => boxCollider.offset = x, offset, openTweenDuration);
+        DOTween.To(() => boxCollider.size, x => {
+            boxCollider.size = x;
+            navMeshObstacle.size = MathUtils.GetVector3FromVector2(x) + new Vector3(0, 0, 1);
+        }, size, openTweenDuration);
+        DOTween.To(() => boxCollider.offset, x => {
+            boxCollider.offset = x;
+            navMeshObstacle.center = x;
+        }, offset, openTweenDuration);
     }
 }

@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   facingDirection: {x: 1, y: 0}
   playerSpeed: 10
-  inputCoolDown: 0.3
+  inputFailedCoolDown: 0
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -244,8 +244,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84029532923677577}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.063, y: -0.318, z: 0}
-  m_LocalScale: {x: 2.21, y: 2.21, z: 2.21}
+  m_LocalPosition: {x: -0.005, y: 0.396, z: 0}
+  m_LocalScale: {x: 1.78, y: 1.78, z: 1.78}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 84029532326050479}

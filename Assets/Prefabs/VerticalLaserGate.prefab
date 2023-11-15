@@ -94,9 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4772177902188534417}
   - component: {fileID: 4772177902188534416}
-  - component: {fileID: 4772177902188534418}
   - component: {fileID: 4772177902188534419}
   - component: {fileID: 4772177902188534446}
+  - component: {fileID: 181623668}
   m_Layer: 0
   m_Name: VerticalLaserGate
   m_TagString: Untagged
@@ -111,7 +111,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4772177902188534447}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -147,22 +147,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 6.4942627}
   m_EdgeRadius: 0
---- !u!114 &4772177902188534418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4772177902188534447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!210 &4772177902188534419
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -187,6 +171,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameConfigData: {fileID: 11400000, guid: e32b1a0ee888dc948b6da16e06eb4fca, type: 2}
+--- !u!208 &181623668
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4772177902188534447}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.15, y: 3.2471316, z: 0.5}
+  m_MoveThreshold: 0
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0.9505768, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4772177902573113057
 GameObject:
   m_ObjectHideFlags: 0
