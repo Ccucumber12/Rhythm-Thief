@@ -13,7 +13,7 @@ public class LaserGate : MonoBehaviour
     private float openTweenDuration;
     private float closeTweenDuration;
 
-    private GameManager gameManager;
+    private InGameManager inGameManager;
     private RhythmManager rhythmManager;
 
     private SpriteMask mask;
@@ -40,7 +40,7 @@ public class LaserGate : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameManager.Instance;
+        inGameManager = InGameManager.Instance;
 
         rhythmManager = RhythmManager.Instance;
         rhythmManager.onGateClose.AddListener(SetGateClosed);
@@ -62,7 +62,7 @@ public class LaserGate : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            gameManager.PlayerDied();
+            inGameManager.PlayerDied();
         }
     }
 

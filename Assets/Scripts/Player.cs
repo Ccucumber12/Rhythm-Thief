@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     public bool[] isStarCollected { get; private set; } = new bool[3];
 
-    private GameManager gameManager;
+    private InGameManager inGameManager;
     private RhythmManager rhythmManager;
     private GameObject playerSprite;
 
@@ -52,11 +52,11 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameManager.Instance;
+        inGameManager = InGameManager.Instance;
         rhythmManager = RhythmManager.Instance;
-        gameManager.onPlayerCollectStar.AddListener(StarCollected);
-        gameManager.onPlayerDied.AddListener(RespawnPlayer);
-        gameManager.onPlayerSucceeded.AddListener(RespawnPlayer);
+        inGameManager.onPlayerCollectStar.AddListener(StarCollected);
+        inGameManager.onPlayerDied.AddListener(RespawnPlayer);
+        inGameManager.onPlayerSucceeded.AddListener(RespawnPlayer);
 
         playerSpawnPosition = transform.position;
         lastInputFailedTime = -inputFailedCoolDown;
@@ -66,9 +66,9 @@ public class Player : MonoBehaviour
     private void OnDestroy()
     {
         moveTween?.Kill(complete: true);
-        gameManager.onPlayerCollectStar.RemoveListener(StarCollected);
-        gameManager.onPlayerDied.RemoveListener(RespawnPlayer);
-        gameManager.onPlayerSucceeded.RemoveListener(RespawnPlayer);
+        inGameManager.onPlayerCollectStar.RemoveListener(StarCollected);
+        inGameManager.onPlayerDied.RemoveListener(RespawnPlayer);
+        inGameManager.onPlayerSucceeded.RemoveListener(RespawnPlayer);
     }
 
     public void OnUpInput(InputAction.CallbackContext context)

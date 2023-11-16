@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class InGameManager : MonoBehaviour
 {
-    private static GameManager _instance;
-    public static GameManager Instance { get => _instance; }
+    private static InGameManager _instance;
+    public static InGameManager Instance { get => _instance; }
+
+    public bool[] playerStarCollection { get; private set; } = new bool[3];
+    public int playerDeathCount { get; private set; }
 
     public OnPlayerDiedEvent onPlayerDied;
     public OnPlayerSucceededEvent onPlayerSucceeded;

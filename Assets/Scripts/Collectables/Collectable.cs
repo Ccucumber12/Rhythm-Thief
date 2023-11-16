@@ -9,11 +9,11 @@ abstract public class Collectable : MonoBehaviour
     public float floatingPeriod;
 
     private Vector3 initialPosition;
-    protected GameManager gameManager;
+    protected InGameManager inGameManager;
 
     protected virtual void Start()
     {
-        gameManager = GameManager.Instance;
+        inGameManager = InGameManager.Instance;
         initialPosition = transform.position;
     }
 
