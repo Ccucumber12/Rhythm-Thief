@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get => _instance; }
 
     public OnPlayerDiedEvent onPlayerDied;
-    public onPlayerSucceededEvent onPlayerSucceeded;
+    public OnPlayerSucceededEvent onPlayerSucceeded;
+    public OnPlayerCollectStarEvent onPlayerCollectStar;
 
     private void Awake()
     {
@@ -32,9 +33,17 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Win");
     }
 
+    public void PlayerCollectStar()
+    {
+        onPlayerCollectStar.Invoke();
+    }
+
+    [System.Serializable]
+    public class OnPlayerCollectStarEvent : UnityEvent { }
+
     [System.Serializable]
     public class OnPlayerDiedEvent : UnityEvent { }
 
     [System.Serializable]
-    public class onPlayerSucceededEvent : UnityEvent { }
+    public class OnPlayerSucceededEvent : UnityEvent { }
 }

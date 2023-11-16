@@ -15,9 +15,9 @@ public class Player : MonoBehaviour
 
     [Header("Basic")]
     [SerializeField] private Vector2 facingDirection;
-    [SerializeField] private float playerSpeed;
     [SerializeField] private float inputFailedCoolDown;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private bool canFreeMove;
 
     [Header("Fire")]
     [SerializeField] private float fireCoolDown;
@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
 
     [Header("Events")]
     public OnPlayerAlertEvent onPlayerAlert;
+
+    public int starCount { get; private set; }
 
     private GameManager gameManager;
     private RhythmManager rhythmManager;
@@ -52,16 +54,20 @@ public class Player : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         rhythmManager = RhythmManager.Instance;
+        gameManager.onPlayerCollectStar.AddListener(StarCollected);
         gameManager.onPlayerDied.AddListener(RespawnPlayer);
         gameManager.onPlayerSucceeded.AddListener(RespawnPlayer);
 
         playerSpawnPosition = transform.position;
         lastInputFailedTime = -inputFailedCoolDown;
         lastFireTime = -fireCoolDown;
+
+        starCount = 0;
     }
 
     private void OnDestroy()
     {
+        gameManager.onPlayerCollectStar.RemoveListener(StarCollected);
         gameManager.onPlayerDied.RemoveListener(RespawnPlayer);
         gameManager.onPlayerSucceeded.RemoveListener(RespawnPlayer);
     }
@@ -102,7 +108,7 @@ public class Player : MonoBehaviour
         animator.SetFloat("X", direction[0]);
         animator.SetFloat("Y", direction[1]);
         facingDirection = direction;
-        if (rhythmManager.CheckMove() || false) // TODO
+        if (rhythmManager.CheckMove() || canFreeMove)
         {
             Vector3 newPosition = transform.position + MathUtils.GetVector3FromVector2(direction);
             Collider2D cols = Physics2D.OverlapCircle(newPosition, 0.1f, wallLayer);
@@ -154,6 +160,11 @@ public class Player : MonoBehaviour
         // Vector3 scale = playerSprite.transform.localScale;
         // scale.x = Mathf.Abs(scale.x) * Mathf.Sign(facingDirection.x);
         // playerSprite.transform.localScale = scale;
+    }
+
+    public void StarCollected()
+    {
+        starCount++;
     }
 
     [System.Serializable]

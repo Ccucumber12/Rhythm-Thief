@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+abstract public class Collectable : MonoBehaviour
+{
+    [Header("Floating Animation")]
+    public float floatingDistance;
+    public float floatingPeriod;
+
+    private Vector3 initialPosition;
+    protected GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+        initialPosition = transform.position;
+    }
+
+    private void Update()
+    {
+        transform.position = initialPosition + new Vector3(0, floatingDistance / 2 * Mathf.Sin(Time.time / floatingPeriod * 2 * Mathf.PI), 0);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            Collected();
+        }
+    }
+
+    virtual protected void Collected()
+    {
+        Destroy(gameObject, 0.05f);
+    }
+}
