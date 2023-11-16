@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     [Header("Events")]
     public OnPlayerAlertEvent onPlayerAlert;
 
-    public int starCount { get; private set; }
+    public bool[] isStarCollected { get; private set; } = new bool[3];
 
     private GameManager gameManager;
     private RhythmManager rhythmManager;
@@ -61,12 +61,11 @@ public class Player : MonoBehaviour
         playerSpawnPosition = transform.position;
         lastInputFailedTime = -inputFailedCoolDown;
         lastFireTime = -fireCoolDown;
-
-        starCount = 0;
     }
 
     private void OnDestroy()
     {
+        moveTween?.Kill(complete: true);
         gameManager.onPlayerCollectStar.RemoveListener(StarCollected);
         gameManager.onPlayerDied.RemoveListener(RespawnPlayer);
         gameManager.onPlayerSucceeded.RemoveListener(RespawnPlayer);
@@ -118,7 +117,6 @@ public class Player : MonoBehaviour
                 animator.SetBool("Walking", true);
                 moveTween?.Kill(complete: true);
                 moveTween = transform.DOMove(newPosition, 0.1f).OnComplete(AnimationStop);
-                UpdateSpriteDirection();
             }
             else
             {
@@ -150,21 +148,13 @@ public class Player : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        // Temporary method
         moveTween?.Kill(complete: true);
         transform.position = playerSpawnPosition;
     }
 
-    private void UpdateSpriteDirection()
+    public void StarCollected(int uid)
     {
-        // Vector3 scale = playerSprite.transform.localScale;
-        // scale.x = Mathf.Abs(scale.x) * Mathf.Sign(facingDirection.x);
-        // playerSprite.transform.localScale = scale;
-    }
-
-    public void StarCollected()
-    {
-        starCount++;
+        isStarCollected[uid] = true;
     }
 
     [System.Serializable]

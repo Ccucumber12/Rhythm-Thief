@@ -33,13 +33,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Win");
     }
 
-    public void PlayerCollectStar()
+    public void PlayerCollectStar(int uid)
     {
-        onPlayerCollectStar.Invoke();
+        onPlayerCollectStar.Invoke(uid);
     }
 
     [System.Serializable]
-    public class OnPlayerCollectStarEvent : UnityEvent { }
+    public class OnPlayerCollectStarEvent : UnityEvent<int> { }
 
     [System.Serializable]
     public class OnPlayerDiedEvent : UnityEvent { }

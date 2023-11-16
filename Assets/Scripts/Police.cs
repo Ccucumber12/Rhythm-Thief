@@ -175,9 +175,7 @@ public class Police : MonoBehaviour
 
     public void Killed()
     {
-        SetNormal();
-        isKilled = true;
-        agent.Warp(new Vector3(0, 0, -100));
+        Destroy(gameObject, 0.05f);
     }
 
     public void ResetState()

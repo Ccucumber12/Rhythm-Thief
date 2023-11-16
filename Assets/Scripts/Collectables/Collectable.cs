@@ -11,13 +11,13 @@ abstract public class Collectable : MonoBehaviour
     private Vector3 initialPosition;
     protected GameManager gameManager;
 
-    private void Start()
+    protected virtual void Start()
     {
         gameManager = GameManager.Instance;
         initialPosition = transform.position;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         transform.position = initialPosition + new Vector3(0, floatingDistance / 2 * Mathf.Sin(Time.time / floatingPeriod * 2 * Mathf.PI), 0);
     }
@@ -30,7 +30,7 @@ abstract public class Collectable : MonoBehaviour
         }
     }
 
-    virtual protected void Collected()
+    protected virtual void Collected()
     {
         Destroy(gameObject, 0.05f);
     }
