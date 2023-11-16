@@ -152,6 +152,62 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Start",
+            "id": "4171506e-93ba-495b-a15d-9359c8d2292c",
+            "actions": [
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "07ebcbab-812c-4052-a13e-ed84734c9b21",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8f099d84-a274-4590-a5ed-57ba0f7258b4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "End",
+            "id": "e15dbbb4-e124-44c5-9e0d-8038f2a6fd01",
+            "actions": [
+                {
+                    "name": "Return",
+                    "type": "Button",
+                    "id": "4f0ad5df-0e68-4d97-8aca-214643c521a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e6663038-4882-4d7e-9512-819c317c40da",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Return",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

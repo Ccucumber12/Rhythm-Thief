@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public void PlayerSucceeded()
     {
         //onPlayerSucceeded.Invoke();
-        SceneManager.LoadScene("Win");
+        SceneManager.LoadScene("End");
     }
 
     public void PlayerCollectStar(int uid)
