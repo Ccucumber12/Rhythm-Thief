@@ -21,6 +21,6 @@ public class Goal : MonoBehaviour
 
     private void PlayerReachedGoal()
     {
-        inGameManager.PlayerSucceeded();
+        inGameManager.PlayerReachedGoal();
     }
 }

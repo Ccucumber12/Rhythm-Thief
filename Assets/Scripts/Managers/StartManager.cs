@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class StartManager : MonoBehaviour
 {
-    public string stageScene;
-
-    public void OnStartInput(InputAction.CallbackContext context)
+    public void OnEnterGame(InputValue value)
     {
-        if (context.performed)
-        {
-            SceneManager.LoadScene(stageScene);
-        }
+        GameManager.Instance.UpdateGameState(GameState.SelectStage);
     }
 }

@@ -2,7 +2,83 @@
     "name": "MainInput",
     "maps": [
         {
-            "name": "Game",
+            "name": "Start",
+            "id": "4171506e-93ba-495b-a15d-9359c8d2292c",
+            "actions": [
+                {
+                    "name": "EnterGame",
+                    "type": "Button",
+                    "id": "07ebcbab-812c-4052-a13e-ed84734c9b21",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "07e506ac-d093-4b47-904f-6c04b79aadcd",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnterGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "SelectStage",
+            "id": "484c1753-92ff-4156-b552-b0f6e10e1b89",
+            "actions": [
+                {
+                    "name": "ReturnToStart",
+                    "type": "Button",
+                    "id": "fa9777d2-a2ea-4f99-ade9-80dab5123a11",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectStage",
+                    "type": "Button",
+                    "id": "020c7b94-82cb-441f-8986-b5f0e09291f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "24dc358d-451f-47b1-a4cc-aa28ac083c6c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReturnToStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d84ad687-9105-45ca-80ae-5107f9539d27",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectStage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "InGame",
             "id": "8b626986-43f3-4c66-9346-eceb78a3e1c1",
             "actions": [
                 {
@@ -154,35 +230,7 @@
             ]
         },
         {
-            "name": "Start",
-            "id": "4171506e-93ba-495b-a15d-9359c8d2292c",
-            "actions": [
-                {
-                    "name": "Start",
-                    "type": "Button",
-                    "id": "07ebcbab-812c-4052-a13e-ed84734c9b21",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "8f099d84-a274-4590-a5ed-57ba0f7258b4",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Start",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "End",
+            "name": "Ending",
             "id": "e15dbbb4-e124-44c5-9e0d-8038f2a6fd01",
             "actions": [
                 {

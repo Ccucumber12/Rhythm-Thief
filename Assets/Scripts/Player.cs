@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         rhythmManager = RhythmManager.Instance;
         inGameManager.onPlayerCollectStar.AddListener(StarCollected);
         inGameManager.onPlayerDied.AddListener(RespawnPlayer);
-        inGameManager.onPlayerSucceeded.AddListener(RespawnPlayer);
+        inGameManager.onPlayerReachedGoal.AddListener(RespawnPlayer);
 
         playerSpawnPosition = transform.position;
         lastInputFailedTime = -inputFailedCoolDown;
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         moveTween?.Kill(complete: true);
         inGameManager.onPlayerCollectStar.RemoveListener(StarCollected);
         inGameManager.onPlayerDied.RemoveListener(RespawnPlayer);
-        inGameManager.onPlayerSucceeded.RemoveListener(RespawnPlayer);
+        inGameManager.onPlayerReachedGoal.RemoveListener(RespawnPlayer);
     }
 
     public void OnUpInput(InputAction.CallbackContext context)

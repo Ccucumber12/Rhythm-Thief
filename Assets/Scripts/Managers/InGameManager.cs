@@ -11,7 +11,7 @@ public class InGameManager : MonoBehaviour
     public int playerDeathCount { get; private set; }
 
     public OnPlayerDiedEvent onPlayerDied;
-    public OnPlayerSucceededEvent onPlayerSucceeded;
+    public OnPlayerReachedGoalEvent onPlayerReachedGoal;
     public OnPlayerCollectStarEvent onPlayerCollectStar;
 
     private void Awake()
@@ -28,10 +28,10 @@ public class InGameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void PlayerSucceeded()
+    public void PlayerReachedGoal()
     {
-        //onPlayerSucceeded.Invoke();
-        SceneManager.LoadScene("End");
+        onPlayerReachedGoal.Invoke();
+        GameManager.Instance.UpdateGameState(GameState.Victory);
     }
 
     public void PlayerCollectStar(int uid)
@@ -46,5 +46,5 @@ public class InGameManager : MonoBehaviour
     public class OnPlayerDiedEvent : UnityEvent { }
 
     [System.Serializable]
-    public class OnPlayerSucceededEvent : UnityEvent { }
+    public class OnPlayerReachedGoalEvent : UnityEvent { }
 }

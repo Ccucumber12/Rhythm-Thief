@@ -76,7 +76,7 @@ public class RhythmManager : MonoBehaviour
         if (SheetObject != null) {
             SheetObject.GetComponentInChildren<Sheet20>().UpdateUsingMusicTime(music.time);
         } else {
-            Debug.LogWarning("SheetObject is not set in RhythmManager.");
+            Debug.LogError("SheetObject is not set in RhythmManager.");
         }
     }
 
@@ -103,6 +103,16 @@ public class RhythmManager : MonoBehaviour
     public bool IsBellRinging()
     {
         return timestamps.GetNextBellRingTimestamp() > timestamps.GetNextBellStopTimestamp();
+    }
+
+    public float GetMusicLength()
+    {
+        return musicData.audioClip.length;
+    }
+
+    public float GetMusicCurrentTime()
+    {
+        return music.time;
     }
 
     private void ParseMusicData()

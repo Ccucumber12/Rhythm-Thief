@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGameCanvas : MonoBehaviour
 {
     private RhythmManager rhythmManager;
-    private CanvasGroup canvasGroup;
+    private Image blackImage;
 
     private void Awake()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
+        blackImage = GetComponent<Image>();
     }
 
     private void Start()
@@ -27,11 +28,15 @@ public class InGameCanvas : MonoBehaviour
 
     public void SetLightsOff()
     {
-        canvasGroup.alpha = 1;
+        Color color = blackImage.color;
+        color.a = 0.7f;
+        blackImage.color = color;
     }
 
     public void SetLightsOn()
     {
-        canvasGroup.alpha = 0;
+        Color color = blackImage.color;
+        color.a = 0;
+        blackImage.color = color;
     }
 }

@@ -39,7 +39,7 @@ public class Police : MonoBehaviour
     {
         inGameManager = InGameManager.Instance;
         inGameManager.onPlayerDied.AddListener(ResetState);
-        inGameManager.onPlayerSucceeded.AddListener(ResetState);
+        inGameManager.onPlayerReachedGoal.AddListener(ResetState);
 
         rhythmManager = RhythmManager.Instance;
         rhythmManager.onLightsOff.AddListener(SetBlind);
@@ -93,7 +93,7 @@ public class Police : MonoBehaviour
     private void OnDestroy()
     {
         inGameManager.onPlayerDied.RemoveListener(ResetState);
-        inGameManager.onPlayerSucceeded.RemoveListener(ResetState);
+        inGameManager.onPlayerReachedGoal.RemoveListener(ResetState);
         rhythmManager.onLightsOff.RemoveListener(SetBlind);
         rhythmManager.onLightsOn.RemoveListener(SetSighted);
         player.onPlayerAlert.RemoveListener(HeardPlayer);
