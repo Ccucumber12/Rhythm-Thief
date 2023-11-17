@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Scene Names")]
     [SerializeField] private string startSceneName = "Start";
-    [SerializeField] private string selectStageSceneName = "SelectStage";
+    [SerializeField] private string MenuSceneName = "Menu";
 
 
     [Header("Events")]
@@ -46,15 +46,11 @@ public class GameManager : MonoBehaviour
             case GameState.Start:
                 HandleStart();
                 break;
-            case GameState.SelectStage:
-                HandleSelectStage();
+            case GameState.Menu:
+                HandleMenu();
                 break;
             case GameState.InGame: 
                 HandleInGame();
-                break;
-            case GameState.Victory:
-                break;
-            case GameState.Lose:
                 break;
         }
         onGameStateChanged.Invoke(state);
@@ -65,9 +61,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(startSceneName);
     }
 
-    private void HandleSelectStage()
+    private void HandleMenu()
     {
-        SceneManager.LoadScene(selectStageSceneName);
+        SceneManager.LoadScene(MenuSceneName);
     }
 
     private void HandleInGame()
@@ -92,7 +88,7 @@ public class GameManager : MonoBehaviour
 public enum GameState
 {
     Start,
-    SelectStage,
+    Menu,
     InGame,
     Victory,
     Lose,

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class InGameManager : MonoBehaviour
@@ -13,6 +14,9 @@ public class InGameManager : MonoBehaviour
     public OnPlayerDiedEvent onPlayerDied;
     public OnPlayerReachedGoalEvent onPlayerReachedGoal;
     public OnPlayerCollectStarEvent onPlayerCollectStar;
+    public OnMusicEndedEvent onMusicEnded;
+
+    private PlayerInput playerInput;
 
     private void Awake()
     {
@@ -20,6 +24,11 @@ public class InGameManager : MonoBehaviour
             _instance = this;
         else if (_instance != this)
             DestroyImmediate(gameObject);
+    }
+
+    private void Start()
+    {
+        playerInput = Player.Instance.gameObject.GetComponent<PlayerInput>();
     }
 
     public void PlayerDied()
@@ -30,13 +39,19 @@ public class InGameManager : MonoBehaviour
 
     public void PlayerReachedGoal()
     {
+        playerInput.SwitchCurrentActionMap("Ending");
         onPlayerReachedGoal.Invoke();
-        GameManager.Instance.UpdateGameState(GameState.Victory);
     }
 
     public void PlayerCollectStar(int uid)
     {
         onPlayerCollectStar.Invoke(uid);
+    }
+
+    public void MusicEnded()
+    {
+        playerInput.SwitchCurrentActionMap("Ending");
+        onMusicEnded.Invoke();
     }
 
     [System.Serializable]
@@ -47,4 +62,7 @@ public class InGameManager : MonoBehaviour
 
     [System.Serializable]
     public class OnPlayerReachedGoalEvent : UnityEvent { }
+
+    [System.Serializable]
+    public class OnMusicEndedEvent : UnityEvent { }
 }

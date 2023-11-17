@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 160695639}
   - component: {fileID: 160695638}
   m_Layer: 0
-  m_Name: SelectStageManager
+  m_Name: MenuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: SelectStage
+  m_DefaultActionMap: 484c1753-92ff-4156-b552-b0f6e10e1b89
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &160695640
@@ -409,7 +409,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press Space to Start
+  m_text: '[Menu]
+
+    Press Space to Start'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -22,10 +22,8 @@ public class RhythmManager : MonoBehaviour
     private AudioSource music;
     private TimestampManager timestamps = new TimestampManager();
 
-    private bool isLightsOnTriggered;
-    private bool isLightsOffTriggered;
-    private bool isGateOpenTriggered;
-    private bool isGateCloseTriggered;
+    private InGameManager inGameManager;
+    private Coroutine waitUntilMusicFinishedCoroutine;
 
     private void Awake()
     {
@@ -39,8 +37,12 @@ public class RhythmManager : MonoBehaviour
 
     private void Start()
     {
+        inGameManager = InGameManager.Instance;
+        inGameManager.onPlayerReachedGoal.AddListener(EndMusic);
+
         ParseMusicData();
         music.Play();
+        waitUntilMusicFinishedCoroutine = StartCoroutine(WaitUntilMusicFinished());
     }
 
     private void Update()
@@ -78,6 +80,13 @@ public class RhythmManager : MonoBehaviour
         } else {
             Debug.LogError("SheetObject is not set in RhythmManager.");
         }
+    }
+
+    private void OnDestroy()
+    {
+        inGameManager.onPlayerReachedGoal.RemoveListener(EndMusic);
+        if (waitUntilMusicFinishedCoroutine != null)
+            StopCoroutine(waitUntilMusicFinishedCoroutine);
     }
 
     public bool CheckMove()
@@ -119,6 +128,19 @@ public class RhythmManager : MonoBehaviour
     {
         music.clip = musicData.audioClip;
         timestamps.ParseFromJSON(musicData.timestamp.text);
+    }
+
+    private IEnumerator WaitUntilMusicFinished()
+    {
+        yield return new WaitUntil(() => music.isPlaying == false);
+        inGameManager.MusicEnded();
+    }
+
+    public void EndMusic()
+    {
+        if (waitUntilMusicFinishedCoroutine != null)
+            StopCoroutine(waitUntilMusicFinishedCoroutine);
+        music.Stop();
     }
 
     [System.Serializable]

@@ -5,6 +5,6 @@ public class StartManager : MonoBehaviour
 {
     public void OnEnterGame(InputValue value)
     {
-        GameManager.Instance.UpdateGameState(GameState.SelectStage);
+        GameManager.Instance.UpdateGameState(GameState.Menu);
     }
 }

@@ -56,7 +56,8 @@ public class Player : MonoBehaviour
         rhythmManager = RhythmManager.Instance;
         inGameManager.onPlayerCollectStar.AddListener(StarCollected);
         inGameManager.onPlayerDied.AddListener(RespawnPlayer);
-        inGameManager.onPlayerReachedGoal.AddListener(RespawnPlayer);
+        inGameManager.onPlayerReachedGoal.AddListener(VictoryAnimation);
+        inGameManager.onMusicEnded.AddListener(FailureAnimation);
 
         playerSpawnPosition = transform.position;
         lastInputFailedTime = -inputFailedCoolDown;
@@ -68,31 +69,42 @@ public class Player : MonoBehaviour
         moveTween?.Kill(complete: true);
         inGameManager.onPlayerCollectStar.RemoveListener(StarCollected);
         inGameManager.onPlayerDied.RemoveListener(RespawnPlayer);
-        inGameManager.onPlayerReachedGoal.RemoveListener(RespawnPlayer);
+        inGameManager.onPlayerReachedGoal.RemoveListener(VictoryAnimation);
+        inGameManager.onMusicEnded.RemoveListener(FailureAnimation);
     }
 
-    public void OnUpInput(InputAction.CallbackContext context)
+    public void OnUp()
     {
-        if (context.performed)
-            TryMove(Vector2.up);
+        TryMove(Vector2.up);
     }
 
-    public void OnDownInput(InputAction.CallbackContext context)
+    public void OnDown()
     {
-        if (context.performed)
-            TryMove(Vector2.down);
+        TryMove(Vector2.down);
     }
 
-    public void OnLeftInput(InputAction.CallbackContext context)
+    public void OnLeft()
     {
-        if (context.performed)
-            TryMove(Vector2.left);
+        TryMove(Vector2.left);
     }
 
-    public void OnRightInput(InputAction.CallbackContext context)
+    public void OnRight()
     {
-        if (context.performed)
-            TryMove(Vector2.right);
+        TryMove(Vector2.right);
+    }
+
+    public void OnFire()
+    {
+        if (Time.time < lastFireTime + fireCoolDown)
+            return;
+        
+        lastFireTime = Time.time;
+        if (!rhythmManager.IsBellRinging())
+            onPlayerAlert.Invoke();
+
+        Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, facingDirection));
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, quaternion);
+        bullet.GetComponent<Bullet>().bulletDirection = facingDirection;
     }
 
     private void AnimationStop()
@@ -129,23 +141,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnFireInput(InputAction.CallbackContext context)
-    {
-        if (context.canceled)
-        {
-            if (Time.time < lastFireTime + fireCoolDown)
-                return;
-
-            lastFireTime = Time.time;
-            if (!rhythmManager.IsBellRinging())
-                onPlayerAlert.Invoke();
-
-            Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, facingDirection));
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, quaternion);
-            bullet.GetComponent<Bullet>().bulletDirection = facingDirection;
-        }
-    }
-
     public void RespawnPlayer()
     {
         moveTween?.Kill(complete: true);
@@ -155,6 +150,26 @@ public class Player : MonoBehaviour
     public void StarCollected(int uid)
     {
         isStarCollected[uid] = true;
+    }
+
+    public void VictoryAnimation()
+    {
+        SetInvincible();
+    }
+
+    public void FailureAnimation()
+    {
+        SetInvincible();
+    }
+
+    public void SetInvincible()
+    {
+        GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public void OnReturnToMenu()
+    {
+        GameManager.Instance.UpdateGameState(GameState.Menu);
     }
 
     [System.Serializable]

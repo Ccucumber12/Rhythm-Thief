@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SelectStageManager : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
     public string stageSceneName;
 
