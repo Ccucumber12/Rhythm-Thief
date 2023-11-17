@@ -125,6 +125,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "a05507c2-31bf-482c-8dd1-aa6a3c4f7449",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -224,6 +233,45 @@
                     "processors": "",
                     "groups": "",
                     "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70f766ab-5f0f-4827-810d-b678b431ef38",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "PauseGame",
+            "id": "127bc483-2420-469b-8c91-59d084617a01",
+            "actions": [
+                {
+                    "name": "ResumeToGame",
+                    "type": "Button",
+                    "id": "91043485-ecea-4be1-8f07-eace17d32501",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fee0f2cf-6657-4094-86b8-f1504f9bce58",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResumeToGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

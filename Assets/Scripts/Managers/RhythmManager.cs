@@ -38,11 +38,22 @@ public class RhythmManager : MonoBehaviour
     private void Start()
     {
         inGameManager = InGameManager.Instance;
+        inGameManager.onGamePaused.AddListener(PauseMusic);
+        inGameManager.onGameResumed.AddListener(ResumeMusic);
         inGameManager.onPlayerReachedGoal.AddListener(EndMusic);
 
         ParseMusicData();
         music.Play();
         waitUntilMusicFinishedCoroutine = StartCoroutine(WaitUntilMusicFinished());
+    }
+
+    private void OnDestroy()
+    {
+        inGameManager.onGamePaused.RemoveListener(PauseMusic);
+        inGameManager.onGameResumed.RemoveListener(ResumeMusic);
+        inGameManager.onPlayerReachedGoal.RemoveListener(EndMusic);
+        if (waitUntilMusicFinishedCoroutine != null)
+            StopCoroutine(waitUntilMusicFinishedCoroutine);
     }
 
     private void Update()
@@ -80,13 +91,6 @@ public class RhythmManager : MonoBehaviour
         } else {
             Debug.LogError("SheetObject is not set in RhythmManager.");
         }
-    }
-
-    private void OnDestroy()
-    {
-        inGameManager.onPlayerReachedGoal.RemoveListener(EndMusic);
-        if (waitUntilMusicFinishedCoroutine != null)
-            StopCoroutine(waitUntilMusicFinishedCoroutine);
     }
 
     public bool CheckMove()
@@ -132,8 +136,19 @@ public class RhythmManager : MonoBehaviour
 
     private IEnumerator WaitUntilMusicFinished()
     {
-        yield return new WaitUntil(() => music.isPlaying == false);
+        yield return new WaitUntil(() => music.time > 0);
+        yield return new WaitUntil(() => music.time == 0);
         inGameManager.MusicEnded();
+    }
+
+    public void PauseMusic()
+    {
+        music.Pause();
+    }
+
+    public void ResumeMusic()
+    {
+        music.UnPause();
     }
 
     public void EndMusic()

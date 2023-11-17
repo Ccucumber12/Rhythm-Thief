@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
 
     public void OnFire()
     {
-        if (Time.time < lastFireTime + fireCoolDown)
+        if (inGameManager.isPaused || Time.time < lastFireTime + fireCoolDown)
             return;
         
         lastFireTime = Time.time;
@@ -107,6 +107,16 @@ public class Player : MonoBehaviour
         bullet.GetComponent<Bullet>().bulletDirection = facingDirection;
     }
 
+    public void OnPause()
+    {
+        inGameManager.PauseGame();
+    }
+
+    public void OnResumeToGame()
+    {
+        inGameManager.ResumeGame();
+    }
+
     private void AnimationStop()
     {
         animator.SetBool("Walking", false);
@@ -114,7 +124,7 @@ public class Player : MonoBehaviour
 
     private void TryMove(Vector2 direction)
     {
-        if (Time.time < lastInputFailedTime + inputFailedCoolDown)
+        if (inGameManager.isPaused || Time.time < lastInputFailedTime + inputFailedCoolDown)
             return;
         animator.SetFloat("X", direction[0]);
         animator.SetFloat("Y", direction[1]);

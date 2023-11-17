@@ -10,10 +10,13 @@ public class InGameManager : MonoBehaviour
 
     public bool[] playerStarCollection { get; private set; } = new bool[3];
     public int playerDeathCount { get; private set; }
+    public bool isPaused { get; private set; }
 
     public OnPlayerDiedEvent onPlayerDied;
     public OnPlayerReachedGoalEvent onPlayerReachedGoal;
     public OnPlayerCollectStarEvent onPlayerCollectStar;
+    public OnGamePausedEvent onGamePaused;
+    public OnGameResumedEvent onGameResumed;
     public OnMusicEndedEvent onMusicEnded;
 
     private PlayerInput playerInput;
@@ -48,6 +51,22 @@ public class InGameManager : MonoBehaviour
         onPlayerCollectStar.Invoke(uid);
     }
 
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0;
+        playerInput.SwitchCurrentActionMap("PauseGame");
+        onGamePaused.Invoke();
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1;
+        playerInput.SwitchCurrentActionMap("InGame");
+        onGameResumed.Invoke();
+    }
+
     public void MusicEnded()
     {
         playerInput.SwitchCurrentActionMap("Ending");
@@ -62,6 +81,12 @@ public class InGameManager : MonoBehaviour
 
     [System.Serializable]
     public class OnPlayerReachedGoalEvent : UnityEvent { }
+
+    [System.Serializable]
+    public class OnGamePausedEvent : UnityEvent { }
+
+    [System.Serializable]
+    public class OnGameResumedEvent : UnityEvent { }
 
     [System.Serializable]
     public class OnMusicEndedEvent : UnityEvent { }
