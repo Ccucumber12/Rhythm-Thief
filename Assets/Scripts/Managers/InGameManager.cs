@@ -11,13 +11,13 @@ public class InGameManager : MonoBehaviour
     public bool[] playerStarCollection { get; private set; } = new bool[3];
     public int playerDeathCount { get; private set; }
     public bool isPaused { get; private set; }
+    public bool isVictory { get; private set; }
 
-    public OnPlayerDiedEvent onPlayerDied;
-    public OnPlayerReachedGoalEvent onPlayerReachedGoal;
+    public OnPlayerRespawnEvent onPlayerRespawn;
     public OnPlayerCollectStarEvent onPlayerCollectStar;
     public OnGamePausedEvent onGamePaused;
     public OnGameResumedEvent onGameResumed;
-    public OnMusicEndedEvent onMusicEnded;
+    public OnGameEndedEvent onGameEnded;
 
     private PlayerInput playerInput;
 
@@ -31,24 +31,17 @@ public class InGameManager : MonoBehaviour
 
     private void Start()
     {
-        playerInput = Player.Instance.gameObject.GetComponent<PlayerInput>();
-    }
-
-    public void PlayerDied()
-    {
-        //onPlayerDied.Invoke();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void PlayerReachedGoal()
-    {
-        playerInput.SwitchCurrentActionMap("Ending");
-        onPlayerReachedGoal.Invoke();
+        playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
     }
 
     public void PlayerCollectStar(int uid)
     {
         onPlayerCollectStar.Invoke(uid);
+    }
+
+    public void SetVictory()
+    {
+        isVictory = true;
     }
 
     public void PauseGame()
@@ -67,27 +60,24 @@ public class InGameManager : MonoBehaviour
         onGameResumed.Invoke();
     }
 
-    public void MusicEnded()
+    public void EndGame()
     {
         playerInput.SwitchCurrentActionMap("Ending");
-        onMusicEnded.Invoke();
+        onGameEnded.Invoke();
     }
 
     [System.Serializable]
     public class OnPlayerCollectStarEvent : UnityEvent<int> { }
 
     [System.Serializable]
-    public class OnPlayerDiedEvent : UnityEvent { }
+    public class OnPlayerRespawnEvent : UnityEvent { }
 
     [System.Serializable]
-    public class OnPlayerReachedGoalEvent : UnityEvent { }
+    public class OnGameEndedEvent : UnityEvent { }
 
     [System.Serializable]
     public class OnGamePausedEvent : UnityEvent { }
 
     [System.Serializable]
     public class OnGameResumedEvent : UnityEvent { }
-
-    [System.Serializable]
-    public class OnMusicEndedEvent : UnityEvent { }
 }

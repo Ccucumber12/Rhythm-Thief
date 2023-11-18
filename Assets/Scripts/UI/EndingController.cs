@@ -12,14 +12,20 @@ public class EndingController : MonoBehaviour
     private void Start()
     {
         inGameManager = InGameManager.Instance;
-        inGameManager.onPlayerReachedGoal.AddListener(ShowVictory);
-        inGameManager.onMusicEnded.AddListener(ShowFaiulre);
+        inGameManager.onGameEnded.AddListener(ShowEndingScene);
     }
 
     private void OnDestroy()
     {
-        inGameManager.onPlayerReachedGoal.RemoveListener(ShowVictory);
-        inGameManager.onMusicEnded.RemoveListener(ShowFaiulre);
+        inGameManager.onGameEnded.RemoveListener(ShowEndingScene);
+    }
+
+    public void ShowEndingScene()
+    {
+        if (inGameManager.isVictory)
+            ShowVictory();
+        else
+            ShowFaiulre();
     }
 
     public void ShowVictory()

@@ -38,8 +38,7 @@ public class Police : MonoBehaviour
     private void Start()
     {
         inGameManager = InGameManager.Instance;
-        inGameManager.onPlayerDied.AddListener(ResetState);
-        inGameManager.onPlayerReachedGoal.AddListener(ResetState);
+        inGameManager.onPlayerRespawn.AddListener(ResetState);
 
         rhythmManager = RhythmManager.Instance;
         rhythmManager.onLightsOff.AddListener(SetBlind);
@@ -92,8 +91,7 @@ public class Police : MonoBehaviour
 
     private void OnDestroy()
     {
-        inGameManager.onPlayerDied.RemoveListener(ResetState);
-        inGameManager.onPlayerReachedGoal.RemoveListener(ResetState);
+        inGameManager.onPlayerRespawn.RemoveListener(ResetState);
         rhythmManager.onLightsOff.RemoveListener(SetBlind);
         rhythmManager.onLightsOn.RemoveListener(SetSighted);
         player.onPlayerAlert.RemoveListener(HeardPlayer);
@@ -103,7 +101,7 @@ public class Police : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            inGameManager.PlayerDied();
+            player.KilledByPolice();
         }
     }
 

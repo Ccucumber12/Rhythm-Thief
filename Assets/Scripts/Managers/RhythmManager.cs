@@ -40,7 +40,7 @@ public class RhythmManager : MonoBehaviour
         inGameManager = InGameManager.Instance;
         inGameManager.onGamePaused.AddListener(PauseMusic);
         inGameManager.onGameResumed.AddListener(ResumeMusic);
-        inGameManager.onPlayerReachedGoal.AddListener(EndMusic);
+        inGameManager.onGameEnded.AddListener(EndMusic);
 
         ParseMusicData();
         music.Play();
@@ -51,7 +51,7 @@ public class RhythmManager : MonoBehaviour
     {
         inGameManager.onGamePaused.RemoveListener(PauseMusic);
         inGameManager.onGameResumed.RemoveListener(ResumeMusic);
-        inGameManager.onPlayerReachedGoal.RemoveListener(EndMusic);
+        inGameManager.onGameEnded.RemoveListener(EndMusic);
         if (waitUntilMusicFinishedCoroutine != null)
             StopCoroutine(waitUntilMusicFinishedCoroutine);
     }
@@ -138,7 +138,8 @@ public class RhythmManager : MonoBehaviour
     {
         yield return new WaitUntil(() => music.time > 0);
         yield return new WaitUntil(() => music.time == 0);
-        inGameManager.MusicEnded();
+
+        Player.Instance.OutOfTime();
     }
 
     public void PauseMusic()

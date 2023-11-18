@@ -15,12 +15,7 @@ public class Goal : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            PlayerReachedGoal();
+            Player.Instance.ReachedGoal();
         }
-    }
-
-    private void PlayerReachedGoal()
-    {
-        inGameManager.PlayerReachedGoal();
     }
 }

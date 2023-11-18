@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Events;
-using Sirenix.OdinInspector;
 using DG.Tweening;
 
 public class Player : MonoBehaviour
@@ -39,6 +35,8 @@ public class Player : MonoBehaviour
     private Tween moveTween;
     private Animator animator;
 
+    private bool isFreezed;
+
     private void Awake()
     {
         if (_instance == null)
@@ -55,9 +53,6 @@ public class Player : MonoBehaviour
         inGameManager = InGameManager.Instance;
         rhythmManager = RhythmManager.Instance;
         inGameManager.onPlayerCollectStar.AddListener(StarCollected);
-        inGameManager.onPlayerDied.AddListener(RespawnPlayer);
-        inGameManager.onPlayerReachedGoal.AddListener(VictoryAnimation);
-        inGameManager.onMusicEnded.AddListener(FailureAnimation);
 
         playerSpawnPosition = transform.position;
         lastInputFailedTime = -inputFailedCoolDown;
@@ -68,9 +63,6 @@ public class Player : MonoBehaviour
     {
         moveTween?.Kill(complete: true);
         inGameManager.onPlayerCollectStar.RemoveListener(StarCollected);
-        inGameManager.onPlayerDied.RemoveListener(RespawnPlayer);
-        inGameManager.onPlayerReachedGoal.RemoveListener(VictoryAnimation);
-        inGameManager.onMusicEnded.RemoveListener(FailureAnimation);
     }
 
     public void OnUp()
@@ -95,7 +87,7 @@ public class Player : MonoBehaviour
 
     public void OnFire()
     {
-        if (inGameManager.isPaused || Time.time < lastFireTime + fireCoolDown)
+        if (isFreezed || inGameManager.isPaused || Time.time < lastFireTime + fireCoolDown)
             return;
         
         lastFireTime = Time.time;
@@ -124,7 +116,7 @@ public class Player : MonoBehaviour
 
     private void TryMove(Vector2 direction)
     {
-        if (inGameManager.isPaused || Time.time < lastInputFailedTime + inputFailedCoolDown)
+        if (isFreezed || inGameManager.isPaused || Time.time < lastInputFailedTime + inputFailedCoolDown)
             return;
         animator.SetFloat("X", direction[0]);
         animator.SetFloat("Y", direction[1]);
@@ -151,10 +143,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void RespawnPlayer()
+    private void RespawnPlayer()
     {
+        inGameManager.onPlayerRespawn.Invoke();
         moveTween?.Kill(complete: true);
         transform.position = playerSpawnPosition;
+        isFreezed = false;
+        UnsetInvincible();
     }
 
     public void StarCollected(int uid)
@@ -162,19 +157,56 @@ public class Player : MonoBehaviour
         isStarCollected[uid] = true;
     }
 
-    public void VictoryAnimation()
+    public void KilledByPolice()
     {
+        isFreezed = true;
         SetInvincible();
+        // TODO: Killed by police animation
+        float animationLength = 1;
+        Invoke("RespawnPlayer", animationLength);
     }
 
-    public void FailureAnimation()
+    public void KilledByLaserGate()
     {
+        isFreezed = true;
         SetInvincible();
+        // TODO: Killed by laser gate animation
+        float animationLength = 1;
+        Invoke("RespawnPlayer", animationLength);
+    }
+
+    public void ReachedGoal()
+    {
+        inGameManager.SetVictory();
+        isFreezed = true;
+        SetInvincible();
+        // TODO: Reached goal animation
+        float animationLength = 1;
+        Invoke("CallEndGame", animationLength);
+    }
+
+    public void OutOfTime()
+    {
+        isFreezed = true;
+        SetInvincible();
+        // TODO: Out of Time animation
+        float animationLength = 1;
+        Invoke("CallEndGame", animationLength);
+    }
+
+    public void CallEndGame()
+    {
+        inGameManager.EndGame();
     }
 
     public void SetInvincible()
     {
         GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public void UnsetInvincible()
+    {
+        GetComponent<BoxCollider2D>().enabled = true;
     }
 
     public void OnReturnToMenu()
