@@ -9,7 +9,7 @@ public class Police : MonoBehaviour
     [Required] public GameConfigData gameConfigData;
     public Vector2 facingDirection;
 
-    private GameManager gameManager;
+    private InGameManager inGameManager;
     private RhythmManager rhythmManager;
     private Player player;
 
@@ -37,9 +37,8 @@ public class Police : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameManager.Instance;
-        gameManager.onPlayerDied.AddListener(ResetState);
-        gameManager.onPlayerSucceeded.AddListener(ResetState);
+        inGameManager = InGameManager.Instance;
+        inGameManager.onPlayerRespawn.AddListener(ResetState);
 
         rhythmManager = RhythmManager.Instance;
         rhythmManager.onLightsOff.AddListener(SetBlind);
@@ -92,8 +91,7 @@ public class Police : MonoBehaviour
 
     private void OnDestroy()
     {
-        gameManager.onPlayerDied.RemoveListener(ResetState);
-        gameManager.onPlayerSucceeded.RemoveListener(ResetState);
+        inGameManager.onPlayerRespawn.RemoveListener(ResetState);
         rhythmManager.onLightsOff.RemoveListener(SetBlind);
         rhythmManager.onLightsOn.RemoveListener(SetSighted);
         player.onPlayerAlert.RemoveListener(HeardPlayer);
@@ -103,7 +101,7 @@ public class Police : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            gameManager.PlayerDied();
+            player.KilledByPolice();
         }
     }
 

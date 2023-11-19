@@ -9,41 +9,87 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get => _instance; }
 
-    public OnPlayerDiedEvent onPlayerDied;
-    public OnPlayerSucceededEvent onPlayerSucceeded;
-    public OnPlayerCollectStarEvent onPlayerCollectStar;
+    [Header("Scene Names")]
+    [SerializeField] private string startSceneName = "Start";
+    [SerializeField] private string MenuSceneName = "Menu";
+
+
+    [Header("Events")]
+    public OnGameStateChangedEvent onGameStateChanged;
+
+    public GameState state { get; private set; }
+    private string stageSceneName;
 
     private void Awake()
     {
         if (_instance == null)
+        {
             _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else if (_instance != this)
+        {
             DestroyImmediate(gameObject);
+        }
     }
 
-    public void PlayerDied()
+    private void Start()
     {
-        //onPlayerDied.Invoke();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        state = GameState.Start;
     }
 
-    public void PlayerSucceeded()
+    public void UpdateGameState(GameState newState)
     {
-        //onPlayerSucceeded.Invoke();
-        SceneManager.LoadScene("Win");
+        state = newState;
+        switch (state)
+        {
+            case GameState.Start:
+                HandleStart();
+                break;
+            case GameState.Menu:
+                HandleMenu();
+                break;
+            case GameState.InGame: 
+                HandleInGame();
+                break;
+        }
+        onGameStateChanged.Invoke(state);
     }
 
-    public void PlayerCollectStar(int uid)
+    private void HandleStart()
     {
-        onPlayerCollectStar.Invoke(uid);
+        SceneManager.LoadScene(startSceneName);
+    }
+
+    private void HandleMenu()
+    {
+        SceneManager.LoadScene(MenuSceneName);
+    }
+
+    private void HandleInGame()
+    {
+        SceneManager.LoadScene(stageSceneName);
+    }
+
+    /// <summary>
+    /// Select the stage scene, no need to call UpdateGameState again.
+    /// </summary>
+    /// <param name="sceneName"></param>
+    public void SelectStage(string sceneName)
+    {
+        stageSceneName = sceneName;
+        UpdateGameState(GameState.InGame);
     }
 
     [System.Serializable]
-    public class OnPlayerCollectStarEvent : UnityEvent<int> { }
+    public class OnGameStateChangedEvent : UnityEvent<GameState> { }
+}
 
-    [System.Serializable]
-    public class OnPlayerDiedEvent : UnityEvent { }
-
-    [System.Serializable]
-    public class OnPlayerSucceededEvent : UnityEvent { }
+public enum GameState
+{
+    Start,
+    Menu,
+    InGame,
+    Victory,
+    Lose,
 }

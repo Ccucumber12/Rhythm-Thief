@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    private GameManager gameManager;
+    private InGameManager inGameManager;
 
     private void Start()
     {
-        gameManager = GameManager.Instance;
+        inGameManager = InGameManager.Instance;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            PlayerReachedGoal();
+            Player.Instance.ReachedGoal();
         }
-    }
-
-    private void PlayerReachedGoal()
-    {
-        gameManager.PlayerSucceeded();
     }
 }

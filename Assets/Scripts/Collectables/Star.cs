@@ -18,7 +18,7 @@ public class Star : Collectable
 
     protected override void Collected()
     {
-        gameManager.PlayerCollectStar(uid);
+        inGameManager.PlayerCollectStar(uid);
         Destroy(gameObject, 0.05f);
     }
 }

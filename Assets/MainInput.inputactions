@@ -2,7 +2,83 @@
     "name": "MainInput",
     "maps": [
         {
-            "name": "Game",
+            "name": "Start",
+            "id": "4171506e-93ba-495b-a15d-9359c8d2292c",
+            "actions": [
+                {
+                    "name": "EnterGame",
+                    "type": "Button",
+                    "id": "07ebcbab-812c-4052-a13e-ed84734c9b21",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "07e506ac-d093-4b47-904f-6c04b79aadcd",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnterGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "484c1753-92ff-4156-b552-b0f6e10e1b89",
+            "actions": [
+                {
+                    "name": "ReturnToStart",
+                    "type": "Button",
+                    "id": "fa9777d2-a2ea-4f99-ade9-80dab5123a11",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectStage",
+                    "type": "Button",
+                    "id": "020c7b94-82cb-441f-8986-b5f0e09291f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "24dc358d-451f-47b1-a4cc-aa28ac083c6c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReturnToStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d84ad687-9105-45ca-80ae-5107f9539d27",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectStage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "InGame",
             "id": "8b626986-43f3-4c66-9346-eceb78a3e1c1",
             "actions": [
                 {
@@ -11,7 +87,7 @@
                     "id": "6a5917e6-fb2f-42f8-a87a-ec77f2e25820",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -20,7 +96,7 @@
                     "id": "8ec9f5dd-bcdf-4608-88b1-bf352d71eff0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -29,7 +105,7 @@
                     "id": "90291ce0-487d-4696-9d09-5120d325d22e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -38,7 +114,7 @@
                     "id": "69e85d99-d2a5-43be-ad71-7dfd9edba395",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -47,7 +123,16 @@
                     "id": "e3f10f50-11c6-4df0-950d-464a44c469cc",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "a05507c2-31bf-482c-8dd1-aa6a3c4f7449",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -148,6 +233,73 @@
                     "processors": "",
                     "groups": "",
                     "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70f766ab-5f0f-4827-810d-b678b431ef38",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "PauseGame",
+            "id": "127bc483-2420-469b-8c91-59d084617a01",
+            "actions": [
+                {
+                    "name": "ResumeToGame",
+                    "type": "Button",
+                    "id": "91043485-ecea-4be1-8f07-eace17d32501",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fee0f2cf-6657-4094-86b8-f1504f9bce58",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResumeToGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Ending",
+            "id": "e15dbbb4-e124-44c5-9e0d-8038f2a6fd01",
+            "actions": [
+                {
+                    "name": "ReturnToMenu",
+                    "type": "Button",
+                    "id": "4f0ad5df-0e68-4d97-8aca-214643c521a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e6663038-4882-4d7e-9512-819c317c40da",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReturnToMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Events;
-using Sirenix.OdinInspector;
 using DG.Tweening;
 
 public class Player : MonoBehaviour
@@ -29,7 +25,7 @@ public class Player : MonoBehaviour
 
     public bool[] isStarCollected { get; private set; } = new bool[3];
 
-    private GameManager gameManager;
+    private InGameManager inGameManager;
     private RhythmManager rhythmManager;
     private GameObject playerSprite;
 
@@ -38,6 +34,8 @@ public class Player : MonoBehaviour
     private float lastFireTime;
     private Tween moveTween;
     private Animator animator;
+
+    private bool isFreezed;
 
     private void Awake()
     {
@@ -52,11 +50,9 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameManager.Instance;
+        inGameManager = InGameManager.Instance;
         rhythmManager = RhythmManager.Instance;
-        gameManager.onPlayerCollectStar.AddListener(StarCollected);
-        gameManager.onPlayerDied.AddListener(RespawnPlayer);
-        gameManager.onPlayerSucceeded.AddListener(RespawnPlayer);
+        inGameManager.onPlayerCollectStar.AddListener(StarCollected);
 
         playerSpawnPosition = transform.position;
         lastInputFailedTime = -inputFailedCoolDown;
@@ -66,33 +62,51 @@ public class Player : MonoBehaviour
     private void OnDestroy()
     {
         moveTween?.Kill(complete: true);
-        gameManager.onPlayerCollectStar.RemoveListener(StarCollected);
-        gameManager.onPlayerDied.RemoveListener(RespawnPlayer);
-        gameManager.onPlayerSucceeded.RemoveListener(RespawnPlayer);
+        inGameManager.onPlayerCollectStar.RemoveListener(StarCollected);
     }
 
-    public void OnUpInput(InputAction.CallbackContext context)
+    public void OnUp()
     {
-        if (context.performed)
-            TryMove(Vector2.up);
+        TryMove(Vector2.up);
     }
 
-    public void OnDownInput(InputAction.CallbackContext context)
+    public void OnDown()
     {
-        if (context.performed)
-            TryMove(Vector2.down);
+        TryMove(Vector2.down);
     }
 
-    public void OnLeftInput(InputAction.CallbackContext context)
+    public void OnLeft()
     {
-        if (context.performed)
-            TryMove(Vector2.left);
+        TryMove(Vector2.left);
     }
 
-    public void OnRightInput(InputAction.CallbackContext context)
+    public void OnRight()
     {
-        if (context.performed)
-            TryMove(Vector2.right);
+        TryMove(Vector2.right);
+    }
+
+    public void OnFire()
+    {
+        if (isFreezed || inGameManager.isPaused || Time.time < lastFireTime + fireCoolDown)
+            return;
+        
+        lastFireTime = Time.time;
+        if (!rhythmManager.IsBellRinging())
+            onPlayerAlert.Invoke();
+
+        Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, facingDirection));
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, quaternion);
+        bullet.GetComponent<Bullet>().bulletDirection = facingDirection;
+    }
+
+    public void OnPause()
+    {
+        inGameManager.PauseGame();
+    }
+
+    public void OnResumeToGame()
+    {
+        inGameManager.ResumeGame();
     }
 
     private void AnimationStop()
@@ -102,7 +116,7 @@ public class Player : MonoBehaviour
 
     private void TryMove(Vector2 direction)
     {
-        if (Time.time < lastInputFailedTime + inputFailedCoolDown)
+        if (isFreezed || inGameManager.isPaused || Time.time < lastInputFailedTime + inputFailedCoolDown)
             return;
         animator.SetFloat("X", direction[0]);
         animator.SetFloat("Y", direction[1]);
@@ -129,32 +143,75 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnFireInput(InputAction.CallbackContext context)
+    private void RespawnPlayer()
     {
-        if (context.canceled)
-        {
-            if (Time.time < lastFireTime + fireCoolDown)
-                return;
-
-            lastFireTime = Time.time;
-            if (!rhythmManager.IsBellRinging())
-                onPlayerAlert.Invoke();
-
-            Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, facingDirection));
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, quaternion);
-            bullet.GetComponent<Bullet>().bulletDirection = facingDirection;
-        }
-    }
-
-    public void RespawnPlayer()
-    {
+        inGameManager.onPlayerRespawn.Invoke();
         moveTween?.Kill(complete: true);
         transform.position = playerSpawnPosition;
+        isFreezed = false;
+        UnsetInvincible();
     }
 
     public void StarCollected(int uid)
     {
         isStarCollected[uid] = true;
+    }
+
+    public void KilledByPolice()
+    {
+        isFreezed = true;
+        SetInvincible();
+        // TODO: Killed by police animation
+        float animationLength = 1;
+        Invoke("RespawnPlayer", animationLength);
+    }
+
+    public void KilledByLaserGate()
+    {
+        isFreezed = true;
+        SetInvincible();
+        // TODO: Killed by laser gate animation
+        float animationLength = 1;
+        Invoke("RespawnPlayer", animationLength);
+    }
+
+    public void ReachedGoal()
+    {
+        inGameManager.SetVictory();
+        isFreezed = true;
+        SetInvincible();
+        // TODO: Reached goal animation
+        float animationLength = 1;
+        Invoke("CallEndGame", animationLength);
+    }
+
+    public void OutOfTime()
+    {
+        isFreezed = true;
+        SetInvincible();
+        // TODO: Out of Time animation
+        float animationLength = 1;
+        Invoke("CallEndGame", animationLength);
+    }
+
+    public void CallEndGame()
+    {
+        inGameManager.EndGame();
+    }
+
+    public void SetInvincible()
+    {
+        GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public void UnsetInvincible()
+    {
+        GetComponent<BoxCollider2D>().enabled = true;
+    }
+
+    public void OnReturnToMenu()
+    {
+        GameManager.Instance.UpdateGameState(GameState.Menu);
     }
 
     [System.Serializable]

@@ -22,10 +22,8 @@ public class RhythmManager : MonoBehaviour
     private AudioSource music;
     private TimestampManager timestamps = new TimestampManager();
 
-    private bool isLightsOnTriggered;
-    private bool isLightsOffTriggered;
-    private bool isGateOpenTriggered;
-    private bool isGateCloseTriggered;
+    private InGameManager inGameManager;
+    private Coroutine waitUntilMusicFinishedCoroutine;
 
     private void Awake()
     {
@@ -39,8 +37,23 @@ public class RhythmManager : MonoBehaviour
 
     private void Start()
     {
+        inGameManager = InGameManager.Instance;
+        inGameManager.onGamePaused.AddListener(PauseMusic);
+        inGameManager.onGameResumed.AddListener(ResumeMusic);
+        inGameManager.onGameEnded.AddListener(EndMusic);
+
         ParseMusicData();
         music.Play();
+        waitUntilMusicFinishedCoroutine = StartCoroutine(WaitUntilMusicFinished());
+    }
+
+    private void OnDestroy()
+    {
+        inGameManager.onGamePaused.RemoveListener(PauseMusic);
+        inGameManager.onGameResumed.RemoveListener(ResumeMusic);
+        inGameManager.onGameEnded.RemoveListener(EndMusic);
+        if (waitUntilMusicFinishedCoroutine != null)
+            StopCoroutine(waitUntilMusicFinishedCoroutine);
     }
 
     private void Update()
@@ -76,7 +89,7 @@ public class RhythmManager : MonoBehaviour
         if (SheetObject != null) {
             SheetObject.GetComponentInChildren<Sheet20>().UpdateUsingMusicTime(music.time);
         } else {
-            Debug.LogWarning("SheetObject is not set in RhythmManager.");
+            Debug.LogError("SheetObject is not set in RhythmManager.");
         }
     }
 
@@ -105,10 +118,45 @@ public class RhythmManager : MonoBehaviour
         return timestamps.GetNextBellRingTimestamp() > timestamps.GetNextBellStopTimestamp();
     }
 
+    public float GetMusicLength()
+    {
+        return musicData.audioClip.length;
+    }
+
+    public float GetMusicCurrentTime()
+    {
+        return music.time;
+    }
+
     private void ParseMusicData()
     {
         music.clip = musicData.audioClip;
         timestamps.ParseFromJSON(musicData.timestamp.text);
+    }
+
+    private IEnumerator WaitUntilMusicFinished()
+    {
+        yield return new WaitUntil(() => music.time > 0);
+        yield return new WaitUntil(() => music.time == 0);
+
+        Player.Instance.OutOfTime();
+    }
+
+    public void PauseMusic()
+    {
+        music.Pause();
+    }
+
+    public void ResumeMusic()
+    {
+        music.UnPause();
+    }
+
+    public void EndMusic()
+    {
+        if (waitUntilMusicFinishedCoroutine != null)
+            StopCoroutine(waitUntilMusicFinishedCoroutine);
+        music.Stop();
     }
 
     [System.Serializable]
