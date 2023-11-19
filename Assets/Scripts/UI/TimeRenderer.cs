@@ -11,6 +11,7 @@ public class TimeRenderer : MonoBehaviour
     private TextMeshProUGUI timeText;
     private RhythmManager rhythmManager;
     private float musicLength;
+    private int remainingTime;
 
 
     private void Awake()
@@ -22,11 +23,12 @@ public class TimeRenderer : MonoBehaviour
     {
         rhythmManager = RhythmManager.Instance;
         musicLength = rhythmManager.GetMusicLength();
+        remainingTime = Mathf.FloorToInt(musicLength);
     }
 
     private void Update()
     {
-        int remainingTime = Mathf.FloorToInt((musicLength - rhythmManager.GetMusicCurrentTime()));
+        remainingTime = Mathf.Min(remainingTime, Mathf.FloorToInt(musicLength - rhythmManager.GetMusicCurrentTime()));
         timeText.text = timeTextPrefix + remainingTime.ToString("D3");
     }
 
