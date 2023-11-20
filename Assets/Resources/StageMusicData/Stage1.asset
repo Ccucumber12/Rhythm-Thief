@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb3fa787bd69db428b08ef7d6a6a6b7, type: 3}
   m_Name: Stage1
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 7911ad29dc0254ff0b73764fe2db0e0c, type: 3}
-  timestamp: {fileID: 4900000, guid: bf1735418a63f4c5e9d027527dc06df4, type: 3}
+  audioClip: {fileID: 8300000, guid: e440e25d78b57493dab7f7fd38d9c04f, type: 3}
+  timestamp: {fileID: 4900000, guid: d8c26cd0ad4e1455d93d2a46c7a758b8, type: 3}
