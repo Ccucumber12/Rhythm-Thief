@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: ba458abc253a578489dcd9324be4ebd3, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -189,9 +189,33 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e3f10f50-11c6-4df0-950d-464a44c469cc
     m_ActionName: Game/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 07ebcbab-812c-4052-a13e-ed84734c9b21
+    m_ActionName: Start/EnterGame[/Keyboard/anyKey]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fa9777d2-a2ea-4f99-ade9-80dab5123a11
+    m_ActionName: Menu/ReturnToStart[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 020c7b94-82cb-441f-8986-b5f0e09291f6
+    m_ActionName: Menu/SelectStage[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a05507c2-31bf-482c-8dd1-aa6a3c4f7449
+    m_ActionName: InGame/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 91043485-ecea-4be1-8f07-eace17d32501
+    m_ActionName: PauseGame/ResumeToGame[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4f0ad5df-0e68-4d97-8aca-214643c521a4
+    m_ActionName: Ending/ReturnToMenu[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Game
+  m_DefaultActionMap: 8b626986-43f3-4c66-9346-eceb78a3e1c1
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &84029532326050465
@@ -207,11 +231,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingDirection: {x: 1, y: 0}
-  playerSpeed: 10
-  inputFailedCoolDown: 0
+  inputFailedCoolDown: 0.1
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
+  canFreeMove: 0
   fireCoolDown: 1
   bulletPrefab: {fileID: 7920118355782209290, guid: a77f670e177d1ca4a9d0e9c15c6f9467, type: 3}
   bulletSpawnPosition: {fileID: 84029533853796637}
