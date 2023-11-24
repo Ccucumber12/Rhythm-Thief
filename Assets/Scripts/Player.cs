@@ -28,12 +28,14 @@ public class Player : MonoBehaviour
     private InGameManager inGameManager;
     private RhythmManager rhythmManager;
     private GameObject playerSprite;
+    private GameObject upperPlayerSprite;
 
     private Vector3 playerSpawnPosition;
     private float lastInputFailedTime;
     private float lastFireTime;
     private Tween moveTween;
     private Animator animator;
+    private Animator upperAnimator;
 
     private bool isFreezed;
 
@@ -46,6 +48,9 @@ public class Player : MonoBehaviour
 
         playerSprite = transform.Find(Sprite_Name).gameObject;
         animator = playerSprite.GetComponent<Animator>();
+
+        upperPlayerSprite = transform.Find("UpperSprite").gameObject;
+        upperAnimator = upperPlayerSprite.GetComponent<Animator>();
     }
 
     private void Start()
@@ -112,6 +117,7 @@ public class Player : MonoBehaviour
     private void AnimationStop()
     {
         animator.SetBool("Walking", false);
+        upperAnimator.SetBool("Walking", false);
     }
 
     private void TryMove(Vector2 direction)
@@ -120,6 +126,8 @@ public class Player : MonoBehaviour
             return;
         animator.SetFloat("X", direction[0]);
         animator.SetFloat("Y", direction[1]);
+        upperAnimator.SetFloat("X", direction[0]);
+        upperAnimator.SetFloat("Y", direction[1]);
         facingDirection = direction;
         if (rhythmManager.CheckMove() || canFreeMove)
         {
@@ -129,6 +137,7 @@ public class Player : MonoBehaviour
             {
                 // move success
                 animator.SetBool("Walking", true);
+                upperAnimator.SetBool("Walking", true);
                 moveTween?.Kill(complete: true);
                 moveTween = transform.DOMove(newPosition, 0.1f).OnComplete(AnimationStop);
             }
@@ -149,6 +158,8 @@ public class Player : MonoBehaviour
         moveTween?.Kill(complete: true);
         transform.position = playerSpawnPosition;
         isFreezed = false;
+        animator.SetBool("CutInHalf", false);
+        upperAnimator.SetBool("CutInHalf", false);
         UnsetInvincible();
     }
 
@@ -169,9 +180,12 @@ public class Player : MonoBehaviour
     public void KilledByLaserGate()
     {
         isFreezed = true;
+        upperAnimator.SetBool("CutInHalf", true);
+        animator.SetBool("CutInHalf", true);
+
         SetInvincible();
         // TODO: Killed by laser gate animation
-        float animationLength = 1;
+        float animationLength = 1f;
         Invoke("RespawnPlayer", animationLength);
     }
 
