@@ -101,6 +101,7 @@ public class Police : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            ClearAgentState();
             animator.SetBool("Atk", true);
             player.KilledByPolice();
             Invoke("afterKilled", 1.0f);
@@ -148,6 +149,7 @@ public class Police : MonoBehaviour
 
     public void ClearAgentState()
     {
+
         lookAroundTween?.Kill(complete: true);
         agent.isStopped = true;
         agent.ResetPath();

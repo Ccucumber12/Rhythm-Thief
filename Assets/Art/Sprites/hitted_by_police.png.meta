@@ -121,7 +121,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 59
+        y: 1094
         width: 460
         height: 837
       alignment: 0
@@ -142,7 +142,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 540
-        y: 59
+        y: 1094
         width: 470
         height: 847
       alignment: 0
@@ -163,7 +163,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1066
-        y: 59
+        y: 1094
         width: 452
         height: 837
       alignment: 0
@@ -175,6 +175,111 @@ TextureImporter:
       bones: []
       spriteID: 2b5b6e7be90d44ab083ce9345b5695e7
       internalID: -55586175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hitted_by_police_3
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 897
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ee07228cb75c4dce89fd8792c757605
+      internalID: 627611795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hitted_by_police_4
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 865
+        width: 104
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b02836a584f8e47cfb08bba215639d9e
+      internalID: 976743941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hitted_by_police_5
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 780
+        width: 213
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a2eaf2a6af394b97b9c4d0cb76caa02
+      internalID: 1681340195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hitted_by_police_6
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 465
+        width: 355
+        height: 355
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 152ba0ff3df494b2bbeadc7a735a3807
+      internalID: -729184162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hitted_by_police_7
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 35
+        width: 696
+        height: 696
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6b2af4c94bc140bc9429b01f20506cf
+      internalID: 325903788
       vertices: []
       indices: 
       edges: []
@@ -193,6 +298,11 @@ TextureImporter:
       hitted_by_police_0: -53999729
       hitted_by_police_1: 1470484066
       hitted_by_police_2: -55586175
+      hitted_by_police_3: 627611795
+      hitted_by_police_4: 976743941
+      hitted_by_police_5: 1681340195
+      hitted_by_police_6: -729184162
+      hitted_by_police_7: 325903788
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
