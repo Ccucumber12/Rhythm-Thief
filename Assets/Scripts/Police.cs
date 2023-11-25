@@ -77,7 +77,7 @@ public class Police : MonoBehaviour
             if (Mathf.Abs(crossProduct.z) > 0.01f)
                 isTurningLeft = crossProduct.z > 0;
             previousVelocity = agent.velocity;
-            animator.SetBool("Walk", true);
+            animator.SetBool("Walk", true);   
         }
         else
         {
@@ -101,8 +101,16 @@ public class Police : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            animator.SetBool("Atk", true);
             player.KilledByPolice();
+            Invoke("afterKilled", 1.0f);
         }
+    }
+    public void afterKilled()
+    {
+        animator.SetBool("Atk", false);
+        animator.SetBool("Walk", false);
+        animator.SetBool("Angry", false);
     }
 
     public void SetBlind()
@@ -127,6 +135,7 @@ public class Police : MonoBehaviour
         agent.SetDestination(player.transform.position);
         isAlert = true;
         vision.SetAlert();
+        animator.SetBool("Angry", true);
     }
 
     public void SetNormal()
@@ -134,6 +143,7 @@ public class Police : MonoBehaviour
         ClearAgentState();
         isAlert = false;
         vision.SetNormal();
+        animator.SetBool("Angry", false);
     }
 
     public void ClearAgentState()

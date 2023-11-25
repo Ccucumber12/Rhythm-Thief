@@ -160,6 +160,8 @@ public class Player : MonoBehaviour
         isFreezed = false;
         animator.SetBool("CutInHalf", false);
         upperAnimator.SetBool("CutInHalf", false);
+        upperAnimator.SetBool("Hitted", false);
+        animator.SetBool("Hitted", false);
         UnsetInvincible();
     }
 
@@ -171,6 +173,9 @@ public class Player : MonoBehaviour
     public void KilledByPolice()
     {
         isFreezed = true;
+        upperAnimator.SetBool("Hitted", true);
+        animator.SetBool("Hitted", true);
+
         SetInvincible();
         // TODO: Killed by police animation
         float animationLength = 1;

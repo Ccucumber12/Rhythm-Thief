@@ -253,7 +253,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
 --- !u!208 &1561966216
 NavMeshObstacle:
   m_ObjectHideFlags: 0
