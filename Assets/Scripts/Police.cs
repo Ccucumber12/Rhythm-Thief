@@ -19,7 +19,6 @@ public class Police : MonoBehaviour
     private Vector2 initialFacingDirection;
     private bool isAlert;
     private float awareDistance;
-    private bool isKilled;
 
     private Vector3 previousVelocity;
     private bool isTurningLeft;
@@ -32,7 +31,7 @@ public class Police : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         vision = GetComponentInChildren<FieldOfView>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -60,8 +59,6 @@ public class Police : MonoBehaviour
 
     private void Update()
     {
-        if (isKilled)
-            return;
         if (isAlert)
         {
             if (IsAgentReachedDestination())
@@ -77,11 +74,11 @@ public class Police : MonoBehaviour
             if (Mathf.Abs(crossProduct.z) > 0.01f)
                 isTurningLeft = crossProduct.z > 0;
             previousVelocity = agent.velocity;
-            animator.SetBool("Walk", true);   
+            //animator.SetBool("Walk", true);   
         }
         else
         {
-            animator.SetBool("Walk", false);
+            //animator.SetBool("Walk", false);
         }
         vision.SetAngle(facingDirection);
         animator.SetFloat("X", facingDirection[0]);
@@ -102,16 +99,11 @@ public class Police : MonoBehaviour
         if (collision.tag == "Player")
         {
             ClearAgentState();
+            agent.velocity = Vector3.zero;
             animator.SetBool("Atk", true);
             player.KilledByPolice();
-            Invoke("afterKilled", 1.0f);
+            isAlert = false;
         }
-    }
-    public void afterKilled()
-    {
-        animator.SetBool("Atk", false);
-        animator.SetBool("Walk", false);
-        animator.SetBool("Angry", false);
     }
 
     public void SetBlind()
@@ -145,6 +137,7 @@ public class Police : MonoBehaviour
         isAlert = false;
         vision.SetNormal();
         animator.SetBool("Angry", false);
+        animator.SetBool("Atk", false);
     }
 
     public void ClearAgentState()
@@ -193,7 +186,6 @@ public class Police : MonoBehaviour
         agent.Warp(initialPosition);
         SetNormal();
         facingDirection = initialFacingDirection;
-        isKilled = false;
     }
 
 #if UNITY_EDITOR

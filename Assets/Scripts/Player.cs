@@ -179,7 +179,7 @@ public class Player : MonoBehaviour
 
         SetInvincible();
         // TODO: Killed by police animation
-        float animationLength = 0.7f;
+        float animationLength = 1f;
         Invoke("RespawnPlayer", animationLength);
     }
 
