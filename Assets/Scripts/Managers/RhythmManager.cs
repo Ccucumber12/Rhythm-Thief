@@ -14,6 +14,7 @@ public class RhythmManager : MonoBehaviour
     // If input time is in [time-tolerance-moveDeadZone, time-tolerance), than the next move fails.
 
     public GameObject SheetObject;
+    public GameObject walking_dot;
 
     [Header("Events")]
     public OnLightOnEvent onLightsOn;
@@ -91,6 +92,7 @@ public class RhythmManager : MonoBehaviour
         }
 
         if (SheetObject != null) {
+            walking_dot.GetComponentInChildren<WalkingDot>().UpdateUsingMusicTime(music.time);
             SheetObject.GetComponentInChildren<Sheet20>().UpdateUsingMusicTime(music.time);
         } else {
             Debug.LogError("SheetObject is not set in RhythmManager.");

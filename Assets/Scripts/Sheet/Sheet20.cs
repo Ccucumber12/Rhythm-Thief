@@ -16,6 +16,7 @@ public class Sheet20 : MonoBehaviour {
     // [SerializeField] private GameObject PrefabDiscoIcon; // TODO
     [SerializeField] private GameObject PrefabDurationIndicator;
 
+    // TODO : Cetranlize the TimestampManager?
     [SerializeField] private StageMusicData musicData;
     private TimestampManager timeManager = new TimestampManager();
 
