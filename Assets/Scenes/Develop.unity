@@ -37522,6 +37522,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1425947401738612854, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 361
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425947401738612854, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 187
+      objectReference: {fileID: 0}
     - target: {fileID: 4579118918297090754, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -37570,10 +37578,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasRoot
       objectReference: {fileID: 0}
-    - target: {fileID: 4579118919649994521, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
 --- !u!1001 &7331852037286915066
