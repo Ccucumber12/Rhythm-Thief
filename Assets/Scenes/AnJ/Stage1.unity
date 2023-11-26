@@ -92130,7 +92130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicData: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
-  tolerance: 0.2
+  tolerance: 0.1
+  moveDeadZoneTime: 0.2
   SheetObject: {fileID: 140042744}
   onLightsOn:
     m_PersistentCalls:
@@ -126685,6 +126686,10 @@ PrefabInstance:
       propertyPath: canFreeMove
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 84029532326050465, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: moveCoolDown
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 84029532326050478, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
       propertyPath: m_Name
       value: Player
@@ -126939,6 +126944,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7610660925794316859, guid: 3f750a8dd1869fa4a95148716f25aaa8, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: dfcb452f102f48b4f9fdba8785fcb0e9, type: 2}
     - target: {fileID: 7610660925794316861, guid: 3f750a8dd1869fa4a95148716f25aaa8, type: 3}
       propertyPath: m_Name
       value: NavMesh

@@ -70,15 +70,6 @@ public class TimestampManager
         return moveIndex < timestamp.move.Count ? timestamp.move[moveIndex] : Mathf.Infinity;
     }
 
-    public void ResetNextMoveTimestamp()
-    {
-        return;
-        //if (moveIndex < timestamp.move.Count)
-        //{
-        //    timestamp.move[moveIndex] = Mathf.Infinity;
-        //}
-    }
-
     public float GetNextBellRingTimestamp() {
         return bellRingIndex < timestamp.bellRing.Count ? timestamp.bellRing[bellRingIndex] : Mathf.Infinity;
     }

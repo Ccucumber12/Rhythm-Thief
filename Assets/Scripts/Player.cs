@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     [Header("Basic")]
     [SerializeField] private Vector2 facingDirection;
-    [SerializeField] private float inputFailedCoolDown;
+    [SerializeField] private float moveCoolDown;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private bool canFreeMove;
 
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     private GameObject upperPlayerSprite;
 
     private Vector3 playerSpawnPosition;
-    private float lastInputFailedTime;
+    private float lastMoveTime;
     private float lastFireTime;
     private Tween moveTween;
     private Animator animator;
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
         inGameManager.onPlayerCollectStar.AddListener(StarCollected);
 
         playerSpawnPosition = transform.position;
-        lastInputFailedTime = -inputFailedCoolDown;
+        lastMoveTime = -moveCoolDown;
         lastFireTime = -fireCoolDown;
     }
 
@@ -122,14 +122,15 @@ public class Player : MonoBehaviour
 
     private void TryMove(Vector2 direction)
     {
-        if (isFreezed || inGameManager.isPaused || Time.time < lastInputFailedTime + inputFailedCoolDown)
+        if (isFreezed || inGameManager.isPaused || Time.time < lastMoveTime + moveCoolDown)
             return;
+        lastMoveTime = Time.time;
         animator.SetFloat("X", direction[0]);
         animator.SetFloat("Y", direction[1]);
         upperAnimator.SetFloat("X", direction[0]);
         upperAnimator.SetFloat("Y", direction[1]);
         facingDirection = direction;
-        if (rhythmManager.CheckMove() || canFreeMove)
+        if (canFreeMove || rhythmManager.CheckMove())
         {
             Vector3 newPosition = transform.position + MathUtils.GetVector3FromVector2(direction);
             Collider2D cols = Physics2D.OverlapCircle(newPosition, 0.1f, wallLayer);
@@ -148,7 +149,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            lastInputFailedTime = Time.time;
+            // Move failed
         }
     }
 

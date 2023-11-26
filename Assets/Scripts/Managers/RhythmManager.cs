@@ -1,7 +1,9 @@
+using Sirenix.OdinInspector.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.Processors;
 
 public class RhythmManager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class RhythmManager : MonoBehaviour
 
     public StageMusicData musicData;
     public float tolerance;
+    public float moveDeadZoneTime;
+    // If input time is in [time-tolerance, time+tolerance], than succeeds.
+    // If input time is in [time-tolerance-moveDeadZone, time-tolerance), than the next move fails.
 
     public GameObject SheetObject;
 
@@ -24,6 +29,8 @@ public class RhythmManager : MonoBehaviour
 
     private InGameManager inGameManager;
     private Coroutine waitUntilMusicFinishedCoroutine;
+
+    private float usedMoveTime = -1;
 
     private void Awake()
     {
@@ -98,17 +105,22 @@ public class RhythmManager : MonoBehaviour
         float time = music.time;
         float nextMoveTime = timestamps.GetNextMoveTimestamp();
         float prevMoveTime = timestamps.GetPrevMoveTimestamp();
-        if (Mathf.Abs(time - prevMoveTime) <= tolerance)
+        if (usedMoveTime < prevMoveTime && time - prevMoveTime <= tolerance)
         {
-            timestamps.ResetNextMoveTimestamp(); // hitted
+            usedMoveTime = prevMoveTime;
             SheetObject.GetComponentInChildren<Sheet20>().HittedUsingHitTime(prevMoveTime);
             return true;
         }
-        else if (Mathf.Abs(time - nextMoveTime) <= tolerance)
+        else if (usedMoveTime < nextMoveTime && nextMoveTime - time <= tolerance)
         {
-            timestamps.ResetNextMoveTimestamp(); // hitted
+            usedMoveTime = nextMoveTime;
             SheetObject.GetComponentInChildren<Sheet20>().HittedUsingHitTime(nextMoveTime);
             return true;
+        }
+        else if (usedMoveTime < nextMoveTime && nextMoveTime - time < tolerance + moveDeadZoneTime)
+        {
+            // next move failed (too early)
+            usedMoveTime = nextMoveTime;
         }
         return false;
     }
