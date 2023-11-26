@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36900b85c38655b48acd9a502124fbc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageSceneName: Develop
+  stageSceneName: Template
 --- !u!114 &160695639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 484c1753-92ff-4156-b552-b0f6e10e1b89
+  m_DefaultActionMap: Menu
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &160695640

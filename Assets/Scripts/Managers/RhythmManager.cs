@@ -1,9 +1,6 @@
-using Sirenix.OdinInspector.Editor;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem.Processors;
 
 public class RhythmManager : MonoBehaviour
 {
