@@ -4556,6 +4556,7 @@ MonoBehaviour:
   tolerance: 0.1
   moveDeadZoneTime: 0.2
   SheetObject: {fileID: 140042744}
+  walking_dot: {fileID: 0}
   onLightsOn:
     m_PersistentCalls:
       m_Calls: []
@@ -17991,10 +17992,22 @@ PrefabInstance:
     - target: {fileID: 3337447456020413883, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: 90ea1e21c295f4a0eaefd9cc2e894e6d, type: 3}
     - target: {fileID: 3337447456020413883, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
       propertyPath: m_Color.a
-      value: 0.43137255
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337447456020413883, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9575472
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337447456020413883, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9575472
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337447456020413883, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4579118917819428924, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
       propertyPath: m_RenderMode
@@ -18537,6 +18550,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -40
       objectReference: {fileID: 0}
+    - target: {fileID: 2069577500358289020, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: musicData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
     - target: {fileID: 4504147052765363833, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
       propertyPath: m_BackSortingLayer
       value: 0
