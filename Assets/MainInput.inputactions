@@ -128,8 +128,30 @@
                 },
                 {
                     "name": "",
+                    "id": "60690d62-adc7-4d6f-b6f7-a505b1e2caf2",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeFocusMinus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ce65d24f-2d3e-4aa0-9327-735cd102178e",
                     "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeFocusPlus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "097e3e09-b8c6-40cc-9839-7b8f9bbe7de3",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -316,9 +338,27 @@
             "id": "127bc483-2420-469b-8c91-59d084617a01",
             "actions": [
                 {
-                    "name": "ResumeToGame",
+                    "name": "ChangeFocusMinus",
                     "type": "Button",
-                    "id": "91043485-ecea-4be1-8f07-eace17d32501",
+                    "id": "4b3ad393-dd5e-4171-8467-7f00d5ac0449",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeFocusPlus",
+                    "type": "Button",
+                    "id": "db7be29e-7c97-490b-afb9-fc7d1c53e28d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectFocusedOption",
+                    "type": "Button",
+                    "id": "4148ea8e-7ef7-476e-817c-8ede9e9e7c60",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=1)",
@@ -328,12 +368,67 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "fee0f2cf-6657-4094-86b8-f1504f9bce58",
+                    "id": "9a03e3e7-0106-4f06-b619-fd1010fb574b",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeFocusMinus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "444e6d44-0a87-4092-a277-59243f53864b",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeFocusMinus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5b71d10-7d81-4f37-a91b-dd9093b09adb",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeFocusPlus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d01b4e6-ba2b-4428-8115-5fbe38dedf4f",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeFocusPlus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eced79f9-f7c9-477d-9e85-d9393b4d518d",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ResumeToGame",
+                    "action": "SelectFocusedOption",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d92099f9-4c66-4a43-b278-2b8993b1b967",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectFocusedOption",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

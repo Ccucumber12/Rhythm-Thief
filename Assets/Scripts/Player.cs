@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
     {
         if (isFreezed || inGameManager.isPaused || Time.time < lastFireTime + fireCoolDown)
             return;
-        
+
         lastFireTime = Time.time;
         if (!rhythmManager.IsBellRinging())
             onPlayerAlert.Invoke();
@@ -107,11 +107,6 @@ public class Player : MonoBehaviour
     public void OnPause()
     {
         inGameManager.PauseGame();
-    }
-
-    public void OnResumeToGame()
-    {
-        inGameManager.ResumeGame();
     }
 
     private void AnimationStop()

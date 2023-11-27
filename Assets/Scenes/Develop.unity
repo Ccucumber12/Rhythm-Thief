@@ -9008,6 +9008,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheet 2.0
       objectReference: {fileID: 0}
+    - target: {fileID: 4276902179804192384, guid: 8f751424dc263f7a9a6e92653e96be6d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f751424dc263f7a9a6e92653e96be6d, type: 3}
 --- !u!4 &1703103434 stripped
@@ -37241,6 +37245,7 @@ MonoBehaviour:
   onGameEnded:
     m_PersistentCalls:
       m_Calls: []
+  pausePanel: {fileID: 0}
 --- !u!1001 &84029533282968776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37579,6 +37584,10 @@ PrefabInstance:
     - target: {fileID: 4579118918297090757, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
       propertyPath: m_Name
       value: CanvasRoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4579118918297090757, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 959842bad93c3064fbd8b99f936e665a, type: 3}
