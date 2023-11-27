@@ -18280,8 +18280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ac441de674860419b272194ddccd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSceneName: Start
-  MenuSceneName: Menu
+  startSceneName: {fileID: 102900000, guid: 25f07fe4e1e718145ab3402e55ce4e7e, type: 3}
+  menuSceneName: {fileID: 102900000, guid: fd145d2d45402714c8fe1290d2702b58, type: 3}
   onGameStateChanged:
     m_PersistentCalls:
       m_Calls: []

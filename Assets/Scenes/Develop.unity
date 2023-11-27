@@ -5193,8 +5193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ac441de674860419b272194ddccd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSceneName: Start
-  MenuSceneName: Menu
+  startSceneName: {fileID: 102900000, guid: 25f07fe4e1e718145ab3402e55ce4e7e, type: 3}
+  menuSceneName: {fileID: 102900000, guid: fd145d2d45402714c8fe1290d2702b58, type: 3}
   onGameStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5517,7 +5517,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicData: {fileID: 11400000, guid: d25270d422aeed04c96f77d9e247b815, type: 2}
   tolerance: 0.1
+  moveDeadZoneTime: 0
   SheetObject: {fileID: 171088879}
+  walking_dot: {fileID: 0}
   onLightsOn:
     m_PersistentCalls:
       m_Calls: []
@@ -8877,7 +8879,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.07333333
+  m_VoxelSize: 0.13333334
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: c19b0d9628b38a0448c02d90e9dfbd57, type: 2}

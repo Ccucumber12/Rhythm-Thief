@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -49,7 +48,7 @@ public class MenuManager : MonoBehaviour
 
     public void OnSelectStage()
     {
-        GameManager.Instance.SelectStage(stages[focusIndex].stageScene.name);
+        GameManager.Instance.SelectStage(stages[focusIndex].stageScene);
     }
 }
 

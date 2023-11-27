@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -10,15 +11,15 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get => _instance; }
 
     [Header("Scene Names")]
-    [SerializeField] private string startSceneName = "Start";
-    [SerializeField] private string MenuSceneName = "Menu";
+    [SerializeField] private SceneAsset startSceneName;
+    [SerializeField] private SceneAsset menuSceneName;
 
 
     [Header("Events")]
     public OnGameStateChangedEvent onGameStateChanged;
 
     public GameState state { get; private set; }
-    private string stageSceneName;
+    private SceneAsset stageScene;
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
             case GameState.Menu:
                 HandleMenu();
                 break;
-            case GameState.InGame: 
+            case GameState.InGame:
                 HandleInGame();
                 break;
         }
@@ -58,26 +59,26 @@ public class GameManager : MonoBehaviour
 
     private void HandleStart()
     {
-        SceneManager.LoadScene(startSceneName);
+        SceneManager.LoadScene(startSceneName.name);
     }
 
     private void HandleMenu()
     {
-        SceneManager.LoadScene(MenuSceneName);
+        SceneManager.LoadScene(menuSceneName.name);
     }
 
     private void HandleInGame()
     {
-        SceneManager.LoadScene(stageSceneName);
+        SceneManager.LoadScene(stageScene.name);
     }
 
     /// <summary>
     /// Select the stage scene, no need to call UpdateGameState again.
     /// </summary>
-    /// <param name="sceneName"></param>
-    public void SelectStage(string sceneName)
+    /// <param name="scene"></param>
+    public void SelectStage(SceneAsset scene)
     {
-        stageSceneName = sceneName;
+        stageScene = scene;
         UpdateGameState(GameState.InGame);
     }
 
