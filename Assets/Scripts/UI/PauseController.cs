@@ -27,6 +27,11 @@ public class PauseController : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         DisablePauseScreen();
+
+        // setup callback
+        resumeButton.onClick.AddListener(() => inGameManager.ResumeGame());
+        restartButton.onClick.AddListener(() => GameManager.Instance.UpdateGameState(GameState.InGame));
+        returnButton.onClick.AddListener(() => GameManager.Instance.UpdateGameState(GameState.Menu));
     }
 
     private void Start()
@@ -81,16 +86,7 @@ public class PauseController : MonoBehaviour
     }
 
     public void OnSelectFocusedOption(InputValue value) {
-        switch (focus) {
-        case 0:
-            inGameManager.ResumeGame();
-            break;
-        case 1:
-            GameManager.Instance.UpdateGameState(GameState.InGame);
-            break;
-        case 2:
-            GameManager.Instance.UpdateGameState(GameState.Menu);
-            break;
-        }
+        Button[] buttons = {resumeButton, restartButton, returnButton};
+        buttons[focus].onClick.Invoke();
     }
 }
