@@ -86,7 +86,7 @@ public class PauseController : MonoBehaviour
             inGameManager.ResumeGame();
             break;
         case 1:
-            // TODO: restart
+            GameManager.Instance.UpdateGameState(GameState.InGame);
             break;
         case 2:
             GameManager.Instance.UpdateGameState(GameState.Menu);
