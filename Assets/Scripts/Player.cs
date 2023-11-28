@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
         upperAnimator.SetFloat("X", direction[0]);
         upperAnimator.SetFloat("Y", direction[1]);
         facingDirection = direction;
-        if (canFreeMove || rhythmManager.CheckMove())
+        if (canFreeMove || rhythmManager.CheckMove(direction))
         {
             Vector3 newPosition = transform.position + MathUtils.GetVector3FromVector2(direction);
             Collider2D cols = Physics2D.OverlapCircle(newPosition, 0.1f, wallLayer);

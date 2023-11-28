@@ -152,6 +152,6 @@ MonoBehaviour:
   circleRenderer: {fileID: 8678581590290779585}
   centerX: 0
   centerY: 0
-  radiusX: 5
-  radiusY: 1.5
+  radiusX: 3
+  radiusY: 1.8
   width: 0.05

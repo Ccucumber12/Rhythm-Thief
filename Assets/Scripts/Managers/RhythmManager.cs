@@ -99,7 +99,7 @@ public class RhythmManager : MonoBehaviour
         }
     }
 
-    public bool CheckMove()
+    public bool CheckMove(Vector2 direction)
     {
         float time = music.time;
         float nextMoveTime = timestamps.GetNextMoveTimestamp();
@@ -108,12 +108,14 @@ public class RhythmManager : MonoBehaviour
         {
             usedMoveTime = prevMoveTime;
             SheetObject.GetComponentInChildren<Sheet20>().HittedUsingHitTime(prevMoveTime);
+            walking_dot.GetComponentInChildren<WalkingDot>().HittedUsingHitTime(prevMoveTime, direction);
             return true;
         }
         else if (usedMoveTime < nextMoveTime && nextMoveTime - time <= tolerance)
         {
             usedMoveTime = nextMoveTime;
             SheetObject.GetComponentInChildren<Sheet20>().HittedUsingHitTime(nextMoveTime);
+            walking_dot.GetComponentInChildren<WalkingDot>().HittedUsingHitTime(nextMoveTime, direction);
             return true;
         }
         else if (usedMoveTime < nextMoveTime && nextMoveTime - time < tolerance + moveDeadZoneTime)
