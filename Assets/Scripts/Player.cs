@@ -161,6 +161,11 @@ public class Player : MonoBehaviour
         UnsetInvincible();
     }
 
+    public void SetRespawnPoint(Vector2 position)
+    {
+        playerSpawnPosition = position;
+    }
+
     public void StarCollected(int uid)
     {
         isStarCollected[uid] = true;
