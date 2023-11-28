@@ -17,12 +17,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Template.unity
     guid: 622dfdf6d12a1467ba410d901b9a55a8
-  - enabled: 0
-    path: Assets/Scenes/Legacy/Stage1.unity
-    guid: 68c453ea2ef5d4394bc4322b2f43ccac
+  - enabled: 1
+    path: Assets/Scenes/Game/Tutorial.unity
+    guid: c6ccbba6f8acb4c0eb01b5f42915b10c
   - enabled: 1
     path: Assets/Scenes/Develop.unity
     guid: ee71f217d3d0d694eb960d2b1724913f
+  - enabled: 0
+    path: Assets/Scenes/Legacy/Stage1.unity
+    guid: 68c453ea2ef5d4394bc4322b2f43ccac
   - enabled: 0
     path: Assets/Scenes/Game/Ending.unity
     guid: aff123f597551cd4eb4b11525029c95e

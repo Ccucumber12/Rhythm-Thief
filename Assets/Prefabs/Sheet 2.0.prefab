@@ -226,10 +226,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -275,7 +275,7 @@ MonoBehaviour:
   PrefabBellIcon: {fileID: 89760316833185168, guid: 032463d0a1ab73471a644cb0a37d13fd, type: 3}
   PrefabTrackLine: {fileID: 7722382903654171406, guid: dd6543685bc0a637dbf2bed428f09b97, type: 3}
   PrefabDurationIndicator: {fileID: 2736498569705795941, guid: 51fc3197df68d930b9bfa54bd3276771, type: 3}
-  musicData: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
+  musicData: {fileID: 11400000, guid: 74434397b2cf74f26888fe647e9bc46a, type: 2}
 --- !u!1 &9040141484433997096
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,8 +302,8 @@ RectTransform:
   m_GameObject: {fileID: 9040141484433997096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7215393915920333682}
   - {fileID: 7236456302831730574}
@@ -312,7 +312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -278.43607, y: 25}
+  m_AnchoredPosition: {x: -556, y: 70}
   m_SizeDelta: {x: 700, y: 150}
   m_Pivot: {x: 0.1022342, y: 0}
 --- !u!114 &199616821424012622

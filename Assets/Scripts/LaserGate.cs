@@ -65,15 +65,15 @@ public class LaserGate : MonoBehaviour
 
     public void SetGateClosed()
     {
-        DOTween.To(() => mask.transform.localScale, x => mask.transform.localScale = x, maskLocalScale, openTweenDuration);
+        DOTween.To(() => mask.transform.localScale, x => mask.transform.localScale = x, maskLocalScale, closeTweenDuration);
         DOTween.To(() => boxCollider.size, x => {
             boxCollider.size = x;
             navMeshObstacle.size = MathUtils.GetVector3FromVector2(x) + new Vector3(0, 0, 1);
-        }, boxColliderSize, openTweenDuration);
+        }, boxColliderSize, closeTweenDuration);
         DOTween.To(() => boxCollider.offset, x => {
             boxCollider.offset = x;
             navMeshObstacle.center = x;
-        }, boxColliderOffset, openTweenDuration);
+        }, boxColliderOffset, closeTweenDuration);
     }
 
     public void SetGateOpened()

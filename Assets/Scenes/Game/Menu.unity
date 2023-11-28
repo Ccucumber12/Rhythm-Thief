@@ -154,13 +154,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initStages:
-  - stageScene: {fileID: 102900000, guid: ee71f217d3d0d694eb960d2b1724913f, type: 3}
+  - stageScene: {fileID: 102900000, guid: c6ccbba6f8acb4c0eb01b5f42915b10c, type: 3}
     highlight: {fileID: 1167633265}
     enabled: 1
-  - stageScene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
+  - stageScene: {fileID: 102900000, guid: 622dfdf6d12a1467ba410d901b9a55a8, type: 3}
     highlight: {fileID: 1266118239}
-    enabled: 0
-  - stageScene: {fileID: 102900000, guid: c982569becca441ce9d7f0ceabba8ca1, type: 3}
+    enabled: 1
+  - stageScene: {fileID: 102900000, guid: ee71f217d3d0d694eb960d2b1724913f, type: 3}
     highlight: {fileID: 2043600831}
     enabled: 0
 --- !u!114 &160695639
@@ -471,7 +471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -302, y: -1}
+  m_AnchoredPosition: {x: -619, y: -1}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1167633267
@@ -547,7 +547,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4, y: 1}
+  m_AnchoredPosition: {x: -29, y: 1}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1266118241
@@ -727,7 +727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 283, y: 4}
+  m_AnchoredPosition: {x: 565, y: 4}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2043600833

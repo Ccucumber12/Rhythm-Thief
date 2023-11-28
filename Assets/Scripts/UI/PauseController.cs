@@ -8,6 +8,7 @@ public class PauseController : MonoBehaviour
 {
     private Canvas canvas;
     private InGameManager inGameManager;
+    private PlayerInput input;
 
     private int _focus;
     public int focus {
@@ -23,15 +24,11 @@ public class PauseController : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private Button returnButton;
 
+
     private void Awake()
     {
         canvas = GetComponent<Canvas>();
-        DisablePauseScreen();
-
-        // setup callback
-        resumeButton.onClick.AddListener(() => inGameManager.ResumeGame());
-        restartButton.onClick.AddListener(() => GameManager.Instance.UpdateGameState(GameState.InGame));
-        returnButton.onClick.AddListener(() => GameManager.Instance.UpdateGameState(GameState.Menu));
+        input = GetComponent<PlayerInput>();
     }
 
     private void Start()
@@ -39,6 +36,12 @@ public class PauseController : MonoBehaviour
         inGameManager = InGameManager.Instance;
         inGameManager.onGamePaused.AddListener(EnablePauseScreen);
         inGameManager.onGameResumed.AddListener(DisablePauseScreen);
+        DisablePauseScreen();
+
+        // setup callback
+        resumeButton.onClick.AddListener(() => inGameManager.ResumeGame());
+        restartButton.onClick.AddListener(() => GameManager.Instance.UpdateGameState(GameState.InGame));
+        returnButton.onClick.AddListener(() => GameManager.Instance.UpdateGameState(GameState.Menu));
     }
 
     private void OnDestroy()
@@ -49,12 +52,14 @@ public class PauseController : MonoBehaviour
 
     public void EnablePauseScreen()
     {
+        input.enabled = true;
         canvas.enabled = true;
         focus = 0;
     }
 
     public void DisablePauseScreen()
     {
+        input.enabled = false;
         canvas.enabled = false;
     }
 
@@ -88,5 +93,10 @@ public class PauseController : MonoBehaviour
     public void OnSelectFocusedOption(InputValue value) {
         Button[] buttons = {resumeButton, restartButton, returnButton};
         buttons[focus].onClick.Invoke();
+    }
+
+    public void OnReturnToGame(InputValue value)
+    {
+        inGameManager.ResumeGame();
     }
 }

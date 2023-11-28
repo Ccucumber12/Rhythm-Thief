@@ -34,6 +34,11 @@ public class InGameManager : MonoBehaviour
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
     }
 
+    private void OnDestroy()
+    {
+        Time.timeScale = 1;
+    }
+
     public void PlayerCollectStar(int uid)
     {
         onPlayerCollectStar.Invoke(uid);
@@ -48,7 +53,7 @@ public class InGameManager : MonoBehaviour
     {
         isPaused = true;
         Time.timeScale = 0;
-        playerInput.SwitchCurrentActionMap("PauseGame");
+        playerInput.enabled = false;
         onGamePaused.Invoke();
     }
 
@@ -56,7 +61,7 @@ public class InGameManager : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1;
-        playerInput.SwitchCurrentActionMap("InGame");
+        playerInput.enabled = true;
         onGameResumed.Invoke();
     }
 
