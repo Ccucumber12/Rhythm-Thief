@@ -11,15 +11,15 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get => _instance; }
 
     [Header("Scene Names")]
-    [SerializeField] private SceneAsset startSceneName;
-    [SerializeField] private SceneAsset menuSceneName;
+    [SerializeField] private string startSceneName;
+    [SerializeField] private string menuSceneName;
 
 
     [Header("Events")]
     public OnGameStateChangedEvent onGameStateChanged;
 
     public GameState state { get; private set; }
-    private SceneAsset stageScene;
+    private string stageScene;
 
     private void Awake()
     {
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        stageScene = SceneManager.GetActiveScene().name;
         state = GameState.Start;
     }
 
@@ -59,24 +60,24 @@ public class GameManager : MonoBehaviour
 
     private void HandleStart()
     {
-        SceneManager.LoadScene(startSceneName.name);
+        SceneManager.LoadScene(startSceneName);
     }
 
     private void HandleMenu()
     {
-        SceneManager.LoadScene(menuSceneName.name);
+        SceneManager.LoadScene(menuSceneName);
     }
 
     private void HandleInGame()
     {
-        SceneManager.LoadScene(stageScene.name);
+        SceneManager.LoadScene(stageScene);
     }
 
     /// <summary>
     /// Select the stage scene, no need to call UpdateGameState again.
     /// </summary>
     /// <param name="scene"></param>
-    public void SelectStage(SceneAsset scene)
+    public void SelectStage(string scene)
     {
         stageScene = scene;
         UpdateGameState(GameState.InGame);

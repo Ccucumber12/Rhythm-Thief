@@ -55,7 +55,7 @@ public class MenuManager : MonoBehaviour
 
 [System.Serializable]
 class Stage {
-    public SceneAsset stageScene;
+    public string stageScene;
     public GameObject highlight;
     public bool enabled = true;
 }
