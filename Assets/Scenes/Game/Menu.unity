@@ -157,7 +157,7 @@ MonoBehaviour:
   - stageScene: Tutorial
     highlight: {fileID: 1167633265}
     enabled: 1
-  - stageScene: Template
+  - stageScene: Stage1
     highlight: {fileID: 1266118239}
     enabled: 1
   - stageScene: Template
