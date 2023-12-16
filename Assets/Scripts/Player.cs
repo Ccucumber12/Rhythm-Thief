@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 
     private InGameManager inGameManager;
     private RhythmManager rhythmManager;
+    private AudioManager audioManager;
     private GameObject playerSprite;
     private GameObject upperPlayerSprite;
 
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
     {
         inGameManager = InGameManager.Instance;
         rhythmManager = RhythmManager.Instance;
+        audioManager = AudioManager.Instance;
         inGameManager.onPlayerCollectStar.AddListener(StarCollected);
 
         playerSpawnPosition = transform.position;
@@ -102,11 +104,15 @@ public class Player : MonoBehaviour
         Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, facingDirection));
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, quaternion);
         bullet.GetComponent<Bullet>().bulletDirection = facingDirection;
+
+        audioManager.Play("GunShot");
     }
 
     public void OnPause()
     {
         inGameManager.PauseGame();
+
+        audioManager.Play("Pause");
     }
 
     private void AnimationStop()
@@ -169,6 +175,7 @@ public class Player : MonoBehaviour
     public void StarCollected(int uid)
     {
         isStarCollected[uid] = true;
+        audioManager.Play("CollectStar");
     }
 
     public void KilledByPolice()
@@ -181,6 +188,8 @@ public class Player : MonoBehaviour
         // TODO: Killed by police animation
         float animationLength = 1f;
         Invoke("RespawnPlayer", animationLength);
+
+        audioManager.Play("KilledByPolice");
     }
 
     public void KilledByLaserGate()
@@ -193,6 +202,8 @@ public class Player : MonoBehaviour
         // TODO: Killed by laser gate animation
         float animationLength = 1.1f;
         Invoke("RespawnPlayer", animationLength);
+
+        audioManager.Play("KilledByLaser");
     }
 
     public void ReachedGoal()

@@ -8,6 +8,7 @@ public class PauseController : MonoBehaviour
 {
     private Canvas canvas;
     private InGameManager inGameManager;
+    private AudioManager audioManager;
     private PlayerInput input;
 
     private int _focus;
@@ -37,6 +38,8 @@ public class PauseController : MonoBehaviour
         inGameManager.onGamePaused.AddListener(EnablePauseScreen);
         inGameManager.onGameResumed.AddListener(DisablePauseScreen);
         DisablePauseScreen();
+
+        audioManager = AudioManager.Instance;
 
         // setup callback
         resumeButton.onClick.AddListener(() => inGameManager.ResumeGame());
@@ -84,15 +87,19 @@ public class PauseController : MonoBehaviour
 
     public void OnChangeFocusMinus(InputValue value) {
         FocusDecr();
+        audioManager.Play("Select");
     }
 
     public void OnChangeFocusPlus(InputValue value) {
         FocusIncr();
+        audioManager.Play("Select");
     }
 
     public void OnSelectFocusedOption(InputValue value) {
         Button[] buttons = {resumeButton, restartButton, returnButton};
         buttons[focus].onClick.Invoke();
+
+        // audioManager.Play("Click");
     }
 
     public void OnReturnToGame(InputValue value)
