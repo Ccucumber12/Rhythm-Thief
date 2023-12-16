@@ -2251,19 +2251,31 @@ MonoBehaviour:
   soundList:
   - name: GunShot
     clip: {fileID: 8300000, guid: 37f346b853bae489cac790b9eff7e5a0, type: 3}
-    volume: 0.312
+    volume: 0.35
     source: {fileID: 0}
   - name: CollectStar
     clip: {fileID: 8300000, guid: 96ce4547749e6441c8c53874b0a7ce5c, type: 3}
-    volume: 0.339
+    volume: 0.35
     source: {fileID: 0}
   - name: KilledByLaser
     clip: {fileID: 8300000, guid: 10386a77fffa44a6ea38291fba873b9b, type: 3}
-    volume: 0.331
+    volume: 0.35
     source: {fileID: 0}
   - name: KilledByPolice
     clip: {fileID: 8300000, guid: f173afe5df6e847ad866e6feb509cb9b, type: 3}
-    volume: 0.367
+    volume: 0.35
+    source: {fileID: 0}
+  - name: Pause
+    clip: {fileID: 8300000, guid: 28cf2238212a640d0b386796bb1b6d81, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: Select
+    clip: {fileID: 8300000, guid: 9f17826540b794f41a1e167f169b4093, type: 3}
+    volume: 0.35
+    source: {fileID: 0}
+  - name: Click
+    clip: {fileID: 8300000, guid: dfd9385dd4979447186ce7e516d02044, type: 3}
+    volume: 0.35
     source: {fileID: 0}
 --- !u!4 &489752021
 Transform:
