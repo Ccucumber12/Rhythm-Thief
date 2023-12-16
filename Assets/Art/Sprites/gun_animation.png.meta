@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 485fcf51e6ede40119e20661c683e8de
+guid: 0f38bce4a1ef94d898da83bd3c194548
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,138 +117,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KilledByLaser_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 4515
-        width: 1500
-        height: 903
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 604d39298a24f4501874552ec2947a6a
-      internalID: 436232655
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KilledByLaser_1
-      rect:
-        serializedVersion: 2
-        x: 1500
-        y: 4515
-        width: 1500
-        height: 903
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e8103de53b314c58991395884b614f3
-      internalID: 941016837
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KilledByLaser_2
-      rect:
-        serializedVersion: 2
-        x: 3000
-        y: 4515
-        width: 1500
-        height: 903
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3c45f3cdf6b184dd9bd94d79ace541bb
-      internalID: -352727337
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KilledByLaser_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 3612
-        width: 1500
-        height: 903
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f64a17bdaa71d4c88abb94433d24f92f
-      internalID: 195430506
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KilledByLaser_4
-      rect:
-        serializedVersion: 2
-        x: 1500
-        y: 3612
-        width: 1500
-        height: 903
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0863ed60a5c504d3b8c14a3d31e89ad2
-      internalID: -1925331626
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KilledByLaser_5
-      rect:
-        serializedVersion: 2
-        x: 3000
-        y: 3612
-        width: 1500
-        height: 903
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f60efd5be7244362b542d244556a324
-      internalID: -1473652619
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KilledByLaser_6
+      name: gun_animation_0
       rect:
         serializedVersion: 2
         x: 0
         y: 2709
-        width: 1500
+        width: 700
         height: 903
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -257,19 +131,82 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dac397e7349ab49ea8436bc75ec31978
-      internalID: 2099796109
+      spriteID: 1260949c7530b401483364f90986efc4
+      internalID: 2106279598
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KilledByLaser_7
+      name: gun_animation_1
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 2709
+        width: 700
+        height: 903
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6bf591a24374e0681a326952a54072
+      internalID: -414686461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gun_animation_2
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 2709
+        width: 700
+        height: 903
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58c25dd4649a64b65ad18875e06b6a76
+      internalID: -455628440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gun_animation_3
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 2709
+        width: 700
+        height: 903
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e393437cefcda42ad85fb58124849f9d
+      internalID: -1828246733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gun_animation_4
       rect:
         serializedVersion: 2
         x: 0
         y: 1806
-        width: 1500
+        width: 700
         height: 903
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -278,19 +215,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 382eeee41fd0445b280ab3391c969e83
-      internalID: 456535149
+      spriteID: 3de24fb0ec8b1472eaa12cfad7d9b399
+      internalID: 2083807730
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KilledByLaser_8
+      name: gun_animation_5
       rect:
         serializedVersion: 2
-        x: 1500
+        x: 700
         y: 1806
-        width: 1500
+        width: 700
         height: 903
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -299,19 +236,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e980630794d8843e5bfa5bebb2406b29
-      internalID: 1449472149
+      spriteID: 37137b64e90244c9f8fbca08ea293a6a
+      internalID: 762562652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KilledByLaser_9
+      name: gun_animation_6
       rect:
         serializedVersion: 2
-        x: 3000
+        x: 1400
         y: 1806
-        width: 1500
+        width: 700
         height: 903
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -320,19 +257,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d0fda869091d4cfda75cf5fd3d9f9ee
-      internalID: 1769630709
+      spriteID: f93c227562a574ce4ad9245367d9705d
+      internalID: 2088119271
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KilledByLaser_10
+      name: gun_animation_7
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 1806
+        width: 700
+        height: 903
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74d8b7af85c9745959dfcc532548671e
+      internalID: 902511512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gun_animation_8
       rect:
         serializedVersion: 2
         x: 0
         y: 903
-        width: 1500
+        width: 700
         height: 903
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -341,19 +299,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d7167f3f69734efe849cae3bbe8dbc0
-      internalID: -887305364
+      spriteID: 9df68a9923be2497dafce60a37fa93e8
+      internalID: 1489544541
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KilledByLaser_11
+      name: gun_animation_9
       rect:
         serializedVersion: 2
-        x: 1500
+        x: 700
         y: 903
-        width: 1500
+        width: 700
         height: 903
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -362,19 +320,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f2418cbddd1f4ff4ba6e82c35d0d219
-      internalID: 515348962
+      spriteID: dbdc22bac85f34a79a5067f30e09f6c9
+      internalID: 134411448
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KilledByLaser_12
+      name: gun_animation_10
       rect:
         serializedVersion: 2
-        x: 3000
+        x: 1400
         y: 903
-        width: 1500
+        width: 700
         height: 903
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -383,19 +341,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f39d9be92c7354e2296ab1112240a4fb
-      internalID: -251497151
+      spriteID: f007cba6614d146888b477d130db4e70
+      internalID: 1703524870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KilledByLaser_13
+      name: gun_animation_11
       rect:
         serializedVersion: 2
-        x: 3000
+        x: 2100
+        y: 903
+        width: 700
+        height: 903
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2803ac33c77e43cf870eefc83d259e7
+      internalID: -2108547345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gun_animation_12
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
-        width: 1500
+        width: 700
         height: 903
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -404,8 +383,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3070f81ef86534e8f8ee9f742a18f44b
-      internalID: 589794297
+      spriteID: 1ab2d2e5499ef474d864a2f0e4bf1b4e
+      internalID: 309925254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gun_animation_13
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 0
+        width: 700
+        height: 903
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12f93ab0ae28b43b3a304a6a19251311
+      internalID: -2049648823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gun_animation_14
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 0
+        width: 700
+        height: 903
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1a97356c8fce43d6b6a2193d9b7231f
+      internalID: 487213379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gun_animation_15
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 0
+        width: 700
+        height: 903
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcaad6f1f054440a490386d4af8b676a
+      internalID: 938755218
       vertices: []
       indices: 
       edges: []
@@ -421,20 +463,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      KilledByLaser_0: 436232655
-      KilledByLaser_1: 941016837
-      KilledByLaser_10: -887305364
-      KilledByLaser_11: 515348962
-      KilledByLaser_12: -251497151
-      KilledByLaser_13: 589794297
-      KilledByLaser_2: -352727337
-      KilledByLaser_3: 195430506
-      KilledByLaser_4: -1925331626
-      KilledByLaser_5: -1473652619
-      KilledByLaser_6: 2099796109
-      KilledByLaser_7: 456535149
-      KilledByLaser_8: 1449472149
-      KilledByLaser_9: 1769630709
+      gun_animation_0: 2106279598
+      gun_animation_1: -414686461
+      gun_animation_10: 1703524870
+      gun_animation_11: -2108547345
+      gun_animation_12: 309925254
+      gun_animation_13: -2049648823
+      gun_animation_14: 487213379
+      gun_animation_15: 938755218
+      gun_animation_2: -455628440
+      gun_animation_3: -1828246733
+      gun_animation_4: 2083807730
+      gun_animation_5: 762562652
+      gun_animation_6: 2088119271
+      gun_animation_7: 902511512
+      gun_animation_8: 1489544541
+      gun_animation_9: 134411448
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

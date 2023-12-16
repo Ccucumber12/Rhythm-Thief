@@ -2579,6 +2579,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4772177902188534419, guid: 2b7e3af564e42614f963f5c0c7f52ae5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4772177902188534447, guid: 2b7e3af564e42614f963f5c0c7f52ae5, type: 3}
       propertyPath: m_Name
       value: VerticalLaserGate1
@@ -11422,14 +11426,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 84029532923677577, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 84029533853796637, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 84029533853796637, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2069577500358289020, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
       propertyPath: musicData
       value: 
       objectReference: {fileID: 11400000, guid: 74434397b2cf74f26888fe647e9bc46a, type: 2}
+    - target: {fileID: 7389514038765019933, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593090543809170660, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
 --- !u!1001 &688767361938330895

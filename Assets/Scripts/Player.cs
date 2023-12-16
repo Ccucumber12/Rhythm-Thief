@@ -101,11 +101,25 @@ public class Player : MonoBehaviour
         if (!rhythmManager.IsBellRinging())
             onPlayerAlert.Invoke();
 
+        animator.SetBool("Fire", true);
+        upperAnimator.SetBool("Fire", true);
+        Invoke("Fire", 0.2f);
+        Invoke("FireStop", 0.5f);
+        
+    }
+    private void Fire()
+    {
         Quaternion quaternion = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, facingDirection));
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, quaternion);
         bullet.GetComponent<Bullet>().bulletDirection = facingDirection;
 
         audioManager.Play("GunShot");
+    }
+
+    private void FireStop()
+    {
+        animator.SetBool("Fire", false);
+        upperAnimator.SetBool("Fire", false);
     }
 
     public void OnPause()
@@ -115,10 +129,11 @@ public class Player : MonoBehaviour
         audioManager.Play("Pause");
     }
 
-    private void AnimationStop()
+    private void WalkStop()
     {
         animator.SetBool("Walking", false);
         upperAnimator.SetBool("Walking", false);
+        
     }
 
     private void TryMove(Vector2 direction)
@@ -141,7 +156,7 @@ public class Player : MonoBehaviour
                 animator.SetBool("Walking", true);
                 upperAnimator.SetBool("Walking", true);
                 moveTween?.Kill(complete: true);
-                moveTween = transform.DOMove(newPosition, 0.1f).OnComplete(AnimationStop);
+                moveTween = transform.DOMove(newPosition, 0.1f).OnComplete(WalkStop);
             }
             else
             {
