@@ -225,10 +225,13 @@ public class Player : MonoBehaviour
     {
         inGameManager.SetVictory();
         isFreezed = true;
+
         SetInvincible();
         // TODO: Reached goal animation
         float animationLength = 1;
         Invoke("CallEndGame", animationLength);
+
+        audioManager.Play("Goal");
     }
 
     public void OutOfTime()

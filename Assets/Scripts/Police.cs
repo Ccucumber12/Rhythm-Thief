@@ -11,6 +11,7 @@ public class Police : MonoBehaviour
 
     private InGameManager inGameManager;
     private RhythmManager rhythmManager;
+    private AudioManager audioManager;
     private Player player;
 
     private NavMeshAgent agent;
@@ -42,6 +43,8 @@ public class Police : MonoBehaviour
         rhythmManager = RhythmManager.Instance;
         rhythmManager.onLightsOff.AddListener(SetBlind);
         rhythmManager.onLightsOn.AddListener(SetSighted);
+
+        audioManager = AudioManager.Instance;
 
         player = Player.Instance;
         player.onPlayerAlert.AddListener(HeardPlayer);
@@ -179,6 +182,7 @@ public class Police : MonoBehaviour
     public void Killed()
     {
         Destroy(gameObject, 0.05f);
+        audioManager.Play("HitPolice");
     }
 
     public void ResetState()

@@ -67,10 +67,16 @@ public class PauseController : MonoBehaviour
     }
 
     public void FocusIncr() {
+        if (focus == 2) audioManager.Play("SelectOut");
+        else audioManager.Play("Select");
+
         focus += 1;
     }
 
     public void FocusDecr() {
+        if (focus == 0) audioManager.Play("SelectOut");
+        else audioManager.Play("Select");
+
         focus -= 1;
     }
 
@@ -87,19 +93,17 @@ public class PauseController : MonoBehaviour
 
     public void OnChangeFocusMinus(InputValue value) {
         FocusDecr();
-        audioManager.Play("Select");
     }
 
     public void OnChangeFocusPlus(InputValue value) {
         FocusIncr();
-        audioManager.Play("Select");
     }
 
     public void OnSelectFocusedOption(InputValue value) {
         Button[] buttons = {resumeButton, restartButton, returnButton};
         buttons[focus].onClick.Invoke();
 
-        // audioManager.Play("Click");
+        audioManager.Play("Click");
     }
 
     public void OnReturnToGame(InputValue value)

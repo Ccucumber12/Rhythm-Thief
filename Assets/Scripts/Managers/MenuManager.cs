@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private List<Stage> initStages;
     private List<Stage> stages;
+    private AudioManager audioManager;
 
     private int _focusIndex = 0;
     private int focusIndex {
@@ -19,6 +20,8 @@ public class MenuManager : MonoBehaviour
     }
 
     void Start() {
+        audioManager = AudioManager.Instance;
+
         foreach (Stage stage in initStages) {
             stage.highlight.SetActive(false);
         }
@@ -34,10 +37,16 @@ public class MenuManager : MonoBehaviour
     }
 
     public void OnChangeFocusMinus(InputValue value) {
+        if (focusIndex == 0) audioManager.Play("SelectOut");
+        else audioManager.Play("Select");
+
         focusIndex -= 1;
     }
 
     public void OnChangeFocusPlus(InputValue value) {
+        if (focusIndex == stages.Count-1) audioManager.Play("SelectOut");
+        else audioManager.Play("Select");
+
         focusIndex += 1;
     }
 
@@ -49,6 +58,7 @@ public class MenuManager : MonoBehaviour
     public void OnSelectStage()
     {
         GameManager.Instance.SelectStage(stages[focusIndex].stageScene);
+        audioManager.Play("Click");
     }
 }
 

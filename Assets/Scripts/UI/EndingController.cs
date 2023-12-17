@@ -8,11 +8,14 @@ public class EndingController : MonoBehaviour
     public CanvasGroup failure;
 
     private InGameManager inGameManager;
+    private AudioManager audioManager;
 
     private void Start()
     {
         inGameManager = InGameManager.Instance;
         inGameManager.onGameEnded.AddListener(ShowEndingScene);
+
+        audioManager = AudioManager.Instance;
     }
 
     private void OnDestroy()
@@ -31,10 +34,12 @@ public class EndingController : MonoBehaviour
     public void ShowVictory()
     {
         victory.alpha = 1;
+        audioManager.Play("Win");
     }
 
     public void ShowFaiulre()
     {
         failure.alpha = 1;
+        audioManager.Play("Lose");
     }
 }
