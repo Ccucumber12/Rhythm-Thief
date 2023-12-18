@@ -157,6 +157,7 @@ public class Player : MonoBehaviour
                 upperAnimator.SetBool("Walking", true);
                 moveTween?.Kill(complete: true);
                 moveTween = transform.DOMove(newPosition, 0.1f).OnComplete(WalkStop);
+                audioManager.Play("Move");
             }
             else
             {

@@ -97,3 +97,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6bd34e6594aef4c4b90af44215dbe1d5, type: 3}
     volume: 1
     source: {fileID: 0}
+  - name: Move
+    clip: {fileID: 8300000, guid: 5850fd17a255245f4bb5247c2072789e, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
