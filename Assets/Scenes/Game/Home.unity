@@ -218,15 +218,15 @@ MonoBehaviour:
   soundList:
   - name: Select
     clip: {fileID: 8300000, guid: 9f17826540b794f41a1e167f169b4093, type: 3}
-    volume: 0.2
+    volume: 0.3
     source: {fileID: 0}
   - name: Click
     clip: {fileID: 8300000, guid: 70ec2d79d41654197b73b093375674bc, type: 3}
-    volume: 0.2
+    volume: 0.3
     source: {fileID: 0}
   - name: SelectOut
     clip: {fileID: 8300000, guid: 21f7751907c574690bc011353c7ee435, type: 3}
-    volume: 0.2
+    volume: 1
     source: {fileID: 0}
 --- !u!1 &215256246
 GameObject:
@@ -1046,10 +1046,10 @@ MonoBehaviour:
   resetIndexOnEnabled: 1
   images:
   - {fileID: 21300000, guid: 2ee7c00743cff473c88e93d0b5c755e7, type: 3}
-  - {fileID: 21300000, guid: b781f0eb2384649fba855a5cadffb7f1, type: 3}
-  - {fileID: 21300000, guid: 81758177d235c46e0ba7dd4b5deb7d81, type: 3}
-  - {fileID: 21300000, guid: d39a1b7a1417d457596cccbe86020d00, type: 3}
-  - {fileID: 21300000, guid: 2efca2f86a619450790422e453d9f7ef, type: 3}
+  - {fileID: 21300000, guid: eb45440e157d98f4b89c10ce40010b00, type: 3}
+  - {fileID: 21300000, guid: a2c28ce845f94704aa097110e1854aaf, type: 3}
+  - {fileID: 21300000, guid: e6d3a70e823da2341b696b50f746098d, type: 3}
+  - {fileID: 21300000, guid: 6006e2749671daf49acf3b80bdac91b9, type: 3}
   nextButton: {fileID: 340797953}
   prevButton: {fileID: 1166184268}
 --- !u!1 &545324193
@@ -1621,7 +1621,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: eae635bad5c7242d7b0e838fe8a8e593, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 1
   Mute: 0
