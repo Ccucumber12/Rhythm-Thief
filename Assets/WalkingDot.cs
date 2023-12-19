@@ -191,7 +191,6 @@ public class DotTrack
 
             if (state == 2)
             {
-                Debug.Log("Hit!");
                 color = new Vector4(0.5f, 0.8f, 0.5f, 1 - progress);
                 gameObject.GetComponent<DrawCircle>().set_color(color);
                 gameObject.GetComponent<DrawCircle>().draw_arrow(direction);

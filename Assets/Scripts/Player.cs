@@ -261,7 +261,7 @@ public class Player : MonoBehaviour
 
     public void OnReturnToMenu()
     {
-        GameManager.Instance.UpdateGameState(GameState.Menu);
+        GameManager.Instance.UpdateGameState(GameState.StageSelect);
     }
 
     [System.Serializable]

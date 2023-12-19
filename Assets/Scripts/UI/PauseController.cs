@@ -44,7 +44,7 @@ public class PauseController : MonoBehaviour
         // setup callback
         resumeButton.onClick.AddListener(() => inGameManager.ResumeGame());
         restartButton.onClick.AddListener(() => GameManager.Instance.UpdateGameState(GameState.InGame));
-        returnButton.onClick.AddListener(() => GameManager.Instance.UpdateGameState(GameState.Menu));
+        returnButton.onClick.AddListener(() => GameManager.Instance.UpdateGameState(GameState.StageSelect));
     }
 
     private void OnDestroy()

@@ -67,8 +67,13 @@ public class InGameManager : MonoBehaviour
 
     public void EndGame()
     {
-        playerInput.SwitchCurrentActionMap("Ending");
+        Invoke("SwitchToEndingInput", 1.0f);
         onGameEnded.Invoke();
+    }
+
+    private void SwitchToEndingInput()
+    {
+        playerInput.SwitchCurrentActionMap("Ending");
     }
 
     [System.Serializable]

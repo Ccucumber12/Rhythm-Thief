@@ -11,8 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get => _instance; }
 
     [Header("Scene Names")]
-    [SerializeField] private string startSceneName;
-    [SerializeField] private string menuSceneName;
+    [SerializeField] private string homeSceneName;
 
 
     [Header("Events")]
@@ -37,7 +36,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         stageScene = SceneManager.GetActiveScene().name;
-        state = GameState.Start;
+        state = GameState.Home;
     }
 
     public void UpdateGameState(GameState newState)
@@ -45,11 +44,11 @@ public class GameManager : MonoBehaviour
         state = newState;
         switch (state)
         {
-            case GameState.Start:
-                HandleStart();
+            case GameState.Home:
+                HandleHome();
                 break;
-            case GameState.Menu:
-                HandleMenu();
+            case GameState.StageSelect:
+                HandleSelectStage();
                 break;
             case GameState.InGame:
                 HandleInGame();
@@ -58,19 +57,22 @@ public class GameManager : MonoBehaviour
         onGameStateChanged.Invoke(state);
     }
 
-    private void HandleStart()
+    private void HandleHome()
     {
-        SceneManager.LoadScene(startSceneName);
+        if (SceneManager.GetActiveScene().name != homeSceneName)
+            SceneManager.LoadScene(homeSceneName);
     }
 
-    private void HandleMenu()
+    private void HandleSelectStage()
     {
-        SceneManager.LoadScene(menuSceneName);
+        if (SceneManager.GetActiveScene().name != homeSceneName)
+            SceneManager.LoadScene(homeSceneName);
+        // StartManager should handle select stage canvas
     }
 
     private void HandleInGame()
     {
-        SceneManager.LoadScene(stageScene);
+           SceneManager.LoadScene(stageScene);
     }
 
     /// <summary>
@@ -89,8 +91,8 @@ public class GameManager : MonoBehaviour
 
 public enum GameState
 {
-    Start,
-    Menu,
+    Home,
+    StageSelect,
     InGame,
     Victory,
     Lose,

@@ -52,7 +52,7 @@ public class MenuManager : MonoBehaviour
 
     public void OnReturnToStart(InputValue value)
     {
-        GameManager.Instance.UpdateGameState(GameState.Start);
+        GameManager.Instance.UpdateGameState(GameState.Home);
     }
 
     public void OnSelectStage()

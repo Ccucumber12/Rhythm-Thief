@@ -2,13 +2,31 @@
     "name": "MainInput",
     "maps": [
         {
-            "name": "Start",
+            "name": "Tutorial",
             "id": "4171506e-93ba-495b-a15d-9359c8d2292c",
             "actions": [
                 {
-                    "name": "EnterGame",
+                    "name": "NextPage",
                     "type": "Button",
                     "id": "07ebcbab-812c-4052-a13e-ed84734c9b21",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PrevPage",
+                    "type": "Button",
+                    "id": "87ac67a8-ab8a-462f-bf3d-bf2280cb7bed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CloseTutorial",
+                    "type": "Button",
+                    "id": "66ba5711-7c6f-48b3-9880-45d9344c5654",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=1)",
@@ -18,23 +36,134 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "07e506ac-d093-4b47-904f-6c04b79aadcd",
-                    "path": "<Keyboard>/anyKey",
+                    "id": "3f6b811a-81fc-4b6c-bb2a-5e7a50ecbf11",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "EnterGame",
+                    "action": "NextPage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "5bced497-778b-41b8-885e-7e9832bcabcb",
-                    "path": "<Mouse>/press",
+                    "id": "465bf055-d79b-4574-83e1-2a96815018bb",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "EnterGame",
+                    "action": "NextPage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9fbbbb03-1157-462c-970e-fb68c2a92601",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextPage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b3b0117-6637-4886-a191-bb49d49d8a6a",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrevPage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "876100d7-4d15-4c15-9436-4384fd33247f",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrevPage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "65c13d13-f8dd-4070-b41b-0e91be92ccee",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseTutorial",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Credit",
+            "id": "a3a0c059-2780-4aba-aaef-d1809bac719f",
+            "actions": [
+                {
+                    "name": "Close",
+                    "type": "Button",
+                    "id": "7c42c4cf-8691-4c8a-b0cb-2b5b42ad8593",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1c5c1f88-5be4-4738-8fb4-641aca683baa",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "175a5bc4-d91e-4a9c-a5dc-034f2a441435",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "StageSelect",
+            "id": "45daffb6-e7c7-4431-9672-03eed10154f9",
+            "actions": [
+                {
+                    "name": "Return",
+                    "type": "Button",
+                    "id": "9718ef7e-4b06-416c-a884-18350e38f6db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cee82f9a-e2f6-46f4-a4d7-f24b892d915b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Return",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
