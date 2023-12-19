@@ -218,11 +218,11 @@ MonoBehaviour:
   soundList:
   - name: Select
     clip: {fileID: 8300000, guid: 9f17826540b794f41a1e167f169b4093, type: 3}
-    volume: 0.1
+    volume: 0.2
     source: {fileID: 0}
   - name: Click
     clip: {fileID: 8300000, guid: 70ec2d79d41654197b73b093375674bc, type: 3}
-    volume: 0.1
+    volume: 0.2
     source: {fileID: 0}
   - name: SelectOut
     clip: {fileID: 8300000, guid: 21f7751907c574690bc011353c7ee435, type: 3}
@@ -794,7 +794,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Team XXX
+  m_text: Rhythm Thief
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -827,7 +827,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 33
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1626,7 +1626,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: eae635bad5c7242d7b0e838fe8a8e593, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0

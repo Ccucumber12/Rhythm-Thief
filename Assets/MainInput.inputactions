@@ -170,127 +170,6 @@
             ]
         },
         {
-            "name": "Menu",
-            "id": "484c1753-92ff-4156-b552-b0f6e10e1b89",
-            "actions": [
-                {
-                    "name": "ReturnToStart",
-                    "type": "Button",
-                    "id": "fa9777d2-a2ea-4f99-ade9-80dab5123a11",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=1)",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SelectStage",
-                    "type": "Button",
-                    "id": "020c7b94-82cb-441f-8986-b5f0e09291f6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=1)",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ChangeFocusMinus",
-                    "type": "Button",
-                    "id": "7557d9be-6dde-45fb-864f-b48bc05c750a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ChangeFocusPlus",
-                    "type": "Button",
-                    "id": "dab12284-5d01-4af6-9efb-9d940116cd47",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "24dc358d-451f-47b1-a4cc-aa28ac083c6c",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ReturnToStart",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d84ad687-9105-45ca-80ae-5107f9539d27",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectStage",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1656fbb6-8be2-4dfc-bfb2-211d84e83458",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectStage",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c5c5fe04-454e-4bbc-ad0d-6c4273d47e43",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeFocusMinus",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "60690d62-adc7-4d6f-b6f7-a505b1e2caf2",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeFocusMinus",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ce65d24f-2d3e-4aa0-9327-735cd102178e",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeFocusPlus",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "097e3e09-b8c6-40cc-9839-7b8f9bbe7de3",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeFocusPlus",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "InGame",
             "id": "8b626986-43f3-4c66-9346-eceb78a3e1c1",
             "actions": [
@@ -467,33 +346,6 @@
             "id": "127bc483-2420-469b-8c91-59d084617a01",
             "actions": [
                 {
-                    "name": "ChangeFocusMinus",
-                    "type": "Button",
-                    "id": "4b3ad393-dd5e-4171-8467-7f00d5ac0449",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ChangeFocusPlus",
-                    "type": "Button",
-                    "id": "db7be29e-7c97-490b-afb9-fc7d1c53e28d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SelectFocusedOption",
-                    "type": "Button",
-                    "id": "4148ea8e-7ef7-476e-817c-8ede9e9e7c60",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=1)",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ReturnToGame",
                     "type": "Button",
                     "id": "bd9f78e4-c700-4fb8-9fab-5f9408778a22",
@@ -506,7 +358,95 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "9a03e3e7-0106-4f06-b619-fd1010fb574b",
+                    "id": "3fa19000-8add-41cd-9bff-0566834853c3",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReturnToGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "484c1753-92ff-4156-b552-b0f6e10e1b89",
+            "actions": [
+                {
+                    "name": "ReturnToStart",
+                    "type": "Button",
+                    "id": "fa9777d2-a2ea-4f99-ade9-80dab5123a11",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectStage",
+                    "type": "Button",
+                    "id": "020c7b94-82cb-441f-8986-b5f0e09291f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeFocusMinus",
+                    "type": "Button",
+                    "id": "7557d9be-6dde-45fb-864f-b48bc05c750a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeFocusPlus",
+                    "type": "Button",
+                    "id": "dab12284-5d01-4af6-9efb-9d940116cd47",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "24dc358d-451f-47b1-a4cc-aa28ac083c6c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReturnToStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d84ad687-9105-45ca-80ae-5107f9539d27",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectStage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1656fbb6-8be2-4dfc-bfb2-211d84e83458",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectStage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c5c5fe04-454e-4bbc-ad0d-6c4273d47e43",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -517,7 +457,18 @@
                 },
                 {
                     "name": "",
-                    "id": "444e6d44-0a87-4092-a277-59243f53864b",
+                    "id": "ec2cfdb8-5a39-4c90-ba30-32b2bedd675f",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeFocusMinus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60690d62-adc7-4d6f-b6f7-a505b1e2caf2",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -528,7 +479,18 @@
                 },
                 {
                     "name": "",
-                    "id": "d5b71d10-7d81-4f37-a91b-dd9093b09adb",
+                    "id": "2f641dc5-27d2-4818-97d8-c9a6f5788d3d",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeFocusMinus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce65d24f-2d3e-4aa0-9327-735cd102178e",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
@@ -539,7 +501,18 @@
                 },
                 {
                     "name": "",
-                    "id": "2d01b4e6-ba2b-4428-8115-5fbe38dedf4f",
+                    "id": "0f0afe54-0edf-42f2-bbda-451fe7356969",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeFocusPlus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "097e3e09-b8c6-40cc-9839-7b8f9bbe7de3",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -550,34 +523,12 @@
                 },
                 {
                     "name": "",
-                    "id": "eced79f9-f7c9-477d-9e85-d9393b4d518d",
-                    "path": "<Keyboard>/space",
+                    "id": "254c8577-1e35-4b60-8f1f-3182391bb905",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectFocusedOption",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d92099f9-4c66-4a43-b278-2b8993b1b967",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectFocusedOption",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3fa19000-8add-41cd-9bff-0566834853c3",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ReturnToGame",
+                    "action": "ChangeFocusPlus",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
