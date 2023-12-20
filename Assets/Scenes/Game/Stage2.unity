@@ -19149,5 +19149,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheet 2.0
       objectReference: {fileID: 0}
+    - target: {fileID: 6966251103884208244, guid: 8f751424dc263f7a9a6e92653e96be6d, type: 3}
+      propertyPath: musicData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f751424dc263f7a9a6e92653e96be6d, type: 3}
