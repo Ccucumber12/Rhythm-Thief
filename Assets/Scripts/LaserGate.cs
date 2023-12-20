@@ -9,6 +9,7 @@ public class LaserGate : MonoBehaviour
 {
     [Required]
     public GameConfigData gameConfigData;
+    public GameObject gate_minimap;
 
     private float openTweenDuration;
     private float closeTweenDuration;
@@ -65,6 +66,7 @@ public class LaserGate : MonoBehaviour
 
     public void SetGateClosed()
     {
+        gate_minimap.SetActive(true);
         DOTween.To(() => mask.transform.localScale, x => mask.transform.localScale = x, maskLocalScale, closeTweenDuration);
         DOTween.To(() => boxCollider.size, x => {
             boxCollider.size = x;
@@ -81,7 +83,7 @@ public class LaserGate : MonoBehaviour
         Vector3 scale = maskLocalScale;
         scale.y = 0;
         DOTween.To(() => mask.transform.localScale, x => mask.transform.localScale = x, scale, openTweenDuration);
-
+        gate_minimap.SetActive(false);
         Vector2 size = boxColliderSize;
         size.y = 0;
         Vector2 offset = boxColliderOffset;
