@@ -18918,6 +18918,18 @@ PrefabInstance:
       propertyPath: musicData
       value: 
       objectReference: {fileID: 11400000, guid: 1fc9cf4ab3087c945ae1acd1c22413cd, type: 2}
+    - target: {fileID: 2324043654687221626, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2324043654687221626, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: m_Color.g
+      value: 0.48627454
+      objectReference: {fileID: 0}
+    - target: {fileID: 2324043654687221626, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
+      propertyPath: m_Color.r
+      value: 0.909804
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 907dde3c49a34fe4daee411fe7a68086, type: 3}
 --- !u!1001 &688767361938330895
